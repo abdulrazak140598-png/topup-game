@@ -1,58 +1,128 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>TOPUP GAME</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOPUP GAME - Full</title>
 <script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 <style>
-body{background:#0a1028;color:white;font-family:system-ui}
-.card{background:#151d3a;border:1px solid #223054;border-radius:16px;overflow:hidden}
+body{background:#0e162f;color:white;font-family:Inter,sans-serif}
+.card{background:#162040;border:1px solid #223054;border-radius:14px;overflow:hidden;cursor:pointer}
+.banner-card{height:95px;display:flex;align-items:center;justify-content:center;font-weight:900;flex-direction:column;gap:4px}
+.flag{width:22px;height:22px;border-radius:50%;object-fit:cover;border:1px solid #444}
+.flag-sm{width:16px;height:16px;border-radius:50%;object-fit:cover}
+.loc-modal-bg{position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:100;display:flex;align-items:center;justify-content:center;padding:16px}
+.loc-box{background:#232323;border-radius:20px;width:100%;max-width:380px;padding:20px;border:1px solid #333}
+.loc-item{background:#2e2e2e;border:1px solid #3a3a3a;border-radius:12px;padding:14px;display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;cursor:pointer}
+.loc-item.active{border-color:#E5C07B;background:#3a352a}
+.lang-item{background:#2e2e2e;border:1px solid #3a3a3a;border-radius:12px;padding:12px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;flex:1}
+.lang-item.active{border-color:#E5C07B}
+.banner-slider{overflow:hidden;border-radius:16px;position:relative;height:130px}
+.banner-track{display:flex;transition:transform 0.5s ease;width:300%}
+.banner-slide{width:33.333%;height:130px;flex-shrink:0;display:flex;align-items:center;padding:20px;justify-content:space-between}
+#sideBar{position:fixed;top:0;right:0;width:80%;max-width:300px;height:100%;background:#162040;z-index:90;padding:20px;transform:translateX(100%);transition:0.3s;border-left:1px solid #223054}
+#sideBar.open{transform:translateX(0)}
+.cat{padding:8px 14px;border-radius:20px;font-size:12px;font-weight:700;background:#162040;border:1px solid #223054;white-space:nowrap}
+.cat.active{background:#facc15;color:black;border-color:#facc15}
 </style>
 </head>
-<body>
-<header style="background:#0e162f;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #223054;position:sticky;top:0">
-  <div style="display:flex;align-items:center;gap:8px">
-    <img src="logo.png" style="width:28px;height:28px;object-fit:contain;border-radius:6px">
-    <b>TOPUP GAME</b>
+<body class="max-w-[480px] mx-auto min-h-screen relative">
+
+<header class="sticky top-0 z-20 bg-[#0e162f] px-4 py-3 flex justify-between items-center border-b border-[#223054]">
+  <div class="flex items-center gap-2 font-black text-[16px]"><span class="bg-yellow-400 text-black px-2.5 py-1 rounded-lg">TOPUP GAME</div>
+  <div class="flex items-center gap-2">
+    <button onclick="openLoc()" class="bg-[#1e1e1e] border border-[#333] px-3 py-1.5 rounded-full text-[11px] font-bold flex items-center gap-1.5">
+      <img id="topFlagImg" class="flag-sm" src="https://flagcdn.com/w40/my.png"><span id="topLang">EN</span>/<span id="topCurr">MYR</span>
+    </button>
+    <button onclick="openSide()" class="w-9 h-9 flex items-center justify-center"><i class="fa-solid fa-bars text-[20px]"></i></button>
   </div>
-  <div style="background:#1a2348;padding:6px 12px;border-radius:20px;font-size:11px">EN / MYR</div>
 </header>
 
-<div style="padding:16px">
-  <div style="background:linear-gradient(90deg,#dc2626,#f97316);border-radius:16px;padding:20px;font-weight:900">FREE FIRE SALE<br><span style="font-size:11px;font-weight:400">Diamond Murah</span></div>
-  <input id="search" oninput="doFilter()" placeholder="Search Game or Voucher" style="width:100%;margin-top:16px;background:#1a2348;border:1px solid #223054;border-radius:12px;padding:10px 16px;color:white;outline:none">
-  <div id="grid" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px"></div>
+<!-- BANNER DI BAWAH TG TOPUP GAME - INI YANG BARU -->
+<div class="px-4 mt-4">
+  <div class="banner-slider border border-[#223054]">
+    <div id="track" class="banner-track">
+      <div class="banner-slide" style="background:linear-gradient(135deg,#7c3aed,#facc15)"><div><div class="font-black text-lg">BONUS 100% 🔥</div><div class="text-xs">Topup ML Hari Ini</div></div><i class="fa-solid fa-gift text-4xl"></i></div>
+      <div class="banner-slide" style="background:linear-gradient(135deg,#dc2626,#f97316)"><div><div class="font-black text-lg">FREE FIRE SALE</div><div class="text-xs">Diamond Murah RM 0.50</div></div><i class="fa-solid fa-fire text-4xl"></i></div>
+      <div class="banner-slide" style="background:linear-gradient(135deg,#0e7490,#22d3ee)"><div><div class="font-black text-lg">ROBLOX ROBUX</div><div class="text-xs">Instant Delivery</div></div><i class="fa-solid fa-cube text-4xl"></i></div>
+    </div>
+  </div>
+  <div class="flex justify-center gap-1.5 mt-2"><div id="dot0" class="w-5 h-1.5 bg-yellow-400 rounded-full"></div><div id="dot1" class="w-1.5 h-1.5 bg-zinc-600 rounded-full"></div><div id="dot2" class="w-1.5 h-1.5 bg-zinc-600 rounded-full"></div></div>
 </div>
 
-<script>
-const games=[
-{n:'Mobile Legends', img:'https://upload.wikimedia.org/wikipedia/commons/e/e0/Mobile_Legends_Bang_Bang_logo.png', bg:'#1e40af'},
-{n:'Free Fire', img:'https://upload.wikimedia.org/wikipedia/commons/7/7a/Garena_Free_Fire_logo.png', bg:'#111827'},
-{n:'PUBG Mobile', img:'https://upload.wikimedia.org/wikipedia/commons/5/5a/PUBG_MOBILE_logo.png', bg:'#a16207'},
-{n:'Valorant', img:'https://upload.wikimedia.org/wikipedia/commons/f/fc/Valorant_logo_-_black_color_version.svg', bg:'#7f1d1d'},
-{n:'ROBLOX', img:'https://upload.wikimedia.org/wikipedia/commons/c/ce/Roblox_logo.svg', bg:'#334155'},
-{n:'Genshin Impact', img:'https://upload.wikimedia.org/wikipedia/commons/7/77/Genshin_Impact_logo.svg', bg:'#1e3a8a'},
-{n:'Honkai Star Rail', img:'https://upload.wikimedia.org/wikipedia/commons/b/b6/Honkai_Star_Rail_logo.png', bg:'#4c1d95'},
-{n:'Clash of Clans', img:'https://upload.wikimedia.org/wikipedia/commons/b/b7/Clash_of_Clans_logo.png', bg:'#854d0e'},
-];
+<div class="px-4 mt-4"><div class="bg-[#162040] rounded-xl p-3 flex items-center border border-[#223054]"><i class="fa-solid fa-magnifying-glass text-zinc-500"></i><input id="s" onkeyup="filterG()" placeholder="Search Game or Voucher" class="bg-transparent outline-none ml-3 w-full text-sm"></div></div>
 
-function render(list){
-  let g=document.getElementById('grid');g.innerHTML='';
-  list.forEach(x=>{
-    g.innerHTML+=`<div class="card">
-      <div style="background:${x.bg};height:110px;display:flex;align-items:center;justify-content:center">
-        <img src="${x.img}" style="width:60px;height:60px;object-fit:contain;background:white;border-radius:14px;padding:6px">
-      </div>
-      <div style="padding:10px;text-align:center;font-size:11px;font-weight:800">${x.n}</div>
-    </div>`;
-  });
+<!-- KATEGORI KAYAK OURASTORE -->
+<div class="px-4 mt-4 flex gap-2 overflow-x-auto scrollbar-hide">
+  <div onclick="setCat(this,'all')" class="cat active">Top Up Games</div>
+  <div onclick="setCat(this,'voucher')" class="cat">Voucher</div>
+  <div onclick="setCat(this,'ent')" class="cat">Entertainment</div>
+  <div onclick="setCat(this,'pln')" class="cat">Pulsa & PLN</div>
+</div>
+
+<!-- GAME LIST LENGKAP -->
+<div class="px-4 mt-5 pb-10">
+<h2 class="font-black text-[13px] tracking-widest flex justify-between">POPULER 🔥 <span class="text-yellow-400 text-[11px] font-bold">Lihat Semua ></span></h2>
+<div id="grid" class="grid grid-cols-2 gap-2.5 mt-3"></div>
+
+<h2 class="font-black text-[13px] tracking-widest mt-6">NEW GAMES ✨</h2>
+<div id="grid2" class="grid grid-cols-2 gap-2.5 mt-3"></div>
+</div>
+
+<!-- MODAL & SIDEBAR SAMA KAYAK TADI -->
+<div id="sideBg" onclick="closeSide()" class="fixed inset-0 bg-black/60 z-[80] hidden"></div>
+<div id="sideBar"><div class="flex justify-between items-center"><div class="font-black"><span class="bg-yellow-400 text-black px-2 py-1 rounded-lg">TG</span> MENU</div><button onclick="closeSide()" class="w-8 h-8 bg-[#223054] rounded-full"><i class="fa-solid fa-xmark"></i></button></div><div class="mt-8 space-y-3 text-[14px]"><div class="p-3 bg-[#223054] rounded-lg">Topup Games</div><div class="p-3">Cek Transaksi</div><div class="p-3">Leaderboard</div></div></div>
+
+<div id="locModal" class="loc-modal-bg hidden"><div class="loc-box">
+<div class="flex justify-between items-center mb-5"><h3 class="font-bold text-[15px]">Location</h3><button onclick="closeLoc()"><i class="fa-solid fa-xmark"></i></button></div>
+<div id="listLocation">
+<div onclick="setLoc('IDR','id')" data-curr="IDR" class="loc-item"><div class="flex items-center gap-3"><img class="flag" src="https://flagcdn.com/w40/id.png"> Indonesia (IDR)</div><i class="fa-solid fa-check check hidden text-[#E5C07B]"></i></div>
+<div onclick="setLoc('MYR','my')" data-curr="MYR" class="loc-item active"><div class="flex items-center gap-3"><img class="flag" src="https://flagcdn.com/w40/my.png"> Malaysia (MYR)</div><i class="fa-solid fa-check check text-[#E5C07B]"></i></div>
+<div onclick="setLoc('PHP','ph')" data-curr="PHP" class="loc-item"><div class="flex items-center gap-3"><img class="flag" src="https://flagcdn.com/w40/ph.png"> Philippines (PHP)</div><i class="fa-solid fa-check check hidden text-[#E5C07B]"></i></div>
+<div onclick="setLoc('SGD','sg')" data-curr="SGD" class="loc-item"><div class="flex items-center gap-3"><img class="flag" src="https://flagcdn.com/w40/sg.png"> Singapore (SGD)</div><i class="fa-solid fa-check check hidden text-[#E5C07B]"></i></div>
+<div onclick="setLoc('THB','th')" data-curr="THB" class="loc-item"><div class="flex items-center gap-3"><img class="flag" src="https://flagcdn.com/w40/th.png"> Thailand (THB)</div><i class="fa-solid fa-check check hidden text-[#E5C07B]"></i></div>
+</div>
+<div class="mt-6"><h3 class="font-bold text-[15px] mb-3">Language</h3><div class="flex gap-3"><div onclick="setLang('ID')" data-lang="ID" class="lang-item"><div class="flex items-center gap-2"><img class="flag" src="https://flagcdn.com/w40/id.png"> ID</div><i class="fa-solid fa-check check hidden"></i></div><div onclick="setLang('EN')" data-lang="EN" class="lang-item active"><div class="flex items-center gap-2"><img class="flag" src="https://flagcdn.com/w40/gb.png"> EN</div><i class="fa-solid fa-check check text-[#E5C07B]"></i></div></div></div>
+</div></div>
+
+<script>
+let curr='MYR', idx=0;
+const rates={IDR:1,MYR:3500,PHP:280,SGD:12000,THB:450};
+const games=[
+{n:'Mobile Legends',c:'linear-gradient(135deg,#1e40af,#60a5fa)',icon:'fa-shield-halved',base:5000,cat:'all'},
+{n:'Free Fire',c:'linear-gradient(135deg,#000,#facc15)',icon:'fa-fire',base:1000,cat:'all'},
+{n:'PUBG Mobile',c:'linear-gradient(135deg,#a16207,#fbbf24)',icon:'fa-crosshairs',base:7000,cat:'all'},
+{n:'Valorant',c:'linear-gradient(135deg,#7f1d1d,#ef4444)',icon:'fa-burst',base:10000,cat:'all'},
+{n:'ROBLOX',c:'linear-gradient(135deg,#111,#9ca3af)',icon:'fa-cube',base:12000,cat:'all'},
+{n:'Genshin Impact',c:'linear-gradient(135deg,#1e3a8a,#38bdf8)',icon:'fa-wind',base:15000,cat:'all'},
+{n:'Honkai Star Rail',c:'linear-gradient(135deg,#4c1d95,#a78bfa)',icon:'fa-star',base:16000,cat:'all'},
+{n:'Clash of Clans',c:'linear-gradient(135deg,#854d0e,#eab308)',icon:'fa-chess-rook',base:8000,cat:'all'},
+];
+const games2=[
+{n:'Honor of Kings',c:'linear-gradient(135deg,#ca8a04,#fde047)',icon:'fa-crown',base:6000},
+{n:'Call of Duty',c:'linear-gradient(135deg,#1f2937,#6b7280)',icon:'fa-person-rifle',base:9000},
+{n:'League of Legends',c:'linear-gradient(135deg,#0c4a6e,#06b6d4)',icon:'fa-trophy',base:7000},
+{n:'Steam Wallet',c:'linear-gradient(135deg,#0f172a,#334155)',icon:'fa-steam',base:20000,cat:'voucher'},
+];
+let filtered=[...games];
+
+function openSide(){document.getElementById('sideBar').classList.add('open');document.getElementById('sideBg').classList.remove('hidden')}
+function closeSide(){document.getElementById('sideBar').classList.remove('open');document.getElementById('sideBg').classList.add('hidden')}
+function openLoc(){document.getElementById('locModal').classList.remove('hidden')}function closeLoc(){document.getElementById('locModal').classList.add('hidden')}
+function setLoc(code, flagCode){curr=code;document.querySelectorAll('#listLocation .loc-item').forEach(e=>{e.classList.remove('active');e.querySelector('.check').classList.add('hidden')});let el=document.querySelector(`#listLocation .loc-item[data-curr="${code}"]`);el.classList.add('active');el.querySelector('.check').classList.remove('hidden');document.getElementById('topCurr').innerText=code;document.getElementById('topFlagImg').src=`https://flagcdn.com/w40/${flagCode}.png`;renderGrid();closeLoc();}
+function setLang(l){document.querySelectorAll('.lang-item').forEach(e=>{e.classList.remove('active');e.querySelector('.check').classList.add('hidden')});let el=document.querySelector(`.lang-item[data-lang="${l}"]`);el.classList.add('active');el.querySelector('.check').classList.remove('hidden');document.getElementById('topLang').innerText=l;}
+function format(p){if(curr==='IDR') return 'Rp '+p.toLocaleString('id-ID');if(curr==='MYR') return 'RM '+(p/rates.MYR).toFixed(2);if(curr==='PHP') return '₱ '+(p/rates.PHP).toFixed(0);if(curr==='SGD') return 'S$ '+(p/rates.SGD).toFixed(2);return '฿ '+(p/rates.THB).toFixed(0);}
+function renderGrid(){
+  let g=document.getElementById('grid');g.innerHTML='';filtered.forEach(x=>{g.innerHTML+=`<div class="card"><div class="banner-card" style="background:${x.c}"><i class="fa-solid ${x.icon} text-2xl"></i><span class="text-[10px] mt-1">${x.n}</span></div><div class="p-2.5"><div class="text-[11px] font-bold truncate">${x.n}</div><div class="text-yellow-400 font-black text-[11px] mt-1">${format(x.base)}</div></div></div>`});
+  let g2=document.getElementById('grid2');g2.innerHTML='';games2.forEach(x=>{g2.innerHTML+=`<div class="card"><div class="banner-card" style="background:${x.c}"><i class="fa-brands ${x.icon.includes('fa-steam')?'':'fa-solid'} ${x.icon} text-2xl"></i><span class="text-[10px] mt-1">${x.n}</span></div><div class="p-2.5"><div class="text-[11px] font-bold truncate">${x.n}</div><div class="text-yellow-400 font-black text-[11px] mt-1">${format(x.base)}</div></div></div>`});
 }
-function doFilter(){
-  let q=document.getElementById('search').value.toLowerCase();
-  render(games.filter(x=>x.n.toLowerCase().includes(q)));
-}
-render(games);
+function filterG(){let q=document.getElementById('s').value.toLowerCase();filtered=games.filter(x=>x.n.toLowerCase().includes(q));renderGrid();}
+function setCat(el,type){document.querySelectorAll('.cat').forEach(c=>c.classList.remove('active'));el.classList.add('active');if(type==='all') filtered=games; else filtered=games.filter(x=>x.cat===type); if(filtered.length==0) filtered=games; renderGrid();}
+
+// BANNER SLIDER AUTO
+setInterval(()=>{idx=(idx+1)%3;document.getElementById('track').style.transform=`translateX(-${idx*33.333}%)`;for(let i=0;i<3;i++){document.getElementById('dot'+i).className=i==idx?'w-5 h-1.5 bg-yellow-400 rounded-full':'w-1.5 h-1.5 bg-zinc-600 rounded-full'}},3000);
+
+renderGrid();
 </script>
 </body>
 </html>
