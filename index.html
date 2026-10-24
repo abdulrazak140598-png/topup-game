@@ -2,18 +2,15 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TOPUP GAME - Logo Version</title>
+<title>TG TOPUP GAME - Full</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 <style>
 body{background:#0e162f;color:white;font-family:Inter,sans-serif}
 .card{background:#162040;border:1px solid #223054;border-radius:14px;overflow:hidden;cursor:pointer}
-.game-banner{height:105px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
-.game-banner img{width:100%;height:100%;object-fit:cover}
-.game-logo{width:56px;height:56px;border-radius:14px;background:white;padding:6px;object-fit:contain;position:absolute;box-shadow:0 4px 15px rgba(0,0,0,0.5)}
+.banner-card{height:95px;display:flex;align-items:center;justify-content:center;font-weight:900;flex-direction:column;gap:4px}
 .flag{width:22px;height:22px;border-radius:50%;object-fit:cover;border:1px solid #444}
 .flag-sm{width:16px;height:16px;border-radius:50%;object-fit:cover}
-.shop-logo{width:34px;height:34px;border-radius:8px;object-fit:cover;background:#facc15;display:flex;align-items:center;justify-content:center;font-weight:900;color:black}
 .loc-modal-bg{position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:100;display:flex;align-items:center;justify-content:center;padding:16px}
 .loc-box{background:#232323;border-radius:20px;width:100%;max-width:380px;padding:20px;border:1px solid #333}
 .loc-item{background:#2e2e2e;border:1px solid #3a3a3a;border-radius:12px;padding:14px;display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;cursor:pointer}
@@ -25,18 +22,14 @@ body{background:#0e162f;color:white;font-family:Inter,sans-serif}
 .banner-slide{width:33.333%;height:130px;flex-shrink:0;display:flex;align-items:center;padding:20px;justify-content:space-between}
 #sideBar{position:fixed;top:0;right:0;width:80%;max-width:300px;height:100%;background:#162040;z-index:90;padding:20px;transform:translateX(100%);transition:0.3s;border-left:1px solid #223054}
 #sideBar.open{transform:translateX(0)}
+.cat{padding:8px 14px;border-radius:20px;font-size:12px;font-weight:700;background:#162040;border:1px solid #223054;white-space:nowrap}
+.cat.active{background:#facc15;color:black;border-color:#facc15}
 </style>
 </head>
 <body class="max-w-[480px] mx-auto min-h-screen relative">
 
-<!-- HEADER - LOGO TOKO DI SINI -->
 <header class="sticky top-0 z-20 bg-[#0e162f] px-4 py-3 flex justify-between items-center border-b border-[#223054]">
-  <div class="flex items-center gap-2.5">
-    <!-- GANTI logo.png DENGAN LOGO TOKO ABANG - UPLOAD KE GITHUB -->
-    <img src="logo.png" onerror="this.style.display='none';document.getElementById('fallbackLogo').style.display='flex'" class="w-[34px] h-[34px] rounded-lg object-cover">
-    <div id="fallbackLogo" class="shop-logo">TG</div>
-    <div class="font-black text-[15px]">TOPUP GAME</div>
-  </div>
+  <div class="flex items-center gap-2 font-black text-[16px]"><span class="bg-yellow-400 text-black px-2.5 py-1 rounded-lg">TG</span> TOPUP GAME</div>
   <div class="flex items-center gap-2">
     <button onclick="openLoc()" class="bg-[#1e1e1e] border border-[#333] px-3 py-1.5 rounded-full text-[11px] font-bold flex items-center gap-1.5">
       <img id="topFlagImg" class="flag-sm" src="https://flagcdn.com/w40/my.png"><span id="topLang">EN</span>/<span id="topCurr">MYR</span>
@@ -45,6 +38,7 @@ body{background:#0e162f;color:white;font-family:Inter,sans-serif}
   </div>
 </header>
 
+<!-- BANNER DI BAWAH TG TOPUP GAME - INI YANG BARU -->
 <div class="px-4 mt-4">
   <div class="banner-slider border border-[#223054]">
     <div id="track" class="banner-track">
@@ -53,48 +47,65 @@ body{background:#0e162f;color:white;font-family:Inter,sans-serif}
       <div class="banner-slide" style="background:linear-gradient(135deg,#0e7490,#22d3ee)"><div><div class="font-black text-lg">ROBLOX ROBUX</div><div class="text-xs">Instant Delivery</div></div><i class="fa-solid fa-cube text-4xl"></i></div>
     </div>
   </div>
+  <div class="flex justify-center gap-1.5 mt-2"><div id="dot0" class="w-5 h-1.5 bg-yellow-400 rounded-full"></div><div id="dot1" class="w-1.5 h-1.5 bg-zinc-600 rounded-full"></div><div id="dot2" class="w-1.5 h-1.5 bg-zinc-600 rounded-full"></div></div>
 </div>
 
-<div class="px-4 mt-4"><div class="bg-[#162040] rounded-xl p-3 flex items-center border border-[#223054]"><i class="fa-solid fa-magnifying-glass text-zinc-500"></i><input id="s" onkeyup="filterG()" placeholder="Search Game" class="bg-transparent outline-none ml-3 w-full text-sm"></div></div>
+<div class="px-4 mt-4"><div class="bg-[#162040] rounded-xl p-3 flex items-center border border-[#223054]"><i class="fa-solid fa-magnifying-glass text-zinc-500"></i><input id="s" onkeyup="filterG()" placeholder="Search Game or Voucher" class="bg-transparent outline-none ml-3 w-full text-sm"></div></div>
 
+<!-- KATEGORI KAYAK OURASTORE -->
+<div class="px-4 mt-4 flex gap-2 overflow-x-auto scrollbar-hide">
+  <div onclick="setCat(this,'all')" class="cat active">Top Up Games</div>
+  <div onclick="setCat(this,'voucher')" class="cat">Voucher</div>
+  <div onclick="setCat(this,'ent')" class="cat">Entertainment</div>
+  <div onclick="setCat(this,'pln')" class="cat">Pulsa & PLN</div>
+</div>
+
+<!-- GAME LIST LENGKAP -->
 <div class="px-4 mt-5 pb-10">
-<h2 class="font-black text-[13px] tracking-widest">POPULER 🔥</h2>
+<h2 class="font-black text-[13px] tracking-widest flex justify-between">POPULER 🔥 <span class="text-yellow-400 text-[11px] font-bold">Lihat Semua ></span></h2>
 <div id="grid" class="grid grid-cols-2 gap-2.5 mt-3"></div>
+
+<h2 class="font-black text-[13px] tracking-widest mt-6">NEW GAMES ✨</h2>
+<div id="grid2" class="grid grid-cols-2 gap-2.5 mt-3"></div>
 </div>
 
-<!-- SIDEBAR & MODAL SAMA -->
+<!-- MODAL & SIDEBAR SAMA KAYAK TADI -->
 <div id="sideBg" onclick="closeSide()" class="fixed inset-0 bg-black/60 z-[80] hidden"></div>
-<div id="sideBar"><div class="flex justify-between"><div class="font-black">MENU</div><button onclick="closeSide()"><i class="fa-solid fa-xmark"></i></button></div></div>
+<div id="sideBar"><div class="flex justify-between items-center"><div class="font-black"><span class="bg-yellow-400 text-black px-2 py-1 rounded-lg">TG</span> MENU</div><button onclick="closeSide()" class="w-8 h-8 bg-[#223054] rounded-full"><i class="fa-solid fa-xmark"></i></button></div><div class="mt-8 space-y-3 text-[14px]"><div class="p-3 bg-[#223054] rounded-lg">Topup Games</div><div class="p-3">Cek Transaksi</div><div class="p-3">Leaderboard</div></div></div>
 
 <div id="locModal" class="loc-modal-bg hidden"><div class="loc-box">
-<div class="flex justify-between items-center mb-5"><h3 class="font-bold">Location</h3><button onclick="closeLoc()"><i class="fa-solid fa-xmark"></i></button></div>
+<div class="flex justify-between items-center mb-5"><h3 class="font-bold text-[15px]">Location</h3><button onclick="closeLoc()"><i class="fa-solid fa-xmark"></i></button></div>
 <div id="listLocation">
 <div onclick="setLoc('IDR','id')" data-curr="IDR" class="loc-item"><div class="flex items-center gap-3"><img class="flag" src="https://flagcdn.com/w40/id.png"> Indonesia (IDR)</div><i class="fa-solid fa-check check hidden text-[#E5C07B]"></i></div>
 <div onclick="setLoc('MYR','my')" data-curr="MYR" class="loc-item active"><div class="flex items-center gap-3"><img class="flag" src="https://flagcdn.com/w40/my.png"> Malaysia (MYR)</div><i class="fa-solid fa-check check text-[#E5C07B]"></i></div>
-<div onclick="setLoc('PHP','ph')" data-curr="PHP" class="loc-item"><div class="flex items-center gap-3"><img class="flag" src="https://flagcdn.com/w40/ph.png"> Philippines (PHP)</div><i class="fa-solid fa-check check hidden"></i></div>
-<div onclick="setLoc('SGD','sg')" data-curr="SGD" class="loc-item"><div class="flex items-center gap-3"><img class="flag" src="https://flagcdn.com/w40/sg.png"> Singapore (SGD)</div><i class="fa-solid fa-check check hidden"></i></div>
-<div onclick="setLoc('THB','th')" data-curr="THB" class="loc-item"><div class="flex items-center gap-3"><img class="flag" src="https://flagcdn.com/w40/th.png"> Thailand (THB)</div><i class="fa-solid fa-check check hidden"></i></div>
+<div onclick="setLoc('PHP','ph')" data-curr="PHP" class="loc-item"><div class="flex items-center gap-3"><img class="flag" src="https://flagcdn.com/w40/ph.png"> Philippines (PHP)</div><i class="fa-solid fa-check check hidden text-[#E5C07B]"></i></div>
+<div onclick="setLoc('SGD','sg')" data-curr="SGD" class="loc-item"><div class="flex items-center gap-3"><img class="flag" src="https://flagcdn.com/w40/sg.png"> Singapore (SGD)</div><i class="fa-solid fa-check check hidden text-[#E5C07B]"></i></div>
+<div onclick="setLoc('THB','th')" data-curr="THB" class="loc-item"><div class="flex items-center gap-3"><img class="flag" src="https://flagcdn.com/w40/th.png"> Thailand (THB)</div><i class="fa-solid fa-check check hidden text-[#E5C07B]"></i></div>
 </div>
-<div class="mt-6"><h3 class="font-bold mb-3">Language</h3><div class="flex gap-3"><div onclick="setLang('ID')" data-lang="ID" class="lang-item"><div class="flex items-center gap-2"><img class="flag" src="https://flagcdn.com/w40/id.png"> ID</div><i class="fa-solid fa-check check hidden"></i></div><div onclick="setLang('EN')" data-lang="EN" class="lang-item active"><div class="flex items-center gap-2"><img class="flag" src="https://flagcdn.com/w40/gb.png"> EN</div><i class="fa-solid fa-check check text-[#E5C07B]"></i></div></div></div>
+<div class="mt-6"><h3 class="font-bold text-[15px] mb-3">Language</h3><div class="flex gap-3"><div onclick="setLang('ID')" data-lang="ID" class="lang-item"><div class="flex items-center gap-2"><img class="flag" src="https://flagcdn.com/w40/id.png"> ID</div><i class="fa-solid fa-check check hidden"></i></div><div onclick="setLang('EN')" data-lang="EN" class="lang-item active"><div class="flex items-center gap-2"><img class="flag" src="https://flagcdn.com/w40/gb.png"> EN</div><i class="fa-solid fa-check check text-[#E5C07B]"></i></div></div></div>
 </div></div>
 
 <script>
 let curr='MYR', idx=0;
 const rates={IDR:1,MYR:3500,PHP:280,SGD:12000,THB:450};
-
-// LOGO GAME ASLI - PAKAI WIKIMEDIA (GRATIS & ANTI BLOKIR)
 const games=[
-{n:'Mobile Legends', banner:'linear-gradient(135deg,#1e40af,#60a5fa)', logo:'https://upload.wikimedia.org/wikipedia/commons/8/82/Mobile_Legends_logo.png', base:5000},
-{n:'Free Fire', banner:'linear-gradient(135deg,#111,#facc15)', logo:'https://upload.wikimedia.org/wikipedia/commons/7/7a/Garena_Free_Fire_logo.png', base:1000},
-{n:'PUBG Mobile', banner:'linear-gradient(135deg,#a16207,#fbbf24)', logo:'https://upload.wikimedia.org/wikipedia/commons/5/5a/PUBG_MOBILE_logo.png', base:7000},
-{n:'Valorant', banner:'linear-gradient(135deg,#7f1d1d,#ef4444)', logo:'https://upload.wikimedia.org/wikipedia/commons/f/fc/Valorant_logo_-_black_color_version.svg', base:10000},
-{n:'ROBLOX', banner:'linear-gradient(135deg,#111,#555)', logo:'https://upload.wikimedia.org/wikipedia/commons/c/ce/Roblox_logo.svg', base:12000},
-{n:'Genshin Impact', banner:'linear-gradient(135deg,#1e3a8a,#38bdf8)', logo:'https://upload.wikimedia.org/wikipedia/commons/7/77/Genshin_Impact_logo.svg', base:15000},
-{n:'Clash of Clans', banner:'linear-gradient(135deg,#854d0e,#eab308)', logo:'https://upload.wikimedia.org/wikipedia/commons/b/b7/Clash_of_Clans_logo.png', base:8000},
-{n:'Honor of Kings', banner:'linear-gradient(135deg,#ca8a04,#fde047)', logo:'https://upload.wikimedia.org/wikipedia/commons/2/26/Honor_of_Kings_logo.png', base:6000},
+{n:'Mobile Legends',c:'linear-gradient(135deg,#1e40af,#60a5fa)',icon:'fa-shield-halved',base:5000,cat:'all'},
+{n:'Free Fire',c:'linear-gradient(135deg,#000,#facc15)',icon:'fa-fire',base:1000,cat:'all'},
+{n:'PUBG Mobile',c:'linear-gradient(135deg,#a16207,#fbbf24)',icon:'fa-crosshairs',base:7000,cat:'all'},
+{n:'Valorant',c:'linear-gradient(135deg,#7f1d1d,#ef4444)',icon:'fa-burst',base:10000,cat:'all'},
+{n:'ROBLOX',c:'linear-gradient(135deg,#111,#9ca3af)',icon:'fa-cube',base:12000,cat:'all'},
+{n:'Genshin Impact',c:'linear-gradient(135deg,#1e3a8a,#38bdf8)',icon:'fa-wind',base:15000,cat:'all'},
+{n:'Honkai Star Rail',c:'linear-gradient(135deg,#4c1d95,#a78bfa)',icon:'fa-star',base:16000,cat:'all'},
+{n:'Clash of Clans',c:'linear-gradient(135deg,#854d0e,#eab308)',icon:'fa-chess-rook',base:8000,cat:'all'},
 ];
-
+const games2=[
+{n:'Honor of Kings',c:'linear-gradient(135deg,#ca8a04,#fde047)',icon:'fa-crown',base:6000},
+{n:'Call of Duty',c:'linear-gradient(135deg,#1f2937,#6b7280)',icon:'fa-person-rifle',base:9000},
+{n:'League of Legends',c:'linear-gradient(135deg,#0c4a6e,#06b6d4)',icon:'fa-trophy',base:7000},
+{n:'Steam Wallet',c:'linear-gradient(135deg,#0f172a,#334155)',icon:'fa-steam',base:20000,cat:'voucher'},
+];
 let filtered=[...games];
+
 function openSide(){document.getElementById('sideBar').classList.add('open');document.getElementById('sideBg').classList.remove('hidden')}
 function closeSide(){document.getElementById('sideBar').classList.remove('open');document.getElementById('sideBg').classList.add('hidden')}
 function openLoc(){document.getElementById('locModal').classList.remove('hidden')}function closeLoc(){document.getElementById('locModal').classList.add('hidden')}
@@ -102,13 +113,15 @@ function setLoc(code, flagCode){curr=code;document.querySelectorAll('#listLocati
 function setLang(l){document.querySelectorAll('.lang-item').forEach(e=>{e.classList.remove('active');e.querySelector('.check').classList.add('hidden')});let el=document.querySelector(`.lang-item[data-lang="${l}"]`);el.classList.add('active');el.querySelector('.check').classList.remove('hidden');document.getElementById('topLang').innerText=l;}
 function format(p){if(curr==='IDR') return 'Rp '+p.toLocaleString('id-ID');if(curr==='MYR') return 'RM '+(p/rates.MYR).toFixed(2);if(curr==='PHP') return '₱ '+(p/rates.PHP).toFixed(0);if(curr==='SGD') return 'S$ '+(p/rates.SGD).toFixed(2);return '฿ '+(p/rates.THB).toFixed(0);}
 function renderGrid(){
-  let g=document.getElementById('grid');g.innerHTML='';
-  filtered.forEach(x=>{
-    g.innerHTML+=`<div class="card"><div class="game-banner" style="background:${x.banner}"><img src="${x.logo}" class="game-logo" onerror="this.src='https://via.placeholder.com/56?text=${x.n[0]}'"></div><div class="p-2.5"><div class="text-[11px] font-bold truncate">${x.n}</div><div class="text-yellow-400 font-black text-[11px] mt-1">${format(x.base)}</div></div></div>`;
-  });
+  let g=document.getElementById('grid');g.innerHTML='';filtered.forEach(x=>{g.innerHTML+=`<div class="card"><div class="banner-card" style="background:${x.c}"><i class="fa-solid ${x.icon} text-2xl"></i><span class="text-[10px] mt-1">${x.n}</span></div><div class="p-2.5"><div class="text-[11px] font-bold truncate">${x.n}</div><div class="text-yellow-400 font-black text-[11px] mt-1">${format(x.base)}</div></div></div>`});
+  let g2=document.getElementById('grid2');g2.innerHTML='';games2.forEach(x=>{g2.innerHTML+=`<div class="card"><div class="banner-card" style="background:${x.c}"><i class="fa-brands ${x.icon.includes('fa-steam')?'':'fa-solid'} ${x.icon} text-2xl"></i><span class="text-[10px] mt-1">${x.n}</span></div><div class="p-2.5"><div class="text-[11px] font-bold truncate">${x.n}</div><div class="text-yellow-400 font-black text-[11px] mt-1">${format(x.base)}</div></div></div>`});
 }
 function filterG(){let q=document.getElementById('s').value.toLowerCase();filtered=games.filter(x=>x.n.toLowerCase().includes(q));renderGrid();}
-setInterval(()=>{idx=(idx+1)%3;document.getElementById('track').style.transform=`translateX(-${idx*33.333}%)`},3000);
+function setCat(el,type){document.querySelectorAll('.cat').forEach(c=>c.classList.remove('active'));el.classList.add('active');if(type==='all') filtered=games; else filtered=games.filter(x=>x.cat===type); if(filtered.length==0) filtered=games; renderGrid();}
+
+// BANNER SLIDER AUTO
+setInterval(()=>{idx=(idx+1)%3;document.getElementById('track').style.transform=`translateX(-${idx*33.333}%)`;for(let i=0;i<3;i++){document.getElementById('dot'+i).className=i==idx?'w-5 h-1.5 bg-yellow-400 rounded-full':'w-1.5 h-1.5 bg-zinc-600 rounded-full'}},3000);
+
 renderGrid();
 </script>
 </body>
