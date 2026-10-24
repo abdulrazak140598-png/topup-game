@@ -2,62 +2,108 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TG TOPUP - Final Kanan</title>
+<title>TG TOPUP - Final Bendera</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 <style>
 body{background:#0e162f;color:white;font-family:Inter,sans-serif}
-.card{background:#162040;border:1px solid #223054;border-radius:14px;overflow:hidden}
+.card{background:#162040;border:1px solid #223054;border-radius:14px;overflow:hidden;cursor:pointer}
 .banner{height:95px;display:flex;align-items:center;justify-content:center;font-weight:900;flex-direction:column;gap:4px}
-.loc-modal-bg{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:100;display:flex;align-items:center;justify-content:center;padding:16px}
+.flag{width:22px;height:22px;border-radius:50%;object-fit:cover;flex-shrink:0;border:1px solid #444}
+.flag-sm{width:16px;height:16px;border-radius:50%;object-fit:cover}
+.loc-modal-bg{position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:100;display:flex;align-items:center;justify-content:center;padding:16px}
 .loc-box{background:#232323;border-radius:20px;width:100%;max-width:380px;padding:20px;border:1px solid #333}
-.loc-item{background:#2e2e2e;border:1px solid #3a3a3a;border-radius:12px;padding:14px;display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;cursor:pointer}
+.loc-item{background:#2e2e2e;border:1px solid #3a3a3a;border-radius:12px;padding:14px;display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;cursor:pointer;transition:0.2s}
 .loc-item.active{border-color:#E5C07B;background:#3a352a}
 .lang-item{background:#2e2e2e;border:1px solid #3a3a3a;border-radius:12px;padding:12px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;flex:1}
 .lang-item.active{border-color:#E5C07B}
-#sideBar{position:fixed;top:0;right:0;width:80%;max-width:300px;height:100%;background:#0f203e;z-index:90;padding:20px;transform:translateX(100%);transition:0.3s}
+#sideBar{position:fixed;top:0;right:0;width:80%;max-width:300px;height:100%;background:#162040;z-index:90;padding:20px;transform:translateX(100%);transition:0.3s;border-left:1px solid #223054}
 #sideBar.open{transform:translateX(0)}
 </style>
 </head>
-<body class="max-w-[480px] mx-auto min-h-screen">
+<body class="max-w-[480px] mx-auto min-h-screen relative">
 
+<!-- HEADER - GARIS 3 DI KANAN DEKAT ID/MYR + BENDERA -->
 <header class="sticky top-0 z-20 bg-[#0e162f] px-4 py-3 flex justify-between items-center border-b border-[#223054]">
-  <div class="flex items-center gap-2 font-black text-lg"><span class="bg-yellow-400 text-black px-2.5 py-1 rounded-lg">TG</span> TOPUP GAME</div>
+  <div class="flex items-center gap-2 font-black text-[16px]"><span class="bg-yellow-400 text-black px-2.5 py-1 rounded-lg">TG</span> TOPUP GAME</div>
   <div class="flex items-center gap-2">
-    <button onclick="openLoc()" class="bg-[#1e1e1e] border border-[#333] px-3 py-1.5 rounded-full text-[11px] font-bold"><span id="topFlag">🇲🇾</span> <span id="topLang">EN</span>/<span id="topCurr">MYR</span></button>
-    <button onclick="openSide()" class="w-9 h-9 flex items-center justify-center"><i class="fa-solid fa-bars text-xl"></i></button>
+    <button onclick="openLoc()" class="bg-[#1e1e1e] border border-[#333] px-3 py-1.5 rounded-full text-[11px] font-bold flex items-center gap-1.5">
+      <img id="topFlagImg" class="flag-sm" src="https://flagcdn.com/w40/my.png"><span id="topLang">EN</span>/<span id="topCurr">MYR</span>
+    </button>
+    <button onclick="openSide()" class="w-9 h-9 flex items-center justify-center"><i class="fa-solid fa-bars text-[20px]"></i></button>
   </div>
 </header>
 
 <div class="px-4 mt-4"><div class="bg-[#162040] rounded-xl p-3 flex items-center border border-[#223054]"><i class="fa-solid fa-magnifying-glass text-zinc-500"></i><input id="s" onkeyup="filterG()" placeholder="Search Game or Voucher" class="bg-transparent outline-none ml-3 w-full text-sm"></div></div>
-<div class="px-4 mt-5"><h2 class="font-black text-[13px]">POPULER 🔥</h2><div id="grid" class="grid grid-cols-2 gap-2.5 mt-3"></div></div>
+<div class="px-4 mt-5 pb-10"><h2 class="font-black text-[13px] tracking-widest">POPULER 🔥</h2><div id="grid" class="grid grid-cols-2 gap-2.5 mt-3"></div></div>
 
+<!-- SIDEBAR -->
 <div id="sideBg" onclick="closeSide()" class="fixed inset-0 bg-black/60 z-[80] hidden"></div>
-<div id="sideBar"><div class="flex justify-between"><div class="font-black"><span class="bg-yellow-400 text-black px-2 py-1 rounded-lg">TG</span> TOPUP</div><button onclick="closeSide()"><i class="fa-solid fa-xmark"></i></button></div><div class="mt-6 space-y-4 text-sm"><div>Topup</div><div>Cek Transaksi</div><div>Leaderboard</div><div>Kalkulator</div></div></div>
+<div id="sideBar">
+  <div class="flex justify-between items-center"><div class="font-black"><span class="bg-yellow-400 text-black px-2 py-1 rounded-lg">TG</span> MENU</div><button onclick="closeSide()" class="w-8 h-8 bg-[#223054] rounded-full"><i class="fa-solid fa-xmark"></i></button></div>
+  <div class="mt-8 space-y-4 text-[14px]">
+    <div class="p-3 bg-[#223054] rounded-lg"><i class="fa-solid fa-gamepad mr-2"></i> Topup Games</div>
+    <div class="p-3 rounded-lg">Cek Transaksi</div>
+    <div class="p-3 rounded-lg">Leaderboard</div>
+    <div class="p-3 rounded-lg">Kalkulator Winrate</div>
+  </div>
+</div>
 
+<!-- LOCATION + LANGUAGE MODAL - BENDERA BULAT SEMUA -->
 <div id="locModal" class="loc-modal-bg hidden">
 <div class="loc-box">
-<div class="flex justify-between items-center mb-5"><h3 class="font-bold">Location</h3><button onclick="closeLoc()"><i class="fa-solid fa-xmark"></i></button></div>
+<div class="flex justify-between items-center mb-5"><h3 class="font-bold text-[15px]">Location</h3><button onclick="closeLoc()"><i class="fa-solid fa-xmark text-zinc-400"></i></button></div>
+
 <div id="listLocation">
-<div onclick="setLoc('IDR')" data-curr="IDR" class="loc-item"><div class="flex gap-3">🇮🇩 Indonesia (IDR)</div><i class="fa-solid fa-check check hidden text-[#E5C07B]"></i></div>
-<div onclick="setLoc('MYR')" data-curr="MYR" class="loc-item active"><div class="flex gap-3">🇲🇾 Malaysia (MYR)</div><i class="fa-solid fa-check check text-[#E5C07B]"></i></div>
-<div onclick="setLoc('PHP')" data-curr="PHP" class="loc-item"><div class="flex gap-3">🇵🇭 Philippines (PHP)</div><i class="fa-solid fa-check check hidden text-[#E5C07B]"></i></div>
-<div onclick="setLoc('SGD')" data-curr="SGD" class="loc-item"><div class="flex gap-3">🇸🇬 Singapore (SGD)</div><i class="fa-solid fa-check check hidden text-[#E5C07B]"></i></div>
-<div onclick="setLoc('THB')" data-curr="THB" class="loc-item"><div class="flex gap-3">🇹🇭 Thailand (THB)</div><i class="fa-solid fa-check check hidden text-[#E5C07B]"></i></div>
+<div onclick="setLoc('IDR','id')" data-curr="IDR" class="loc-item"><div class="flex items-center gap-3"><img class="flag" src="https://flagcdn.com/w40/id.png"> Indonesia (IDR)</div><i class="fa-solid fa-check check hidden text-[#E5C07B]"></i></div>
+<div onclick="setLoc('MYR','my')" data-curr="MYR" class="loc-item active"><div class="flex items-center gap-3"><img class="flag" src="https://flagcdn.com/w40/my.png"> Malaysia (MYR)</div><i class="fa-solid fa-check check text-[#E5C07B]"></i></div>
+<div onclick="setLoc('PHP','ph')" data-curr="PHP" class="loc-item"><div class="flex items-center gap-3"><img class="flag" src="https://flagcdn.com/w40/ph.png"> Philippines (PHP)</div><i class="fa-solid fa-check check hidden text-[#E5C07B]"></i></div>
+<div onclick="setLoc('SGD','sg')" data-curr="SGD" class="loc-item"><div class="flex items-center gap-3"><img class="flag" src="https://flagcdn.com/w40/sg.png"> Singapore (SGD)</div><i class="fa-solid fa-check check hidden text-[#E5C07B]"></i></div>
+<div onclick="setLoc('THB','th')" data-curr="THB" class="loc-item"><div class="flex items-center gap-3"><img class="flag" src="https://flagcdn.com/w40/th.png"> Thailand (THB)</div><i class="fa-solid fa-check check hidden text-[#E5C07B]"></i></div>
 </div>
-<div class="mt-6"><h3 class="font-bold mb-3">Language</h3><div class="flex gap-3"><div onclick="setLang('ID')" data-lang="ID" class="lang-item"><div>🇮🇩 ID</div><i class="fa-solid fa-check check hidden"></i></div><div onclick="setLang('EN')" data-lang="EN" class="lang-item active"><div>🇬🇧 EN</div><i class="fa-solid fa-check check text-[#E5C07B]"></i></div></div></div>
+
+<div class="mt-6"><h3 class="font-bold text-[15px] mb-3">Language</h3>
+<div class="flex gap-3">
+<div onclick="setLang('ID')" data-lang="ID" class="lang-item"><div class="flex items-center gap-2"><img class="flag" src="https://flagcdn.com/w40/id.png"> ID</div><i class="fa-solid fa-check check hidden text-[#E5C07B]"></i></div>
+<div onclick="setLang('EN')" data-lang="EN" class="lang-item active"><div class="flex items-center gap-2"><img class="flag" src="https://flagcdn.com/w40/gb.png"> EN</div><i class="fa-solid fa-check check text-[#E5C07B]"></i></div>
+</div>
+</div>
+
 </div>
 </div>
 
 <script>
-let curr='MYR';const flags={IDR:'🇮🇩',MYR:'🇲🇾',PHP:'🇵🇭',SGD:'🇸🇬',THB:'🇹🇭'};const rates={IDR:1,MYR:3500,PHP:280,SGD:12000,THB:450};
-const games=[{n:'Mobile Legends',c:'linear-gradient(135deg,#1e40af,#60a5fa)',icon:'fa-shield-halved',base:5000},{n:'Free Fire',c:'linear-gradient(135deg,#000,#facc15)',icon:'fa-fire',base:1000},{n:'PUBG Mobile',c:'linear-gradient(135deg,#a16207,#fbbf24)',icon:'fa-crosshairs',base:7000},{n:'Valorant',c:'linear-gradient(135deg,#7f1d1d,#ef4444)',icon:'fa-burst',base:10000},{n:'ROBLOX',c:'linear-gradient(135deg,#111,#9ca3af)',icon:'fa-cube',base:12000},{n:'Genshin Impact',c:'linear-gradient(135deg,#1e3a8a,#38bdf8)',icon:'fa-wind',base:15000}];
+let curr='MYR';
+const rates={IDR:1,MYR:3500,PHP:280,SGD:12000,THB:450};
+const games=[
+{n:'Mobile Legends',c:'linear-gradient(135deg,#1e40af,#60a5fa)',icon:'fa-shield-halved',base:5000},
+{n:'Free Fire',c:'linear-gradient(135deg,#000,#facc15)',icon:'fa-fire',base:1000},
+{n:'PUBG Mobile',c:'linear-gradient(135deg,#a16207,#fbbf24)',icon:'fa-crosshairs',base:7000},
+{n:'Valorant',c:'linear-gradient(135deg,#7f1d1d,#ef4444)',icon:'fa-burst',base:10000},
+{n:'ROBLOX',c:'linear-gradient(135deg,#111,#9ca3af)',icon:'fa-cube',base:12000},
+{n:'Genshin Impact',c:'linear-gradient(135deg,#1e3a8a,#38bdf8)',icon:'fa-wind',base:15000},
+];
 let filtered=[...games];
+
 function openSide(){document.getElementById('sideBar').classList.add('open');document.getElementById('sideBg').classList.remove('hidden')}
 function closeSide(){document.getElementById('sideBar').classList.remove('open');document.getElementById('sideBg').classList.add('hidden')}
-function openLoc(){document.getElementById('locModal').classList.remove('hidden')}function closeLoc(){document.getElementById('locModal').classList.add('hidden')}
-function setLoc(c){curr=c;document.querySelectorAll('#listLocation .loc-item').forEach(e=>{e.classList.remove('active');e.querySelector('.check').classList.add('hidden')});let el=document.querySelector(`#listLocation .loc-item[data-curr="${c}"]`);el.classList.add('active');el.querySelector('.check').classList.remove('hidden');document.getElementById('topFlag').innerText=flags[c];document.getElementById('topCurr').innerText=c;renderGrid();closeLoc();}
-function setLang(l){document.querySelectorAll('.lang-item').forEach(e=>{e.classList.remove('active');e.querySelector('.check').classList.add('hidden')});let el=document.querySelector(`.lang-item[data-lang="${l}"]`);el.classList.add('active');el.querySelector('.check').classList.remove('hidden');document.getElementById('topLang').innerText=l;}
+function openLoc(){document.getElementById('locModal').classList.remove('hidden')}
+function closeLoc(){document.getElementById('locModal').classList.add('hidden')}
+
+function setLoc(code, flagCode){
+  curr=code;
+  document.querySelectorAll('#listLocation .loc-item').forEach(e=>{e.classList.remove('active');e.querySelector('.check').classList.add('hidden')});
+  let el=document.querySelector(`#listLocation .loc-item[data-curr="${code}"]`); el.classList.add('active'); el.querySelector('.check').classList.remove('hidden');
+  document.getElementById('topCurr').innerText=code;
+  document.getElementById('topFlagImg').src=`https://flagcdn.com/w40/${flagCode}.png`;
+  renderGrid();
+  closeLoc();
+}
+function setLang(l){
+  document.querySelectorAll('.lang-item').forEach(e=>{e.classList.remove('active');e.querySelector('.check').classList.add('hidden')});
+  let el=document.querySelector(`.lang-item[data-lang="${l}"]`); el.classList.add('active'); el.querySelector('.check').classList.remove('hidden');
+  document.getElementById('topLang').innerText=l;
+}
 function format(p){if(curr==='IDR') return 'Rp '+p.toLocaleString('id-ID');if(curr==='MYR') return 'RM '+(p/rates.MYR).toFixed(2);if(curr==='PHP') return '₱ '+(p/rates.PHP).toFixed(0);if(curr==='SGD') return 'S$ '+(p/rates.SGD).toFixed(2);return '฿ '+(p/rates.THB).toFixed(0);}
 function renderGrid(){let g=document.getElementById('grid');g.innerHTML='';filtered.forEach(x=>{g.innerHTML+=`<div class="card"><div class="banner" style="background:${x.c}"><i class="fa-solid ${x.icon} text-2xl"></i><span class="text-[11px] mt-1">${x.n}</span></div><div class="p-2.5"><div class="text-[11px] font-bold">${x.n}</div><div class="text-yellow-400 font-black text-[11px] mt-1">${format(x.base)}</div></div></div>`})}
 function filterG(){let q=document.getElementById('s').value.toLowerCase();filtered=games.filter(x=>x.n.toLowerCase().includes(q));renderGrid();}
