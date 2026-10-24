@@ -2,111 +2,93 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Builder - Topup Game</title>
+<title>TG TOPUP - Store</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap');
-body{font-family:Poppins;background:#0a0a0c;color:#fff}
-.input{background:#1e1e24;border:1px solid #2a2a30;border-radius:12px;padding:12px;width:100%;color:#fff;font-size:13px;outline:none}
-.input:focus{border-color:#facc15}
+body{background:#0e162f;color:white;font-family:Inter,sans-serif}
+.card{background:#162040;border:1px solid #223054;border-radius:14px;overflow:hidden}
+.banner{height:95px;display:flex;align-items:center;justify-content:center;font-weight:900;flex-direction:column;gap:4px}
+.nom{border:1px solid #223054;background:#162040;padding:10px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer}
+.nom.active{border-color:#facc15;background:#facc1522;color:#facc15}
+.pay{border:1px solid #223054;background:#162040;padding:12px;border-radius:12px;display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+.pay.active{border-color:#facc15;background:#1e2a4a}
 </style>
 </head>
-<body class="max-w-[950px] mx-auto">
+<body class="max-w-[480px] mx-auto min-h-screen">
 
-<div class="p-4 flex justify-between items-center border-b border-white/10">
-<div class="font-black text-[20px]">TOPUP<span class="bg-yellow-400 text-black px-2 rounded ml-1">GAME</span></div>
-<div class="text-[10px] text-zinc-500">BUILDER V1 - LIVE PREVIEW</div>
+<!-- HEADER -->
+<header class="sticky top-0 z-20 bg-[#0e162f] px-4 py-3 flex justify-between border-b border-[#223054]">
+<div class="flex gap-3 items-center"><i class="fa-solid fa-bars"></i><div class="font-black text-lg"><span class="bg-yellow-400 text-black px-2.5 py-1 rounded-lg">TG</span> TOPUP GAME</div></div>
+<div class="bg-[#1e1e1e] border border-[#333] px-3 py-1.5 rounded-full text-[11px] font-bold">🇲🇾 EN / MYR</div>
+</header>
+
+<!-- HOME -->
+<div id="home">
+<div class="px-4 mt-4"><div class="bg-[#162040] rounded-xl p-3 flex items-center border border-[#223054]"><i class="fa-solid fa-magnifying-glass text-zinc-500"></i><input id="s" onkeyup="filterG()" placeholder="Cari Mobile Legends, Free Fire..." class="bg-transparent outline-none ml-3 w-full text-sm"></div></div>
+<div class="px-4 mt-5"><h2 class="font-black text-[13px] tracking-widest">POPULER 🔥</h2><div id="grid" class="grid grid-cols-2 gap-2.5 mt-3"></div></div>
+<div class="px-4 mt-6 pb-10 text-[11px] text-zinc-500 text-center">AI Coding by Meta AI - 100% Work No Blokir Gambar</div>
 </div>
 
-<div class="grid md:grid-cols-2 gap-0 md:gap-6 p-4">
-
-<!-- KIRI: FORM -->
-<div class="space-y-4">
-<div class="text-[12px] font-bold text-yellow-400">1. KETIK PROMO DI SINI</div>
-
-<label class="text-[11px] text-zinc-400">Nama Produk / Promo *</label>
-<input id="judul" oninput="update()" class="input" value="Mobile Legends - 86 Diamond">
-
-<label class="text-[11px] text-zinc-400">Upload Gambar dari HP (langsung muncul di samping)</label>
-<input type="file" id="fileImg" accept="image/*" onchange="uploadImg(this)" class="input">
-<label class="text-[11px] text-zinc-400 mt-2 block">Atau Paste Link Gambar</label>
-<input id="gambar" oninput="update()" class="input text-[11px]" value="https://i.ibb.co/3mK5L2zQ/ml.jpg">
-
-<div class="grid grid-cols-2 gap-3">
-<div><label class="text-[11px] text-zinc-400">Harga IDR</label><input id="harga" type="number" oninput="update()" class="input" value="22000"></div>
-<div><label class="text-[11px] text-zinc-400">Harga MYR (auto)</label><input id="hargaMYR" class="input bg-[#2a2a30]" disabled></div>
+<!-- DETAIL PAGE -->
+<div id="detail" class="hidden fixed inset-0 bg-[#0e162f] z-30 overflow-auto">
+<div class="max-w-[480px] mx-auto">
+<div class="p-4 flex items-center gap-3 border-b border-[#223054] sticky top-0 bg-[#0e162f]"><button onclick="backHome()" class="w-8 h-8 bg-[#162040] rounded-full"><i class="fa-solid fa-arrow-left"></i></button><div id="dTitle" class="font-black">Mobile Legends</div></div>
+<div id="dBanner" class="banner text-lg"></div>
+<div class="p-4 space-y-5 pb-20">
+<div><div class="font-bold text-sm mb-2">1. Masukkan Data Akun</div><div class="grid grid-cols-2 gap-2"><input id="uid" placeholder="User ID" class="bg-[#162040] border border-[#223054] p-3 rounded-xl text-sm outline-none"><input id="server" placeholder="Server (1234)" class="bg-[#162040] border border-[#223054] p-3 rounded-xl text-sm outline-none"></div></div>
+<div><div class="font-bold text-sm mb-2">2. Pilih Nominal</div><div id="dNom" class="grid grid-cols-2 gap-2"></div></div>
+<div><div class="font-bold text-sm mb-2">3. Metode Pembayaran</div><div class="space-y-2"><div onclick="setPay(this,'QRIS')" class="pay active"><span><i class="fa-solid fa-qrcode mr-2"></i> QRIS (All E-Wallet)</span><i class="fa-solid fa-check text-yellow-400"></i></div><div onclick="setPay(this,'DANA')" class="pay"><span>💙 DANA</span><span class="text-xs text-zinc-400">Auto</span></div><div onclick="setPay(this,'OVO')" class="pay"><span>💜 OVO</span><span class="text-xs text-zinc-400">Auto</span></div></div></div>
+<div class="bg-[#162040] border border-[#223054] p-3 rounded-xl flex justify-between text-sm"><span>Total Bayar</span><span id="dTotal" class="font-black text-yellow-400">RM 0.00</span></div>
+<button onclick="bayar()" class="w-full bg-yellow-400 text-black font-black py-4 rounded-xl">BAYAR SEKARANG</button>
 </div>
-
-<label class="text-[11px] text-zinc-400">Label</label>
-<select id="jenis" onchange="update()" class="input"><option>🔥 HOT</option><option>Top Up</option><option>✨ BEST SELLER</option><option>Promo Limited</option></select>
-
-<button onclick="tambah()" class="w-full bg-yellow-400 text-black font-black py-3 rounded-xl hover:bg-yellow-300"><i class="fa-solid fa-plus"></i> TAMBAHKAN KE DAFTAR TOKO</button>
-
-<div id="list" class="space-y-2 pt-4 border-t border-white/10 mt-6"></div>
-</div>
-
-<!-- KANAN: PREVIEW LANGSUNG MUNCUL DI SAMPING -->
-<div>
-<div class="text-[12px] font-bold text-cyan-300 sticky top-0 bg-[#0a0a0c] py-2">2. PREVIEW LANGSUNG MUNCUL DI SAMPING 👇</div>
-
-<div class="mt-2 bg-[#1e1e24] border-2 border-yellow-400 rounded-2xl overflow-hidden shadow-[0_0_20px_rgba(250,204,21,0.2)]">
-<img id="pImg" src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=500" class="w-full h-[220px] object-cover">
-<div class="p-4">
-<div id="pJenis" class="text-[10px] bg-yellow-400 text-black px-2 py-1 rounded font-black inline-block">🔥 HOT</div>
-<div id="pJudul" class="font-bold text-[15px] mt-2 leading-tight">Mobile Legends - 86 Diamond</div>
-<div class="flex items-center gap-2 mt-3">
-<div id="pIDR" class="text-[14px] font-black text-yellow-400">Rp22.000</div>
-<div class="text-zinc-600">/</div>
-<div id="pMYR" class="text-[14px] font-bold text-cyan-300">RM6.29</div>
-</div>
-<div class="mt-3 bg-[#2a2a30] rounded-lg p-2 text-[10px] text-zinc-400 flex justify-between"><span><i class="fa-solid fa-bolt text-yellow-400"></i> Proses Instan</span><span><i class="fa-solid fa-qrcode"></i> QRIS</span></div>
 </div>
 </div>
 
-<div class="mt-4 p-3 bg-[#1e1e24] rounded-xl text-[11px] text-zinc-400 leading-relaxed">
-<b class="text-white">Cara ini yang abang mau:</b><br>
-✅ Ketik nama di kiri → kanan langsung ganti<br>
-✅ Upload foto dari galeri HP → kanan langsung muncul<br>
-✅ Gak perlu tebak, langsung lihat hasil kayak di samping promt
-</div>
-</div>
-
-</div>
 <script>
-const RATE=3500; let produk=[];
-function update(){
-let j=document.getElementById('judul').value;
-let h=parseInt(document.getElementById('harga').value)||0;
-let g=document.getElementById('gambar').value;
-let jns=document.getElementById('jenis').value;
-document.getElementById('pJudul').innerText=j||'Nama Produk';
-document.getElementById('pIDR').innerText='Rp'+h.toLocaleString('id-ID');
-document.getElementById('pMYR').innerText='RM'+(h/RATE).toFixed(2);
-document.getElementById('hargaMYR').value='RM'+(h/RATE).toFixed(2);
-document.getElementById('pJenis').innerText=jns;
-if(g) document.getElementById('pImg').src=g;
-}
-function uploadImg(input){
-if(input.files && input.files[0]){
-let r=new FileReader();
-r.onload=function(e){document.getElementById('gambar').value=e.target.result; document.getElementById('pImg').src=e.target.result;}
-r.readAsDataURL(input.files[0]);
-}
-}
-function tambah(){
-let j=document.getElementById('judul').value;
-let h=parseInt(document.getElementById('harga').value);
-let g=document.getElementById('pImg').src;
-if(!j||!h) return alert('Isi nama & harga dulu Bang');
-produk.push({j,h,g});
-let html=''; produk.forEach((p,i)=>{
-html+=`<div class="bg-[#1e1e24] p-2 rounded-xl flex gap-3 items-center border border-white/5">
-<img src="${p.g}" class="w-14 h-14 rounded-lg object-cover"><div class="flex-1"><div class="text-[12px] font-bold truncate">${p.j}</div><div class="text-[11px] text-yellow-400">Rp${p.h.toLocaleString('id-ID')} / RM${(p.h/RATE).toFixed(2)}</div></div><button onclick="produk.splice(${i},1);this.parentElement.remove()" class="p-2 text-red-400"><i class="fa-solid fa-trash"></i></button></div>`;
+const games=[
+{n:'Mobile Legends',c:'linear-gradient(135deg,#1e40af,#60a5fa)',icon:'fa-shield-halved',noms:[{l:'86 Diamond',p:1.5},{l:'172 Diamond',p:3},{l:'344 Diamond',p:6},{l:'720 Diamond',p:12}]},
+{n:'Free Fire',c:'linear-gradient(135deg,#000,#facc15)',icon:'fa-fire',noms:[{l:'70 Diamond',p:1},{l:'140 Diamond',p:2},{l:'355 Diamond',p:5},{l:'720 Diamond',p:10}]},
+{n:'PUBG Mobile',c:'linear-gradient(135deg,#a16207,#fbbf24)',icon:'fa-crosshairs',noms:[{l:'60 UC',p:1},{l:'325 UC',p:5},{l:'660 UC',p:10},{l:'1800 UC',p:25}]},
+{n:'Valorant',c:'linear-gradient(135deg,#7f1d1d,#ef4444)',icon:'fa-burst',noms:[{l:'125 VP',p:2},{l:'420 VP',p:5},{l:'700 VP',p:9},{l:'1375 VP',p:17}]},
+{n:'ROBLOX',c:'linear-gradient(135deg,#111,#9ca3af)',icon:'fa-cube',noms:[{l:'80 Robux',p:1.5},{l:'400 Robux',p:6},{l:'800 Robux',p:12},{l:'1700 Robux',p:24}]},
+{n:'Genshin Impact',c:'linear-gradient(135deg,#1e3a8a,#38bdf8)',icon:'fa-wind',noms:[{l:'60 Crystal',p:2},{l:'300 Crystal',p:7},{l:'980 Crystal',p:20},{l:'1980 Crystal',p:40}]},
+];
+
+let selGame=null, selNom=null, selPay='QRIS';
+let filtered=[...games];
+
+function renderGrid(){
+let g=document.getElementById('grid');g.innerHTML='';
+filtered.forEach((x,i)=>{
+g.innerHTML+=`<div onclick="openGame(${games.indexOf(x)})" class="card"><div class="banner" style="background:${x.c}"><i class="fa-solid ${x.icon} text-2xl"></i><span class="text-[11px] mt-1">${x.n}</span></div><div class="p-2.5"><div class="text-[11px] font-bold truncate">${x.n}</div><div class="text-yellow-400 font-black text-[11px] mt-1">Mulai RM ${x.noms[0].p}</div></div></div>`;
 });
-document.getElementById('list').innerHTML='<div class="text-[11px] font-bold mb-2">DAFTAR PRODUK TOKO ('+produk.length+'):</div>'+html;
 }
-update();
+function openGame(i){
+selGame=games[i];selNom=selGame.noms[0];
+document.getElementById('dTitle').innerText=selGame.n.n;
+document.getElementById('dBanner').style.background=selGame.c;
+document.getElementById('dBanner').innerHTML=`<i class="fa-solid ${selGame.icon} text-3xl"></i><div>${selGame.n}</div>`;
+let nBox=document.getElementById('dNom');nBox.innerHTML='';
+selGame.noms.forEach((n,idx)=>{
+nBox.innerHTML+=`<div onclick="setNom(this,${idx})" class="nom ${idx==0?'active':''}"><div>${n.l}</div><div class="text-yellow-400">RM ${n.p}</div></div>`;
+});
+document.getElementById('dTotal').innerText='RM '+selNom.p.toFixed(2);
+document.getElementById('home').classList.add('hidden');
+document.getElementById('detail').classList.remove('hidden');
+window.scrollTo(0,0);
+}
+function backHome(){document.getElementById('detail').classList.add('hidden');document.getElementById('home').classList.remove('hidden');}
+function setNom(el,idx){document.querySelectorAll('.nom').forEach(e=>e.classList.remove('active'));el.classList.add('active');selNom=selGame.noms[idx];document.getElementById('dTotal').innerText='RM '+selNom.p.toFixed(2);}
+function setPay(el,m){document.querySelectorAll('.pay').forEach(e=>e.classList.remove('active'));el.classList.add('active');selPay=m;}
+function bayar(){
+let id=document.getElementById('uid').value;
+if(!id){alert('Isi User ID dulu bang!');return;}
+alert(`SUKSES!\nGame: ${selGame.n}\nID: ${id}\nNominal: ${selNom.l}\nTotal: RM ${selNom.p}\nBayar via: ${selPay}\n\nIni demo store AI bang, tinggal sambungin ke API Digiflazz / VIP-Reseller buat jadi real!`);
+backHome();
+}
+function filterG(){let q=document.getElementById('s').value.toLowerCase();filtered=games.filter(x=>x.n.toLowerCase().includes(q));renderGrid();}
+renderGrid();
 </script>
 </body>
 </html>
