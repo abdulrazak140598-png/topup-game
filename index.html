@@ -2,105 +2,64 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TG TOPUP - Final</title>
+<title>TG TOPUP - Final Kanan</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 <style>
 body{background:#0e162f;color:white;font-family:Inter,sans-serif}
 .card{background:#162040;border:1px solid #223054;border-radius:14px;overflow:hidden}
 .banner{height:95px;display:flex;align-items:center;justify-content:center;font-weight:900;flex-direction:column;gap:4px}
-.nom{border:1px solid #223054;background:#162040;padding:10px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer}
-.nom.active{border-color:#facc15;background:#facc1522;color:#facc15}
-/* POPUP KAYAK FOTO ABANG */
 .loc-modal-bg{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:100;display:flex;align-items:center;justify-content:center;padding:16px}
 .loc-box{background:#232323;border-radius:20px;width:100%;max-width:380px;padding:20px;border:1px solid #333}
 .loc-item{background:#2e2e2e;border:1px solid #3a3a3a;border-radius:12px;padding:14px;display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;cursor:pointer}
 .loc-item.active{border-color:#E5C07B;background:#3a352a}
 .lang-item{background:#2e2e2e;border:1px solid #3a3a3a;border-radius:12px;padding:12px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;flex:1}
 .lang-item.active{border-color:#E5C07B}
+#sideBar{position:fixed;top:0;right:0;width:80%;max-width:300px;height:100%;background:#0f203e;z-index:90;padding:20px;transform:translateX(100%);transition:0.3s}
+#sideBar.open{transform:translateX(0)}
 </style>
 </head>
 <body class="max-w-[480px] mx-auto min-h-screen">
 
-<header class="sticky top-0 z-20 bg-[#0e162f] px-4 py-3 flex justify-between border-b border-[#223054]">
-<div class="flex gap-3 items-center"><i class="fa-solid fa-bars"></i><div class="font-black text-lg"><span class="bg-yellow-400 text-black px-2.5 py-1 rounded-lg">TG</span> TOPUP GAME</div></div>
-<button onclick="openLoc()" class="bg-[#1e1e1e] border border-[#333] px-3 py-1.5 rounded-full text-[11px] font-bold"><span id="topFlag">🇲🇾</span> <span id="topLang">EN</span> / <span id="topCurr">MYR</span></button>
+<header class="sticky top-0 z-20 bg-[#0e162f] px-4 py-3 flex justify-between items-center border-b border-[#223054]">
+  <div class="flex items-center gap-2 font-black text-lg"><span class="bg-yellow-400 text-black px-2.5 py-1 rounded-lg">TG</span> TOPUP GAME</div>
+  <div class="flex items-center gap-2">
+    <button onclick="openLoc()" class="bg-[#1e1e1e] border border-[#333] px-3 py-1.5 rounded-full text-[11px] font-bold"><span id="topFlag">🇲🇾</span> <span id="topLang">EN</span>/<span id="topCurr">MYR</span></button>
+    <button onclick="openSide()" class="w-9 h-9 flex items-center justify-center"><i class="fa-solid fa-bars text-xl"></i></button>
+  </div>
 </header>
 
-<div id="home">
 <div class="px-4 mt-4"><div class="bg-[#162040] rounded-xl p-3 flex items-center border border-[#223054]"><i class="fa-solid fa-magnifying-glass text-zinc-500"></i><input id="s" onkeyup="filterG()" placeholder="Search Game or Voucher" class="bg-transparent outline-none ml-3 w-full text-sm"></div></div>
-<div class="px-4 mt-5"><h2 class="font-black text-[13px] tracking-widest">POPULER 🔥</h2><div id="grid" class="grid grid-cols-2 gap-2.5 mt-3"></div></div>
-</div>
+<div class="px-4 mt-5"><h2 class="font-black text-[13px]">POPULER 🔥</h2><div id="grid" class="grid grid-cols-2 gap-2.5 mt-3"></div></div>
 
-<!-- LOCATION MODAL - PERSIS FOTO ABANG -->
+<div id="sideBg" onclick="closeSide()" class="fixed inset-0 bg-black/60 z-[80] hidden"></div>
+<div id="sideBar"><div class="flex justify-between"><div class="font-black"><span class="bg-yellow-400 text-black px-2 py-1 rounded-lg">TG</span> TOPUP</div><button onclick="closeSide()"><i class="fa-solid fa-xmark"></i></button></div><div class="mt-6 space-y-4 text-sm"><div>Topup</div><div>Cek Transaksi</div><div>Leaderboard</div><div>Kalkulator</div></div></div>
+
 <div id="locModal" class="loc-modal-bg hidden">
 <div class="loc-box">
-<div class="flex justify-between items-center mb-5"><h3 class="font-bold text-[16px]">Location</h3><button onclick="closeLoc()"><i class="fa-solid fa-xmark text-zinc-400"></i></button></div>
-
+<div class="flex justify-between items-center mb-5"><h3 class="font-bold">Location</h3><button onclick="closeLoc()"><i class="fa-solid fa-xmark"></i></button></div>
 <div id="listLocation">
-<div onclick="setLoc('IDR')" data-curr="IDR" class="loc-item"><div class="flex items-center gap-3"><span class="text-xl">🇮🇩</span> Indonesia (IDR)</div><i class="fa-solid fa-check check hidden text-[#E5C07B]"></i></div>
-<div onclick="setLoc('MYR')" data-curr="MYR" class="loc-item active"><div class="flex items-center gap-3"><span class="text-xl">🇲🇾</span> Malaysia (MYR)</div><i class="fa-solid fa-check check text-[#E5C07B]"></i></div>
-<div onclick="setLoc('PHP')" data-curr="PHP" class="loc-item"><div class="flex items-center gap-3"><span class="text-xl">🇵🇭</span> Philippines (PHP)</div><i class="fa-solid fa-check check hidden text-[#E5C07B]"></i></div>
-<div onclick="setLoc('SGD')" data-curr="SGD" class="loc-item"><div class="flex items-center gap-3"><span class="text-xl">🇸🇬</span> Singapore (SGD)</div><i class="fa-solid fa-check check hidden text-[#E5C07B]"></i></div>
-<div onclick="setLoc('THB')" data-curr="THB" class="loc-item"><div class="flex items-center gap-3"><span class="text-xl">🇹🇭</span> Thailand (THB)</div><i class="fa-solid fa-check check hidden text-[#E5C07B]"></i></div>
+<div onclick="setLoc('IDR')" data-curr="IDR" class="loc-item"><div class="flex gap-3">🇮🇩 Indonesia (IDR)</div><i class="fa-solid fa-check check hidden text-[#E5C07B]"></i></div>
+<div onclick="setLoc('MYR')" data-curr="MYR" class="loc-item active"><div class="flex gap-3">🇲🇾 Malaysia (MYR)</div><i class="fa-solid fa-check check text-[#E5C07B]"></i></div>
+<div onclick="setLoc('PHP')" data-curr="PHP" class="loc-item"><div class="flex gap-3">🇵🇭 Philippines (PHP)</div><i class="fa-solid fa-check check hidden text-[#E5C07B]"></i></div>
+<div onclick="setLoc('SGD')" data-curr="SGD" class="loc-item"><div class="flex gap-3">🇸🇬 Singapore (SGD)</div><i class="fa-solid fa-check check hidden text-[#E5C07B]"></i></div>
+<div onclick="setLoc('THB')" data-curr="THB" class="loc-item"><div class="flex gap-3">🇹🇭 Thailand (THB)</div><i class="fa-solid fa-check check hidden text-[#E5C07B]"></i></div>
 </div>
-
-<div class="mt-6"><h3 class="font-bold text-[16px] mb-3">Language</h3>
-<div class="flex gap-3">
-<div onclick="setLang('ID')" data-lang="ID" class="lang-item"><div class="flex items-center gap-2"><span class="text-xl">🇮🇩</span> ID</div><i class="fa-solid fa-check check hidden text-[#E5C07B]"></i></div>
-<div onclick="setLang('EN')" data-lang="EN" class="lang-item active"><div class="flex items-center gap-2"><span class="text-xl">🇬🇧</span> EN</div><i class="fa-solid fa-check check text-[#E5C07B]"></i></div>
+<div class="mt-6"><h3 class="font-bold mb-3">Language</h3><div class="flex gap-3"><div onclick="setLang('ID')" data-lang="ID" class="lang-item"><div>🇮🇩 ID</div><i class="fa-solid fa-check check hidden"></i></div><div onclick="setLang('EN')" data-lang="EN" class="lang-item active"><div>🇬🇧 EN</div><i class="fa-solid fa-check check text-[#E5C07B]"></i></div></div></div>
 </div>
 </div>
-
-</div>
-</div>
-
-<!-- DETAIL PAGE -->
-<div id="detail" class="hidden fixed inset-0 bg-[#0e162f] z-30 overflow-auto"><div class="max-w-[480px] mx-auto"><div class="p-4 flex items-center gap-3 border-b border-[#223054] sticky top-0 bg-[#0e162f]"><button onclick="backHome()" class="w-8 h-8 bg-[#162040] rounded-full"><i class="fa-solid fa-arrow-left"></i></button><div id="dTitle" class="font-black"></div></div><div id="dBanner" class="banner text-lg"></div><div class="p-4 space-y-4 pb-20"><div id="dNom" class="grid grid-cols-2 gap-2"></div><div class="bg-[#162040] border border-[#223054] p-3 rounded-xl flex justify-between text-sm"><span>Total</span><span id="dTotal" class="font-black text-yellow-400"></span></div><button onclick="alert('Demo bayar sukses! '+document.getElementById('dTotal').innerText)" class="w-full bg-yellow-400 text-black font-black py-4 rounded-xl">BAYAR SEKARANG</button></div></div></div>
 
 <script>
-let curr='MYR', lang='EN';
-const flags={IDR:'🇮🇩',MYR:'🇲🇾',PHP:'🇵🇭',SGD:'🇸🇬',THB:'🇹🇭'};
-const rates={IDR:1,MYR:3500,PHP:280,SGD:12000,THB:450};
-const games=[
-{n:'Mobile Legends',c:'linear-gradient(135deg,#1e40af,#60a5fa)',icon:'fa-shield-halved',base:5000},
-{n:'Free Fire',c:'linear-gradient(135deg,#000,#facc15)',icon:'fa-fire',base:1000},
-{n:'PUBG Mobile',c:'linear-gradient(135deg,#a16207,#fbbf24)',icon:'fa-crosshairs',base:7000},
-{n:'Valorant',c:'linear-gradient(135deg,#7f1d1d,#ef4444)',icon:'fa-burst',base:10000},
-{n:'ROBLOX',c:'linear-gradient(135deg,#111,#9ca3af)',icon:'fa-cube',base:12000},
-{n:'Genshin Impact',c:'linear-gradient(135deg,#1e3a8a,#38bdf8)',icon:'fa-wind',base:15000},
-];
-let filtered=[...games], selNom=null;
-
-function openLoc(){document.getElementById('locModal').classList.remove('hidden')}
-function closeLoc(){document.getElementById('locModal').classList.add('hidden')}
-function setLoc(c){
- curr=c;
- document.querySelectorAll('#listLocation .loc-item').forEach(e=>{e.classList.remove('active');e.querySelector('.check').classList.add('hidden')});
- let el=document.querySelector(`#listLocation .loc-item[data-curr="${c}"]`); el.classList.add('active'); el.querySelector('.check').classList.remove('hidden');
- document.getElementById('topFlag').innerText=flags[c]; document.getElementById('topCurr').innerText=c; renderGrid(); if(selNom) updateTotal();
- closeLoc();
-}
-function setLang(l){
- lang=l;
- document.querySelectorAll('.lang-item').forEach(e=>{e.classList.remove('active');e.querySelector('.check').classList.add('hidden')});
- let el=document.querySelector(`.lang-item[data-lang="${l}"]`); el.classList.add('active'); el.querySelector('.check').classList.remove('hidden');
- document.getElementById('topLang').innerText=l;
-}
-function format(p){if(curr==='IDR') return 'Rp '+p.toLocaleString('id-ID'); if(curr==='MYR') return 'RM '+(p/rates.MYR).toFixed(2); if(curr==='PHP') return '₱ '+(p/rates.PHP).toFixed(0); if(curr==='SGD') return 'S$ '+(p/rates.SGD).toFixed(2); return '฿ '+(p/rates.THB).toFixed(0);}
-function renderGrid(){let g=document.getElementById('grid');g.innerHTML='';filtered.forEach(x=>{g.innerHTML+=`<div onclick="openGame('${x.n}')" class="card"><div class="banner" style="background:${x.c}"><i class="fa-solid ${x.icon} text-2xl"></i><span class="text-[11px] mt-1">${x.n}</span></div><div class="p-2.5"><div class="text-[11px] font-bold truncate">${x.n}</div><div class="text-yellow-400 font-black text-[11px] mt-1">${format(x.base)}</div></div></div>`})}
-function openGame(name){
- let g=games.find(a=>a.n===name); selNom=g.base;
- document.getElementById('dTitle').innerText=g.n;
- document.getElementById('dBanner').style.background=g.c;
- document.getElementById('dBanner').innerHTML=`<i class="fa-solid ${g.icon} text-3xl"></i><div>${g.n}</div>`;
- let nb=document.getElementById('dNom'); nb.innerHTML='';
- [1,2,4,8].forEach(m=>{let price=g.base*m; nb.innerHTML+=`<div onclick="selNom=${price};updateTotal();document.querySelectorAll('#dNom div').forEach(e=>e.classList.remove('ring-2','ring-yellow-400'));this.classList.add('ring-2','ring-yellow-400')" class="nom"><div>${m*86} Diamond</div><div class="text-yellow-400">${format(price)}</div></div>`});
- updateTotal();
- document.getElementById('home').classList.add('hidden'); document.getElementById('detail').classList.remove('hidden');
-}
-function updateTotal(){document.getElementById('dTotal').innerText=format(selNom)}
-function backHome(){document.getElementById('detail').classList.add('hidden');document.getElementById('home').classList.remove('hidden');}
+let curr='MYR';const flags={IDR:'🇮🇩',MYR:'🇲🇾',PHP:'🇵🇭',SGD:'🇸🇬',THB:'🇹🇭'};const rates={IDR:1,MYR:3500,PHP:280,SGD:12000,THB:450};
+const games=[{n:'Mobile Legends',c:'linear-gradient(135deg,#1e40af,#60a5fa)',icon:'fa-shield-halved',base:5000},{n:'Free Fire',c:'linear-gradient(135deg,#000,#facc15)',icon:'fa-fire',base:1000},{n:'PUBG Mobile',c:'linear-gradient(135deg,#a16207,#fbbf24)',icon:'fa-crosshairs',base:7000},{n:'Valorant',c:'linear-gradient(135deg,#7f1d1d,#ef4444)',icon:'fa-burst',base:10000},{n:'ROBLOX',c:'linear-gradient(135deg,#111,#9ca3af)',icon:'fa-cube',base:12000},{n:'Genshin Impact',c:'linear-gradient(135deg,#1e3a8a,#38bdf8)',icon:'fa-wind',base:15000}];
+let filtered=[...games];
+function openSide(){document.getElementById('sideBar').classList.add('open');document.getElementById('sideBg').classList.remove('hidden')}
+function closeSide(){document.getElementById('sideBar').classList.remove('open');document.getElementById('sideBg').classList.add('hidden')}
+function openLoc(){document.getElementById('locModal').classList.remove('hidden')}function closeLoc(){document.getElementById('locModal').classList.add('hidden')}
+function setLoc(c){curr=c;document.querySelectorAll('#listLocation .loc-item').forEach(e=>{e.classList.remove('active');e.querySelector('.check').classList.add('hidden')});let el=document.querySelector(`#listLocation .loc-item[data-curr="${c}"]`);el.classList.add('active');el.querySelector('.check').classList.remove('hidden');document.getElementById('topFlag').innerText=flags[c];document.getElementById('topCurr').innerText=c;renderGrid();closeLoc();}
+function setLang(l){document.querySelectorAll('.lang-item').forEach(e=>{e.classList.remove('active');e.querySelector('.check').classList.add('hidden')});let el=document.querySelector(`.lang-item[data-lang="${l}"]`);el.classList.add('active');el.querySelector('.check').classList.remove('hidden');document.getElementById('topLang').innerText=l;}
+function format(p){if(curr==='IDR') return 'Rp '+p.toLocaleString('id-ID');if(curr==='MYR') return 'RM '+(p/rates.MYR).toFixed(2);if(curr==='PHP') return '₱ '+(p/rates.PHP).toFixed(0);if(curr==='SGD') return 'S$ '+(p/rates.SGD).toFixed(2);return '฿ '+(p/rates.THB).toFixed(0);}
+function renderGrid(){let g=document.getElementById('grid');g.innerHTML='';filtered.forEach(x=>{g.innerHTML+=`<div class="card"><div class="banner" style="background:${x.c}"><i class="fa-solid ${x.icon} text-2xl"></i><span class="text-[11px] mt-1">${x.n}</span></div><div class="p-2.5"><div class="text-[11px] font-bold">${x.n}</div><div class="text-yellow-400 font-black text-[11px] mt-1">${format(x.base)}</div></div></div>`})}
 function filterG(){let q=document.getElementById('s').value.toLowerCase();filtered=games.filter(x=>x.n.toLowerCase().includes(q));renderGrid();}
 renderGrid();
 </script>
