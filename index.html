@@ -155,6 +155,122 @@ setInterval(()=>{
 </div>
 
 <!-- TOP SPENDER - TARUH DI SINI, DI ATAS FOOTER -->
+<!-- ULASAN BINTANG 5 LIVE - TARUH DI BAWAH TOP SPENDER -->
+<style>
+@keyframes fadeSlide {0%{opacity:0;transform:translateY(10px)}100%{opacity:1;transform:translateY(0)}}
+.review-card{animation:fadeSlide .5s ease}
+.stars{color:#ffcd00;letter-spacing:2px}
+</style>
+
+<div style="padding:16px;margin-top:10px">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+    <div style="color:white;font-weight:900;font-size:14px;display:flex;align-items:center;gap:8px">
+      ⭐ ULASAN PEMBELI <span style="background:#00c851;color:white;font-size:9px;padding:3px 8px;border-radius:20px">4.9/5</span>
+    </div>
+    <div style="color:#7a8bc0;font-size:11px">Live • <span id="reviewCount">2.847</span> ulasan</div>
+  </div>
+
+  <!-- KARTU ULASAN YANG GANTI OTOMATIS -->
+  <div id="reviewBox" style="background:linear-gradient(135deg,#18234f,#1e2f6b);border:1px solid #24346a;border-radius:18px;padding:14px;position:relative;overflow:hidden">
+    <div class="review-card" id="reviewCard">
+      <div style="display:flex;gap:10px;align-items:center">
+        <img id="rvImg" src="https://i.pravatar.cc/100?img=1" style="width:42px;height:42px;border-radius:50%;border:2px solid #ffcd00">
+        <div style="flex:1">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div id="rvName" style="color:white;font-weight:800;font-size:13px">Rizky Pratama</div>
+            <div id="rvTime" style="color:#7a8bc0;font-size:10px">2 menit lalu</div>
+          </div>
+          <div class="stars" style="font-size:12px;margin-top:2px">★★★★★</div>
+        </div>
+      </div>
+      <div id="rvText" style="color:#cbd5e1;font-size:12px;margin-top:10px;line-height:1.5;background:#0f1a3d;padding:10px 12px;border-radius:12px;border:1px solid #1e2a5a">
+        "Topup ML 86 diamond masuk cuma 30 detik, langganan di sini terus! Murah + bonus banyak 🔥"
+      </div>
+      <div style="display:flex;gap:6px;margin-top:10px;align-items:center">
+        <span style="background:#00c851;color:white;font-size:9px;padding:3px 7px;border-radius:20px">✓ Pembelian Terverifikasi</span>
+        <span id="rvGame" style="color:#8fa0d0;font-size:10px">Mobile Legends • 86 Diamond</span>
+      </div>
+    </div>
+
+    <!-- DOTS INDIKATOR -->
+    <div style="display:flex;gap:5px;justify-content:center;margin-top:12px">
+      <div id="rdot0" style="width:18px;height:5px;border-radius:10px;background:#ffcd00;transition:.3s"></div>
+      <div id="rdot1" style="width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.3);transition:.3s"></div>
+      <div id="rdot2" style="width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.3);transition:.3s"></div>
+    </div>
+  </div>
+
+  <!-- RINGKASAN BINTANG DI BAWAH -->
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px">
+    <div style="background:#18234f;border:1px solid #24346a;border-radius:12px;padding:10px;text-align:center">
+      <div style="color:#ffcd00;font-weight:900;font-size:16px">4.9</div>
+      <div class="stars" style="font-size:10px">★★★★★</div>
+      <div style="color:#7a8bc0;font-size:9px;margin-top:2px">Rata-rata</div>
+    </div>
+    <div style="background:#18234f;border:1px solid #24346a;border-radius:12px;padding:10px;text-align:center">
+      <div style="color:white;font-weight:900;font-size:16px">99%</div>
+      <div style="color:#4ade80;font-size:10px;font-weight:700">▲ Puas</div>
+      <div style="color:#7a8bc0;font-size:9px;margin-top:2px">Pelanggan</div>
+    </div>
+    <div style="background:#18234f;border:1px solid #24346a;border-radius:12px;padding:10px;text-align:center">
+      <div style="color:white;font-weight:900;font-size:16px">1-3m</div>
+      <div style="color:#ffcd00;font-size:10px;font-weight:700">⚡ Cepat</div>
+      <div style="color:#7a8bc0;font-size:9px;margin-top:2px">Proses</div>
+    </div>
+  </div>
+</div>
+
+<script>
+// DATA ULASAN BINTANG 5
+const reviews = [
+  {name:"Rizky Pratama", game:"Mobile Legends • 86 Diamond", text:"Topup ML 86 diamond masuk cuma 30 detik, langganan di sini terus! Murah + bonus banyak 🔥", img:1, time:"2 menit lalu"},
+  {name:"Andi Saputra", game:"Free Fire • 720 Diamond", text:"FF 720 dm langsung masuk, gak perlu nunggu lama. Seller terpercaya bintang 5!", img:8, time:"5 menit lalu"},
+  {name:"Siska Amelia", game:"Valorant • 420 VP", text:"VP Valorant murah banget di sini, udah 3x topup aman terus. Recommended! ⭐⭐⭐⭐⭐", img:5, time:"8 menit lalu"},
+  {name:"Faisal Ahmad", game:"PUBG Mobile • 660 UC", text:"UC PUBG masuk 1 menit, harga termurah yang pernah gue temuin. Mantap!", img:3, time:"12 menit lalu"},
+  {name:"Budi Santoso", game:"Genshin • 980 Genesis", text:"Genesis Impact langsung masuk, CS fast respon. Gak nyesel topup di sini!", img:12, time:"15 menit lalu"},
+  {name:"Dewi Lestari", game:"ROBLOX • 800 Robux", text:"Robux murah + bonus, anak saya senang banget. Proses kilat 2 menit jadi!", img:9, time:"18 menit lalu"},
+  {name:"Joko Widodo", game:"HOK • 408 Tokens", text:"Topup HOK gampang banget, cuma masukin ID langsung diproses. Bintang 5!", img:15, time:"21 menit lalu"},
+  {name:"Alya Putri", game:"CODM • 880 CP", text:"CP CODM termurah se-Makassar! Masuk 40 detik, gila cepatnya 🚀", img:6, time:"Baru saja"},
+];
+
+let rIdx = 0;
+function showReview(i){
+  let r = reviews[i];
+  document.getElementById('rvImg').src = `https://i.pravatar.cc/100?img=${r.img}`;
+  document.getElementById('rvName').innerText = r.name;
+  document.getElementById('rvGame').innerText = r.game;
+  document.getElementById('rvText').innerText = `"${r.text}"`;
+  document.getElementById('rvTime').innerText = r.time;
+  
+  // Animasi ulang
+  let card = document.getElementById('reviewCard');
+  card.style.animation = 'none'; card.offsetHeight; card.style.animation = 'fadeSlide .5s ease';
+
+  // Dots
+  for(let d=0;d<3;d++){
+    let dot = document.getElementById('rdot'+d);
+    if(dot){
+      dot.style.background = (i%3==d) ? '#ffcd00' : 'rgba(255,255,255,.3)';
+      dot.style.width = (i%3==d) ? '18px' : '5px';
+      dot.style.borderRadius = (i%3==d) ? '10px' : '50%';
+    }
+  }
+}
+
+// Ganti otomatis tiap 4 detik - LIVE BERGANTIAN
+setInterval(()=>{
+  rIdx = (rIdx+1) % reviews.length;
+  showReview(rIdx);
+}, 4000);
+
+// Hitungan ulasan naik live
+setInterval(()=>{
+  let c = document.getElementById('reviewCount');
+  if(c){ c.innerText = (2847 + Math.floor(Math.random()*20)).toLocaleString('id-ID'); }
+}, 3000);
+
+showReview(0);
+</script>
 <div style="padding:0 16px;margin-top:10px">
 
 <div style="background:linear-gradient(135deg,#18234f,#1e2f6b);border:1px solid #24346a;border-radius:18px;padding:16px;overflow:hidden;position:relative">
