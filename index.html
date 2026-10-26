@@ -30,62 +30,86 @@ body{background:#0b122e}
 .menu-drawer.open{right:0}
 .dim{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;z-index:90}
 .dim.open{display:block}
-/* SEARCH MODAL BARU */
-#searchModal{display:none;position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.75);align-items:flex-start;justify-content:center;padding-top:90px}
 </style>
 </head>
 <body>
 <div class="dim" id="dim" onclick="toggleMenu()"></div>
+<!-- MENU DRAWER KAYA OURASTORE -->
+<!-- MENU DRAWER FULL FUNGSI - TANPA O -->
 <div class="menu-drawer" id="drawer" style="background:#1c1c1c;width:285px;padding:0;border-left:none">
+  
+  <!-- CUMA X - TANPA TOPUP GAME -->
   <div style="display:flex;justify-content:end;align-items:center;padding:16px 20px;border-bottom:1px dashed #333">
     <span onclick="toggleMenu()" style="cursor:pointer;font-size:28px;color:white">✕</span>
   </div>
+
+  <!-- MENU LIST SEMUA BISA DIKLIK -->
   <div style="padding:10px 0">
-    <div onclick="goTopup()" style="display:flex;justify-content:space-between;align-items:center;padding:15px 20px;color:white;font-size:14px;cursor:pointer"><span>Topup</span><span>👜</span></div>
-    <div onclick="goCek()" style="display:flex;justify-content:space-between;align-items:center;padding:15px 20px;color:white;font-size:14px;cursor:pointer"><span>Cek Transaksi</span><span>🔍</span></div>
-    <div onclick="goLeaderboard()" style="display:flex;justify-content:space-between;align-items:center;padding:15px 20px;color:white;font-size:14px;cursor:pointer"><span>Leaderboard</span><span>🏆</span></div>
-    <div onclick="goArtikel()" style="display:flex;justify-content:space-between;align-items:center;padding:15px 20px;color:white;font-size:14px;cursor:pointer"><span>Artikel</span><span>💬</span></div>
-    <div onclick="goKalkulator()" style="display:flex;justify-content:space-between;align-items:center;padding:15px 20px;color:white;font-size:14px;cursor:pointer"><span>Kalkulator</span><span>→</span></div>
+    
+    <div onclick="goTopup()" style="display:flex;justify-content:space-between;align-items:center;padding:15px 20px;color:white;font-size:14px;cursor:pointer;transition:.2s" onmouseover="this.style.background='#222'" onmouseout="this.style.background='transparent'">
+      <span>Topup</span><span>👜</span>
+    </div>
+
+    <div onclick="goCek()" style="display:flex;justify-content:space-between;align-items:center;padding:15px 20px;color:white;font-size:14px;cursor:pointer;transition:.2s" onmouseover="this.style.background='#222'" onmouseout="this.style.background='transparent'">
+      <span>Cek Transaksi</span><span>🔍</span>
+    </div>
+
+    <div onclick="goLeaderboard()" style="display:flex;justify-content:space-between;align-items:center;padding:15px 20px;color:white;font-size:14px;cursor:pointer;transition:.2s" onmouseover="this.style.background='#222'" onmouseout="this.style.background='transparent'">
+      <span>Leaderboard</span><span>🏆</span>
+    </div>
+
+    <div onclick="goArtikel()" style="display:flex;justify-content:space-between;align-items:center;padding:15px 20px;color:white;font-size:14px;cursor:pointer;transition:.2s" onmouseover="this.style.background='#222'" onmouseout="this.style.background='transparent'">
+      <span>Artikel</span><span>💬</span>
+    </div>
+
+    <div onclick="goKalkulator()" style="display:flex;justify-content:space-between;align-items:center;padding:15px 20px;color:white;font-size:14px;cursor:pointer;transition:.2s" onmouseover="this.style.background='#222'" onmouseout="this.style.background='transparent'">
+      <span>Kalkulator</span><span>→</span>
+    </div>
+
     <div style="height:1px;background:#222;margin:12px 20px"></div>
-    <div onclick="goMasuk()" style="display:flex;justify-content:space-between;align-items:center;padding:15px 20px;color:white;font-size:14px;cursor:pointer"><span>Masuk</span><span>↪</span></div>
-    <div onclick="goDaftar()" style="display:flex;justify-content:space-between;align-items:center;padding:15px 20px;color:white;font-size:14px;cursor:pointer"><span>Daftar</span><span>👤+</span></div>
+
+    <div onclick="goMasuk()" style="display:flex;justify-content:space-between;align-items:center;padding:15px 20px;color:white;font-size:14px;cursor:pointer;transition:.2s" onmouseover="this.style.background='#222'" onmouseout="this.style.background='transparent'">
+      <span>Masuk</span><span>↪</span>
+    </div>
+
+    <div onclick="goDaftar()" style="display:flex;justify-content:space-between;align-items:center;padding:15px 20px;color:white;font-size:14px;cursor:pointer;transition:.2s" onmouseover="this.style.background='#222'" onmouseout="this.style.background='transparent'">
+      <span>Daftar</span><span>👤+</span>
+    </div>
+
   </div>
 </div>
 
+ 
 <div class="app">
 <div class="header">
 <div class="logo-box">
 <img src="logo.png" onerror="this.src='mlbb.png'">
 <div style="background:#ffcd00;color:black;padding:6px 14px;border-radius:9px;font-weight:900;font-size:14px;letter-spacing:.3px">TOPUP GAME</div>
 </div>
-  <div style="display:flex;align-items:center;gap:10px">
-<!-- ICON SEARCH BARU DEKAT IDR - INI YANG ABANG MAU -->
-<div onclick="openSearchModal()" style="background:#18234f;border:1px solid #24346a;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;color:white;font-size:14px">🔍</div>
+  <div style="display:flex;align-items:center;gap:12px">
 <div onclick="openLoc()" style="background:#18234f;border:1px solid #24346a;color:white;padding:5px 10px;border-radius:20px;font-size:11px;cursor:pointer" id="curBtn">ID / IDR</div>
 <div onclick="toggleMenu()" style="color:white;font-size:26px;cursor:pointer">☰</div>
 </div>
 </div>
 
+  <!-- MULAI BANNER SLIDER - TARUH DISINI -->
 <div style="padding:16px">
   <div style="position:relative;overflow:hidden;border-radius:20px">
     <div id="slider" style="display:flex;transition:transform 0.5s ease">
       <img src="./banner.png" style="width:100%;flex-shrink:0;aspect-ratio:3.4/1;object-fit:cover;display:block">
       <img src="./banner2.png" style="width:100%;flex-shrink:0;aspect-ratio:3.4/1;object-fit:cover;display:block">
     </div>
+    <!-- titik kuning -->
     <div style="position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:6px">
       <div id="dot0" style="width:20px;height:6px;border-radius:10px;background:#ffcd00"></div>
       <div id="dot1" style="width:6px;height:6px;border-radius:10px;background:rgba(255,255,255,.4)"></div>
     </div>
   </div>
 </div>
+<!-- SELESAI BANNER -->
 
-<!-- PROMO BERAKHIR DALAM - POSISI BENAR DI BAWAH BANNER DI ATAS SEMUA GAME -->
-<div style="margin:0 16px;background:linear-gradient(90deg,#ffcd00,#ffb800);border-radius:12px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;color:black;font-weight:800;">
-  <div style="display:flex;align-items:center;gap:6px;font-size:13px">⏰ PROMO BERAKHIR DALAM</div>
-  <div id="countdown12" style="background:black;color:#ffcd00;padding:6px 12px;border-radius:8px;font-size:14px;font-weight:900;letter-spacing:1px">12:00:00</div>
+<div class="banner-wrap">
 </div>
-
-<div class="banner-wrap"></div>
 
 <div class="search">
 <span style="color:#6b7db8">🔍</span>
@@ -104,116 +128,468 @@ body{background:#0b122e}
 <div id="pop" class="grid"></div>
 
 <div class="section-title"><b style="font-size:13px">NEW RELEASE ✨</b></div>
-<div id="new" class="grid" style="padding-bottom:20px"></div>
+<div id="new" class="grid" style="padding-bottom:90px"></div>
+</div>
 
-<!-- TOP SPENDER PUNYA ABANG - SAYA PERTAHANIN, NOMINAL BESAR -->
+<!-- TOP SPENDER - TARUH DI SINI, DI ATAS FOOTER -->
 <div style="padding:0 16px;margin-top:10px">
-<div style="background:linear-gradient(135deg,#18234f,#1e2f6b);border:1px solid #24346a;border-radius:18px;padding:16px;">
+
+<div style="background:linear-gradient(135deg,#18234f,#1e2f6b);border:1px solid #24346a;border-radius:18px;padding:16px;overflow:hidden;position:relative">
+
+<!-- header -->
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
-<div style="display:flex;align-items:center;gap:8px;color:white;font-weight:900;font-size:14px"><span style="font-size:18px">🏆</span> TOP SPENDER <span style="background:#ffcd00;color:black;font-size:9px;padding:3px 8px;border-radius:20px">MINGGU INI</span></div>
-<div id="resetText" style="color:#7a8bc0;font-size:11px">Reset 2 hari lagi</div>
+<div style="display:flex;align-items:center;gap:8px;color:white;font-weight:900;font-size:14px">
+<span style="font-size:18px">🏆</span> TOP SPENDER
+<span style="background:#ffcd00;color:black;font-size:9px;padding:3px 8px;border-radius:20px">MINGGU INI</span>
 </div>
+<div style="color:#7a8bc0;font-size:11px">Reset 2 hari lagi</div>
+</div>
+
+<!-- podium -->
 <div style="display:flex;align-items:end;justify-content:center;gap:10px;margin-bottom:18px">
-<div style="text-align:center"><div style="width:54px;height:54px;border-radius:50%;border:2px solid #C0C0C0;background:#2a365f;display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto">👑</div><div style="background:#C0C0C0;color:black;font-size:10px;font-weight:900;padding:2px 6px;border-radius:6px;margin-top:6px;display:inline-block">#2</div><div style="color:white;font-size:11px;font-weight:700;margin-top:4px">Rizky*</div><div style="color:#ffcd00;font-size:10px;font-weight:800">Rp 2.4jt</div><div style="background:linear-gradient(to top,#a8a8a8,#C0C0C0);height:38px;border-radius:10px 10px 0 0;margin-top:6px;width:70px"></div></div>
-<div style="text-align:center"><div style="width:66px;height:66px;border-radius:50%;border:3px solid #ffcd00;background:#3a2e00;display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto;box-shadow:0 0 20px rgba(255,205,0,.4)">👑</div><div style="background:#ffcd00;color:black;font-size:11px;font-weight:900;padding:3px 8px;border-radius:8px;margin-top:6px;display:inline-block">#1 • Juara</div><div style="color:white;font-size:12px;font-weight:800;margin-top:4px">Faisal*</div><div style="color:#ffcd00;font-size:11px;font-weight:800">Rp 4.8jt</div><div style="background:linear-gradient(to top,#e6b800,#ffcd00);height:56px;border-radius:12px 12px 0 0;margin-top:6px;width:80px"></div></div>
-<div style="text-align:center"><div style="width:54px;height:54px;border-radius:50%;border:2px solid #cd7f32;background:#3d2a1a;display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto">🔥</div><div style="background:#cd7f32;color:white;font-size:10px;font-weight:900;padding:2px 6px;border-radius:6px;margin-top:6px;display:inline-block">#3</div><div style="color:white;font-size:11px;font-weight:700;margin-top:4px">Ahmad*</div><div style="color:#ffcd00;font-size:10px;font-weight:800">Rp 1.9jt</div><div style="background:linear-gradient(to top,#8a5a24,#cd7f32);height:30px;border-radius:10px 10px 0 0;margin-top:6px;width:70px"></div></div>
+
+<div style="text-align:center">
+<div style="width:54px;height:54px;border-radius:50%;border:2px solid #C0C0C0;background:#2a365f;display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto">👑</div>
+<div style="background:#C0C0C0;color:black;font-size:10px;font-weight:900;padding:2px 6px;border-radius:6px;margin-top:6px;display:inline-block">#2</div>
+<div style="color:white;font-size:11px;font-weight:700;margin-top:4px">Rizky*</div>
+<div style="color:#ffcd00;font-size:10px;font-weight:800">Rp 2.4jt</div>
+<div style="background:linear-gradient(to top,#a8a8a8,#C0C0C0);height:38px;border-radius:10px 10px 0 0;margin-top:6px;width:70px"></div>
 </div>
+
+<div style="text-align:center">
+<div style="width:66px;height:66px;border-radius:50%;border:3px solid #ffcd00;background:#3a2e00;display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto;box-shadow:0 0 20px rgba(255,205,0,.4)">👑</div>
+<div style="background:#ffcd00;color:black;font-size:11px;font-weight:900;padding:3px 8px;border-radius:8px;margin-top:6px;display:inline-block">#1 • Juara</div>
+<div style="color:white;font-size:12px;font-weight:800;margin-top:4px">Faisal*</div>
+<div style="color:#ffcd00;font-size:11px;font-weight:800">Rp 4.8jt</div>
+<div style="background:linear-gradient(to top,#e6b800,#ffcd00);height:56px;border-radius:12px 12px 0 0;margin-top:6px;width:80px"></div>
+</div>
+
+<div style="text-align:center">
+<div style="width:54px;height:54px;border-radius:50%;border:2px solid #cd7f32;background:#3d2a1a;display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto">🔥</div>
+<div style="background:#cd7f32;color:white;font-size:10px;font-weight:900;padding:2px 6px;border-radius:6px;margin-top:6px;display:inline-block">#3</div>
+<div style="color:white;font-size:11px;font-weight:700;margin-top:4px">Ahmad*</div>
+<div style="color:#ffcd00;font-size:10px;font-weight:800">Rp 1.9jt</div>
+<div style="background:linear-gradient(to top,#8a5a24,#cd7f32);height:30px;border-radius:10px 10px 0 0;margin-top:6px;width:70px"></div>
+</div>
+
+</div>
+
+<!-- list 4-10 -->
 <div style="display:grid;gap:8px">
-<div style="display:flex;justify-content:space-between;align-items:center;background:#0f1a3d;padding:10px 12px;border-radius:12px;border:1px solid #1e2a5a"><span style="color:#8fa0d0;font-size:12px;font-weight:700">#4 Andi* • 1.2jt</span><span style="color:#4ade80;font-size:11px">▲ naik</span></div>
-<div style="display:flex;justify-content:space-between;align-items:center;background:#0f1a3d;padding:10px 12px;border-radius:12px;border:1px solid #1e2a5a"><span style="color:#8fa0d0;font-size:12px;font-weight:700">#5 Budi* • 980rb</span><span style="color:#888;font-size:11px">—</span></div>
-<div style="display:flex;justify-content:space-between;align-items:center;background:#0f1a3d;padding:10px 12px;border-radius:12px;border:1px solid #1e2a5a"><span style="color:#8fa0d0;font-size:12px;font-weight:700">#6 Siska* • 850rb</span><span style="color:#ff6b6b;font-size:11px">▼ turun</span></div>
+<div style="display:flex;justify-content:space-between;align-items:center;background:#0f1a3d;padding:10px 12px;border-radius:12px;border:1px solid #1e2a5a">
+<span style="color:#8fa0d0;font-size:12px;font-weight:700">#4 Andi* • 1.2jt</span><span style="color:#4ade80;font-size:11px">▲ naik</span>
 </div>
+<div style="display:flex;justify-content:space-between;align-items:center;background:#0f1a3d;padding:10px 12px;border-radius:12px;border:1px solid #1e2a5a">
+<span style="color:#8fa0d0;font-size:12px;font-weight:700">#5 Budi* • 980rb</span><span style="color:#888;font-size:11px">—</span>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:center;background:#0f1a3d;padding:10px 12px;border-radius:12px;border:1px solid #1e2a5a">
+<span style="color:#8fa0d0;font-size:12px;font-weight:700">#6 Siska* • 850rb</span><span style="color:#ff6b6b;font-size:11px">▼ turun</span>
+</div>
+</div>
+
 <div style="text-align:center;margin-top:14px;color:#7a8bc0;font-size:11px">Topup lebih banyak untuk jadi juara minggu ini!</div>
-</div>
-</div>
 
+</div>
+</div>
+<!-- SELESAI TOP SPENDER -->
+
+<!-- FOOTER - TARUH DI SINI, DI BAWAH GRID GAME, DI ATAS </div> TUTUP APP -->
 <footer style="background:#0b0b0b;border-top:1px solid #222;padding:24px 16px 90px;margin-top:20px">
+
+<!-- SOSMED ATAS -->
 <div style="display:flex;gap:14px;margin-bottom:28px">
-<a style="width:32px;height:32px;background:linear-gradient(45deg,#feda75,#fa7e1e,#d62976,#962fbf,#4f5bd5);border-radius:8px;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:18px">📷</a>
-<a style="width:32px;height:32px;background:black;border:1px solid #333;border-radius:8px;display:flex;align-items:center;justify-content:center;text-decoration:none;color:white">🎵</a>
-<a style="width:32px;height:32px;background:white;border-radius:8px;display:flex;align-items:center;justify-content:center;text-decoration:none">✉️</a>
-<a style="width:32px;height:32px;background:#ff0000;border-radius:8px;display:flex;align-items:center;justify-content:center;text-decoration:none;color:white">▶️</a>
+<a href="#" style="width:32px;height:32px;background:linear-gradient(45deg,#feda75,#fa7e1e,#d62976,#962fbf,#4f5bd5);border-radius:8px;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:18px">📷</a>
+<a href="#" style="width:32px;height:32px;background:black;border:1px solid #333;border-radius:8px;display:flex;align-items:center;justify-content:center;text-decoration:none;color:white">🎵</a>
+<a href="#" style="width:32px;height:32px;background:white;border-radius:8px;display:flex;align-items:center;justify-content:center;text-decoration:none">✉️</a>
+<a href="#" style="width:32px;height:32px;background:#ff0000;border-radius:8px;display:flex;align-items:center;justify-content:center;text-decoration:none;color:white">▶️</a>
 </div>
+
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
-<div><div style="color:#9a8a6a;font-weight:700;font-size:14px;margin-bottom:16px">Peta Situs</div><div style="display:grid;gap:14px"><a style="color:white;text-decoration:none;font-size:13px">Beranda</a><a style="color:white;text-decoration:none;font-size:13px">Cek Transaksi</a><a style="color:white;text-decoration:none;font-size:13px">Hubungi Kami</a><a style="color:white;text-decoration:none;font-size:13px">Ulasan</a></div><div style="color:#9a8a6a;font-weight:700;font-size:14px;margin:28px 0 16px">Legalitas</div><div style="display:grid;gap:14px"><a style="color:white;text-decoration:none;font-size:13px">Kebijakan Pribadi</a><a style="color:white;text-decoration:none;font-size:13px">Syarat & Ketentuan</a></div></div>
-<div><div style="color:#9a8a6a;font-weight:700;font-size:14px;margin-bottom:16px">Dukungan</div><div style="display:grid;gap:14px"><a style="color:white;text-decoration:none;font-size:13px">Whatsapp</a><a style="color:white;text-decoration:none;font-size:13px">Instagram</a><a style="color:#666;text-decoration:none;font-size:13px">Email</a></div></div>
+
+<!-- KIRI -->
+<div>
+<div style="color:#9a8a6a;font-weight:700;font-size:14px;margin-bottom:16px">Peta Situs</div>
+<div style="display:grid;gap:14px">
+<a style="color:white;text-decoration:none;font-size:13px">Beranda</a>
+<a style="color:white;text-decoration:none;font-size:13px">Cek Transaksi</a>
+<a style="color:white;text-decoration:none;font-size:13px">Hubungi Kami</a>
+<a style="color:white;text-decoration:none;font-size:13px">Ulasan</a>
 </div>
-<div style="margin-top:40px;padding-top:20px;border-top:1px solid #222;display:flex;justify-content:space-between;align-items:center"><div style="color:#888;font-size:11px">© 2025 TOPUP GAME. All rights reserved.</div><div style="background:#c4a484;width:36px;height:36px;border-radius:10px 10px 0 0;display:flex;align-items:center;justify-content:center">🎧</div></div>
+
+<div style="color:#9a8a6a;font-weight:700;font-size:14px;margin:28px 0 16px">Legalitas</div>
+<div style="display:grid;gap:14px">
+<a style="color:white;text-decoration:none;font-size:13px">Kebijakan Pribadi</a>
+<a style="color:white;text-decoration:none;font-size:13px">Syarat & Ketentuan</a>
+</div>
+</div>
+
+<!-- KANAN -->
+<div>
+<div style="color:#9a8a6a;font-weight:700;font-size:14px;margin-bottom:16px">Dukungan</div>
+<div style="display:grid;gap:14px">
+<a style="color:white;text-decoration:none;font-size:13px">Whatsapp</a>
+<a style="color:white;text-decoration:none;font-size:13px">Instagram</a>
+<a style="color:#666;text-decoration:none;font-size:13px">Email</a>
+</div>
+</div>
+
+</div>
+
+<div style="margin-top:40px;padding-top:20px;border-top:1px solid #222;display:flex;justify-content:space-between;align-items:center">
+<div style="color:#888;font-size:11px">© 2025 TOPUP GAME. All rights reserved.</div>
+<div style="background:#c4a484;width:36px;height:36px;border-radius:10px 10px 0 0;display:flex;align-items:center;justify-content:center">🎧</div>
+</div>
+
 </footer>
-</div>
-
-<!-- SEARCH MODAL BARU - KLIK ICON DEKAT IDR -->
-<div id="searchModal" onclick="if(event.target.id==='searchModal') closeSearchModal()">
-  <div style="background:#18234f;border:1px solid #24346a;width:90%;max-width:400px;border-radius:16px;padding:12px;display:flex;gap:8px">
-    <input id="searchInputModal" type="text" placeholder="Cari Mobile Legends..." style="flex:1;background:#0f1a3d;border:1px solid #24346a;border-radius:10px;padding:10px 12px;color:white;outline:none" oninput="doSearchModal(this.value)">
-    <button onclick="closeSearchModal()" style="background:#ffcd00;border:none;border-radius:10px;padding:0 16px;font-weight:900;cursor:pointer">X</button>
-  </div>
-</div>
-
-<!-- WA + LIVE BOX (PUNYA ABANG) -->
-<a href="https://wa.me/6282353459352?text=Halo%20kak%20mau%20topup%20game" id="waFloat" target="_blank" style="position:fixed;right:16px;bottom:20px;z-index:300;width:58px;height:58px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.4);text-decoration:none;">💬</a>
-<div id="liveBox" style="position:fixed;left:16px;bottom:90px;z-index:250;display:none;align-items:center;gap:10px;background:#1a1a1a;border:1px solid #333;padding:10px 14px;border-radius:14px;"><img id="liveImg" src="./mlbb.png" style="width:38px;height:38px;border-radius:10px;object-fit:cover;background:#222"><div><div style="color:#ffcd00;font-size:11px;font-weight:800">✓ Berhasil Topup</div><div id="liveText" style="color:white;font-size:11px;font-weight:600">Rizky baru topup</div><div id="liveGame" style="color:#aaa;font-size:10px">Mobile Legends 86 Diamond</div></div></div>
-<div style="margin:0 16px;background:#172250;border:1px solid #24346a;border-radius:10px;padding:8px 12px;display:flex;align-items:center;gap:8px;overflow:hidden"><span style="background:#ff3b3b;color:white;font-size:9px;font-weight:900;padding:3px 6px;border-radius:6px">LIVE</span><div id="runText" style="color:#8fa0d0;font-size:11px;white-space:nowrap">🔥 Andi baru topup Free Fire 70 Diamond •</div></div>
-
-<div id="locModal" style="position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;display:none;align-items:end;justify-content:center"><div style="background:#1e1e1e;width:100%;max-width:440px;border-radius:20px 20px 0 0;padding:20px"><div style="color:white;font-weight:700;font-size:16px;margin-bottom:16px">Lokasi</div><div onclick="setLoc('IDR','Indonesia (IDR)')" class="loc-item active" data-cur="IDR"><img src="https://flagcdn.com/w40/id.png"><span>Indonesia (IDR)</span><span class="check">✓</span></div><div onclick="setLoc('MYR','Malaysia (MYR)')" class="loc-item" data-cur="MYR"><img src="https://flagcdn.com/w40/my.png"><span>Malaysia (MYR)</span><span class="check"></span></div><div onclick="closeLoc()" style="background:#2a2a2a;color:white;text-align:center;padding:12px;border-radius:12px;margin-top:18px;cursor:pointer">Tutup</div></div></div>
-<style>.loc-item{display:flex;align-items:center;gap:12px;background:#2a2a2a;border:1px solid #333;padding:12px 14px;border-radius:12px;margin-bottom:8px;color:white;font-size:13px;cursor:pointer}.loc-item.active{border-color:#facc15;background:#2f2f1a}.loc-item img{width:24px;height:24px;border-radius:50%}.check{margin-left:auto;color:#facc15}</style>
+<!-- SELESAI FOOTER -->
 
 <script>
 function toggleMenu(){document.getElementById('drawer').classList.toggle('open');document.getElementById('dim').classList.toggle('open')}
-function goTopup(){toggleMenu();window.scrollTo({top:0,behavior:'smooth'});}
-function goCek(){toggleMenu();let id=prompt("Masukkan ID Transaksi / No. WA:"); if(id){window.open("https://wa.me/6282353459352?text=Cek transaksi "+id,"_blank");}}
-function goLeaderboard(){toggleMenu();setTimeout(()=>{document.querySelector('footer').previousElementSibling.scrollIntoView({behavior:'smooth'})},300);}
-function goArtikel(){toggleMenu();window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});}
-function goKalkulator(){toggleMenu();let dm=prompt("Mau topup berapa Diamond?"); if(dm){alert(dm+" Diamond = Rp "+(dm*250).toLocaleString('id-ID'));}}
-function goMasuk(){toggleMenu();alert("Fitur Login segera hadir!");}
-function goDaftar(){toggleMenu();alert("Fitur Daftar segera hadir!");}
 
-// SEARCH MODAL BARU - FUNGSI ICON DEKAT IDR
-function openSearchModal(){document.getElementById('searchModal').style.display='flex';setTimeout(()=>document.getElementById('searchInputModal').focus(),100);}
-function closeSearchModal(){document.getElementById('searchModal').style.display='none';}
-function doSearchModal(v){document.getElementById('q').value=v; doSearch();}
-
-// COUNTDOWN 12 JAM
-function getNextReset(){const now=new Date();let next=new Date(now); if(now.getHours()<12) next.setHours(12,0,0,0); else next.setHours(24,0,0,0); return next;}
-setInterval(()=>{const el=document.getElementById('countdown12');if(!el) return; const diff=getNextReset()-new Date(); const h=Math.floor(diff/3600000),m=Math.floor((diff%3600000)/60000),s=Math.floor((diff%60000)/1000); el.textContent=String(h).padStart(2,'0')+":"+String(m).padStart(2,'0')+":"+String(s).padStart(2,'0');},1000);
+// FUNGSI MENU - SEMUA BISA DIKLIK
+function goTopup(){
+  toggleMenu();
+  window.scrollTo({top:0,behavior:'smooth'});
+  document.getElementById('q').focus();
+}
+function goCek(){
+  toggleMenu();
+  let id = prompt("Masukkan ID Transaksi / No. WA kamu:");
+  if(id){ alert("Transaksi "+id+" sedang dicek...\nHubungi CS: 082353459352 untuk cek cepat"); window.open("https://wa.me/6282353459352?text=Cek transaksi "+id,"_blank"); }
+}
+function goLeaderboard(){
+  toggleMenu();
+  setTimeout(()=>{
+    let el = document.querySelector('div[style*="TOP SPENDER"]') || document.querySelector('div[style*="linear-gradient(135deg,#18234f"]');
+    if(el) el.scrollIntoView({behavior:'smooth'});
+  },300);
+}
+function goArtikel(){
+  toggleMenu();
+  window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
+}
+function goKalkulator(){
+  toggleMenu();
+  let dm = prompt("Mau topup berapa Diamond? Contoh: 86");
+  if(dm){
+    let harga = Math.round(dm * 250); // 1 diamond ~ 250 rupiah
+    alert(dm+" Diamond = Rp "+harga.toLocaleString('id-ID')+"\n\nBuka kalkulator lengkap? Chat CS aja");
+  }
+}
+function goMasuk(){
+  toggleMenu();
+  alert("Fitur Login segera hadir!\n\nUntuk sekarang, topup bisa langsung tanpa login kok, tetap aman 1-3 menit masuk.");
+}
+function goDaftar(){
+  toggleMenu();
+  alert("Fitur Daftar segera hadir!\n\nTopup sekarang gak perlu daftar, cukup masukin ID game aja, langsung diproses 24 jam!");
+}
 
 const games=[
-{n:'Mobile Legends', img:'mlbb.png'},{n:'Free Fire MAX', img:'ffmax.png'},{n:'eFootball 2025', img:'efootball.png'},{n:'PUBG Mobile', img:'pubg.png'},{n:'Valorant', img:'valorant.png'},{n:'ROBLOX', img:'roblox.png'},{n:'Genshin Impact', img:'genshin.png'},{n:'Honkai Star Rail', img:'honkai.png'},{n:'Honor of Kings', img:'hok.png'},{n:'Call of Duty Mobile', img:'codm.png'},
-{n:'Clash of Clans', img:'coc.png'},{n:'Free Fire', img:'ff.png'},{n:'Arena of Valor', img:'aov.png'},{n:'League of Legends Wild Rift', img:'wildrift.png'},{n:'Blood Strike', img:'bloodstrike.png'},{n:'Farlight 84', img:'farlight.png'},{n:'Sausage Man', img:'sausage.png'},{n:'EA Sports FC Mobile', img:'fcmobile.png'},{n:'Zenless Zone Zero', img:'zzz.png'},{n:'Wuthering Waves', img:'wuwa.png'},
+{n:'Mobile Legends', img:'mlbb.png'},
+{n:'Free Fire MAX', img:'ffmax.png'},
+{n:'eFootball 2025', img:'efootball.png'},
+{n:'PUBG Mobile', img:'pubg.png'},
+{n:'Valorant', img:'valorant.png'},
+{n:'ROBLOX', img:'roblox.png'},
+{n:'Genshin Impact', img:'genshin.png'},
+{n:'Honkai Star Rail', img:'honkai.png'},
+{n:'Honor of Kings', img:'hok.png'},
+{n:'Call of Duty Mobile', img:'codm.png'},
+
+// TAMBAHAN - LAKU KERAS
+{n:'Clash of Clans', img:'coc.png'},
+{n:'Free Fire', img:'ff.png'},
+{n:'Arena of Valor', img:'aov.png'},
+{n:'League of Legends Wild Rift', img:'wildrift.png'},
+{n:'Blood Strike', img:'bloodstrike.png'},
+{n:'Farlight 84', img:'farlight.png'},
+{n:'Sausage Man', img:'sausage.png'},
+{n:'EA Sports FC Mobile', img:'fcmobile.png'},
+{n:'Zenless Zone Zero', img:'zzz.png'},
+{n:'Wuthering Waves', img:'wuwa.png'},
+{n:'Solo Leveling Arise', img:'solo.png'},
+{n:'Clash Royale', img:'cr.png'},
+{n:'Brawl Stars', img:'brawlstars.png'},
+{n:'Hay Day', img:'hayday.png'},
+{n:'Minecraft', img:'minecraft.png'},
+{n:'Point Blank', img:'pb.png'},
+{n:'Stumble Guys', img:'stumble.png'},
+{n:'Higgs Domino', img:'domino.png'},
+{n:'Lords Mobile', img:'lords.png'},
+{n:'State of Survival', img:'sos.png'},
+{n:'Whiteout Survival', img:'whiteout.png'},
+{n:'8 Ball Pool', img:'8ball.png'},
+{n:'Garena Undawn', img:'undawn.png'},
+{n:'Metal Slug Awakening', img:'metalslug.png'},
+{n:'Super Sus', img:'supersus.png'},
+{n:'Mobile Legends Adventure', img:'mla.png'},
+{n:'Ragnarok Origin', img:'ro.png'},
+{n:'Ragnarok M Eternal Love', img:'rom.png'},
+{n:'Dragon Raja', img:'dragonraja.png'},
+{n:'LifeAfter', img:'lifeafter.png'},
+{n:'Free Fire Lite', img:'fflite.png'},
+{n:'Apex Legends Mobile', img:'apex.png'},
+{n:' sausage man sudah', img:'sausage2.png'},
 ];
-const pulsaList=[{n:'Telkomsel', img:'telkomsel.png'},{n:'XL Axiata', img:'xl.png'},{n:'Indosat', img:'indosat.png'}];
-const ewalletList=[{n:'DANA', img:'dana.png'},{n:'OVO', img:'ovo.png'},{n:'GoPay', img:'gopay.png'}];
-const voucherList=[{n:'Google Play', img:'googleplay.png'},{n:'Steam Wallet', img:'steam.png'}];
+// DATA PULSA & LAINNYA
+const pulsaList = [
+{n:'Telkomsel', img:'telkomsel.png'},
+{n:'XL Axiata', img:'xl.png'},
+{n:'Indosat', img:'indosat.png'},
+{n:'Tri', img:'tri.png'},
+{n:'Smartfren', img:'smartfren.png'},
+{n:'Axis', img:'axis.png'},
+];
 
-function render(list){let p=document.getElementById('pop');let n=document.getElementById('new');p.innerHTML='';n.innerHTML=''; list.forEach((g,i)=>{let h=`<div class="card" onclick="openTopup('${g.n}')"><img src="${g.img}" class="card-img" loading="lazy" onerror="this.src='logo.png'"><div class="card-name">${g.n}</div></div>`; if(i<10) p.innerHTML+=h; else n.innerHTML+=h;});}
-function openTopup(name){location.href=`./game.html?game=${encodeURIComponent(name)}`;}
-function doSearch(){let v=document.getElementById('q').value.toLowerCase(); render(games.filter(x=>x.n.toLowerCase().includes(v)))}
+const ewalletList = [
+{n:'DANA', img:'dana.png'},
+{n:'OVO', img:'ovo.png'},
+{n:'GoPay', img:'gopay.png'},
+{n:'ShopeePay', img:'shopeepay.png'},
+{n:'LinkAja', img:'linkaja.png'},
+];
+
+const voucherList = [
+{n:'Google Play', img:'googleplay.png'},
+{n:'Steam Wallet', img:'steam.png'},
+{n:'Garena Shell', img:'garena.png'},
+];
+
+function render(list){
+let p=document.getElementById('pop');let n=document.getElementById('new');p.innerHTML='';n.innerHTML='';
+list.forEach((g,i)=>{
+let h=`<div class="card" onclick="openTopup('${g.n}')" style="cursor:pointer"><img src="${g.img}" class="card-img" loading="lazy" onerror="this.src='logo.png'"><div class="card-name">${g.n}</div></div>`;
+if(i<10) p.innerHTML+=h; else n.innerHTML+=h;
+});
+}
+function openTopup(name){
+  const pulsa=['Telkomsel','XL Axiata','Indosat','Tri','Smartfren','Axis'];
+  const ewallet=['DANA','OVO','GoPay','ShopeePay','LinkAja'];
+  const voucher=['Google Play','Steam Wallet','Garena Shell'];
+  if(pulsa.includes(name)){
+    location.href=`./pulsa.html?provider=${encodeURIComponent(name)}`;
+  } else if(ewallet.includes(name)){
+    location.href=`./ewallet.html?provider=${encodeURIComponent(name)}`;
+  } else if(voucher.includes(name)){
+    location.href=`./voucher.html?provider=${encodeURIComponent(name)}`;
+  } else {
+    location.href=`./game.html?game=${encodeURIComponent(name)}`;
+  }
+}
+function doSearch(){let v=document.getElementById('q').value.toLowerCase(); render(games.filter(x=>x.n.toLowerCase().includes(v))) }
 render(games);
-
-let cur=0;const s=document.getElementById('slider');
-function show(n){s.style.transform=`translateX(-${n*100}%)`;document.getElementById('dot0').style.background=n==0?'#ffcd00':'rgba(255,255,255,.4)';document.getElementById('dot0').style.width=n==0?'20px':'6px';document.getElementById('dot1').style.background=n==1?'#ffcd00':'rgba(255,255,255,.4)';document.getElementById('dot1').style.width=n==1?'20px':'6px';}
-setInterval(()=>{cur=(cur+1)%2;show(cur);},3500);
-
+// SLIDER BANNER
+let cur = 0;
+const s = document.getElementById('slider');
+function show(n){
+  s.style.transform = `translateX(-${n*100}%)`;
+  document.getElementById('dot0').style.background = n==0 ? '#ffcd00' : 'rgba(255,255,255,.4)';
+  document.getElementById('dot0').style.width = n==0 ? '20px' : '6px';
+  document.getElementById('dot1').style.background = n==1 ? '#ffcd00' : 'rgba(255,255,255,.4)';
+  document.getElementById('dot1').style.width = n==1 ? '20px' : '6px';
+}
+setInterval(()=>{ cur = (cur+1)%2; show(cur); }, 3500);
 function openLoc(){document.getElementById('locModal').style.display='flex'}
 function closeLoc(){document.getElementById('locModal').style.display='none'}
-function setLoc(c){localStorage.setItem('cur',c);document.getElementById('curBtn').innerText=c+' / '+c;closeLoc();}
 
-// LIVE
-const liveData=[{n:'Rizky*',g:'Mobile Legends',p:'86 Diamond',img:'./mlbb.png'},{n:'Andi*',g:'Free Fire',p:'70 Diamond',img:'./ff.png'},{n:'Siska*',g:'Valorant',p:'420 VP',img:'./valorant.png'}];
-function showLive(){let r=liveData[Math.floor(Math.random()*liveData.length)];document.getElementById('liveImg').src=r.img;document.getElementById('liveText').innerText=r.n+' baru topup';document.getElementById('liveGame').innerText=r.g+' '+r.p+' - baru saja';let box=document.getElementById('liveBox');box.style.display='flex';setTimeout(()=>box.style.display='none',3500);}
-setTimeout(()=>{showLive();setInterval(showLive,6000);},3000);
+function setLoc(cur, label){
+localStorage.setItem('cur',cur);
+document.getElementById('curBtn').innerText = cur+' / '+cur;
+document.querySelectorAll('.loc-item').forEach(el=>{
+el.classList.remove('active');
+el.querySelector('.check').innerText='';
+});
+let active = document.querySelector(`[data-cur="${cur}"]`);
+if(active){active.classList.add('active');active.querySelector('.check').innerText='✓';}
+closeLoc();
+}
+function setLang(l){
+localStorage.setItem('lang',l);
+document.querySelectorAll('.lang-item').forEach(el=>el.classList.remove('active'));
+document.querySelectorAll('.lang-item .check').forEach(el=>el.innerText='');
+let el=document.getElementById('lang'+l);
+if(el){el.classList.add('active');el.querySelector('.check').innerText='✓';}
+}
+// load saved saat buka web
+(function(){
+let c=localStorage.getItem('cur')||'IDR';let l=localStorage.getItem('lang')||'ID';
+let btn=document.getElementById('curBtn'); if(btn) btn.innerText=c+' / '+c;
+setTimeout(()=>{let a=document.querySelector(`[data-cur="${c}"]`); if(a){document.querySelectorAll('.loc-item').forEach(e=>e.classList.remove('active')); a.classList.add('active'); a.querySelector('.check').innerText='✓';}},300);
+})();
 
-let savedPop='',savedNew='';
-setTimeout(()=>{savedPop=document.getElementById('pop').innerHTML;savedNew=document.getElementById('new').innerHTML;},500);
-function renderList(list){let p=document.getElementById('pop');let n=document.getElementById('new');p.innerHTML='';n.innerHTML='';list.forEach((g,i)=>{let h=`<div class="card" onclick="openTopup('${g.n}')"><img src="${g.img}" class="card-img" loading="lazy" onerror="this.src='logo.png'"><div class="card-name">${g.n}</div></div>`; if(i<6) p.innerHTML+=h; else n.innerHTML+=h;});}
+// tutup kalau klik luar
+document.getElementById('locModal').addEventListener('click', e=>{
+if(e.target.id==='locModal') closeLoc();
+});
+</script>
+<!-- POPUP LOKASI & BAHASA - KAYA OURASTORE -->
+<div id="locModal" style="position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;display:none;align-items:end;justify-content:center">
+<div style="background:#1e1e1e;width:100%;max-width:440px;border-radius:20px 20px 0 0;padding:20px;animation:slideUp .3s">
+<div style="color:white;font-weight:700;font-size:16px;margin-bottom:16px">Lokasi</div>
+
+<div onclick="setLoc('IDR','Indonesia (IDR)')" class="loc-item active" data-cur="IDR">
+<img src="https://flagcdn.com/w40/id.png"><span>Indonesia (IDR)</span><span class="check">✓</span>
+</div>
+<div onclick="setLoc('MYR','Malaysia (MYR)')" class="loc-item" data-cur="MYR">
+<img src="https://flagcdn.com/w40/my.png"><span>Malaysia (MYR)</span><span class="check"></span>
+</div>
+<div onclick="setLoc('PHP','Philippines (PHP)')" class="loc-item" data-cur="PHP">
+<img src="https://flagcdn.com/w40/ph.png"><span>Philippines (PHP)</span><span class="check"></span>
+</div>
+<div onclick="setLoc('SGD','Singapore (SGD)')" class="loc-item" data-cur="SGD">
+<img src="https://flagcdn.com/w40/sg.png"><span>Singapore (SGD)</span><span class="check"></span>
+</div>
+<div onclick="setLoc('THB','Thailand (THB)')" class="loc-item" data-cur="THB">
+<img src="https://flagcdn.com/w40/th.png"><span>Thailand (THB)</span><span class="check"></span>
+</div>
+
+<div style="color:white;font-weight:700;font-size:16px;margin:22px 0 16px">Bahasa</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+<div onclick="setLang('ID')" id="langID" class="lang-item active"><img src="https://flagcdn.com/w40/id.png"><span>ID</span><span class="check">✓</span></div>
+<div onclick="setLang('EN')" id="langEN" class="lang-item"><img src="https://flagcdn.com/w40/gb.png"><span>EN</span><span class="check"></span></div>
+</div>
+
+<div onclick="closeLoc()" style="background:#2a2a2a;color:white;text-align:center;padding:12px;border-radius:12px;margin-top:18px;cursor:pointer">Tutup</div>
+</div>
+</div>
+
+<style>
+.loc-item,.lang-item{display:flex;align-items:center;gap:12px;background:#2a2a2a;border:1px solid #333;padding:12px 14px;border-radius:12px;margin-bottom:8px;color:white;font-size:13px;cursor:pointer}
+.loc-item.active,.lang-item.active{border-color:#facc15;background:#2f2f1a}
+.loc-item img,.lang-item img{width:24px;height:24px;border-radius:50%;object-fit:cover}
+.check{margin-left:auto;color:#facc15}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+</style>
+<!-- TOMBOL WA MELAYANG - TARUH DI ATAS </body> -->
+<a href="https://wa.me/6282353459352?text=Halo%20kak%20mau%20topup%20game" id="waFloat" target="_blank" style="position:fixed;right:16px;bottom:20px;z-index:300;width:58px;height:58px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.4);text-decoration:none;animation:waPulse 2s infinite">
+<svg viewBox="0 0 24 24" width="30" height="30" fill="white"><path d="M19.05 4.94A9.91 9.91 0 0 0 12.03 2C6.48 2 2 6.48 2 12.03a9.91 9.91 0 0 0 1.35 5L2 22l4.97-1.3A9.9 9.9 0 0 0 12.03 22c5.55 0 10.03-4.48 10.03-10.03 0-2.68-1.04-5.2-2.99-7.04M12.03 20.13a8.06 8.06 0 0 1-4.11-1.12l-.29-.17-2.95.77.79-2.88-.19-.3A8.13 8.13 0 0 1 12.03 3.9a8.13 8.13 0 0 1 8.13 8.13 8.13 8.13 0 0 1-8.13 8.1m4.45-6.07c-.24-.12-1.43-.7-1.65-.78-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06-.24-.12-1.02-.38-1.94-1.2-.72-.64-1.2-1.43-1.34-1.67-.14-.24-.02-.37.1-.49.1-.1.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.2-.46-.4-.54-.4h-.46c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.69 2.58 4.1 3.62.57.24 1.02.39 1.37.5.58.18 1.1.16 1.52.1.46-.07 1.43-.58 1.63-1.14.2-.56.2-1.04.14-1.14-.06-.1-.22-.16-.46-.28"/></svg>
+</a>
+
+<style>
+@keyframes waPulse{
+0%{box-shadow:0 0 0 0 rgba(37,211,102,.7)}
+70%{box-shadow:0 0 0 14px rgba(37,211,102,0)}
+100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}
+}
+#waFloat:hover{transform:scale(1.1)}
+</style>
+<!-- LIVE TOPUP - BIKIN ORANG GAMPANG MAU TOPUP -->
+<div id="liveBox" style="position:fixed;left:16px;bottom:90px;z-index:250;display:none;align-items:center;gap:10px;background:#1a1a1a;border:1px solid #333;padding:10px 14px;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.5);animation:slideIn .4s">
+<img id="liveImg" src="./mlbb.png" style="width:38px;height:38px;border-radius:10px;object-fit:cover;background:#222">
+<div>
+<div style="color:#ffcd00;font-size:11px;font-weight:800">✓ Berhasil Topup</div>
+<div id="liveText" style="color:white;font-size:11px;font-weight:600">Rizky baru topup</div>
+<div id="liveGame" style="color:#aaa;font-size:10px">Mobile Legends 86 Diamond - 2 detik lalu</div>
+</div>
+</div>
+
+<!-- Running text atas banner -->
+<div style="margin:0 16px;background:#172250;border:1px solid #24346a;border-radius:10px;padding:8px 12px;display:flex;align-items:center;gap:8px;overflow:hidden">
+<span style="background:#ff3b3b;color:white;font-size:9px;font-weight:900;padding:3px 6px;border-radius:6px;animation:blink 1s infinite">LIVE</span>
+<div id="runText" style="color:#8fa0d0;font-size:11px;white-space:nowrap;overflow:hidden">🔥 Andi baru topup Free Fire 70 Diamond • Siska baru topup Valorant 420 VP • </div>
+</div>
+
+<style>
+@keyframes slideIn{from{transform:translateX(-100%);opacity:0}to{transform:translateX(0);opacity:1}}
+@keyframes slideOut{from{transform:translateX(0);opacity:1}to{transform:translateX(-100%);opacity:0}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+</style>
+
+<script>
+// DATA AKUN PALSU BIAR KELIATAN RAME - GANTI NAMA ASLI KALAU MAU
+const liveData = [
+{n:'Rizky*', g:'Mobile Legends', p:'86 Diamond', img:'./mlbb.png'},
+{n:'Andi*', g:'Free Fire', p:'70 Diamond', img:'./ff.png'},
+{n:'Siska*', g:'Valorant', p:'420 VP', img:'./valorant.png'},
+{n:'Faisal*', g:'PUBG Mobile', p:'325 UC', img:'./pubg.png'},
+{n:'Budi*', g:'Genshin Impact', p:'300 Genesis', img:'./genshin.png'},
+{n:'Ahmad*', g:'ROBLOX', p:'800 Robux', img:'./roblox.png'},
+{n:'Dewi*', g:'Honkai Star Rail', p:'300 Jade', img:'./honkai.png'},
+{n:'Joko*', g:'CODM', p:'80 CP', img:'./codm.png'},
+{n:'Rizky', g:'Mobile Legends', p:'86 Diamond', img:'mlbb.png'},
+{n:'Budi', g:'Free Fire', p:'720 Diamond', img:'ff.png'},
+{n:'Alya', g:'PUBG Mobile', p:'660 UC', img:'pubg.png'},
+{n:'Siti', g:'Genshin Impact', p:'980 Genesis', img:'genshin.png'},
+{n:'Andi', g:'Valorant', p:'420 VP', img:'valorant.png'},
+{n:'Dewi', g:'Honor of Kings', p:'408 Tokens', img:'hok.png'},
+{n:'Fajar', g:'ROBLOX', p:'800 Robux', img:'roblox.png'},
+{n:'Putri', g:'Clash of Clans', p:'500 Gems', img:'coc.png'},
+{n:'Joko', g:'CODM', p:'400 CP', img:'codm.png'},
+{n:'Rina', g:'eFootball', p:'1040 Coins', img:'efootball.png'},
+{n:'Agus', g:'FC Mobile', p:'520 FC Points', img:'fcmobile.png'},
+{n:'Lina', g:'Honkai Star Rail', p:'300 Oneiric', img:'honkai.png'},
+{n:'Doni', g:'Blood Strike', p:'500 Gold', img:'bloodstrike.png'},
+{n:'Mega', g:'AOV', p:'230 Vouchers', img:'aov.png'},
+{n:'Bayu', g:'Wild Rift', p:'585 Wild Cores', img:'wildrift.png'},
+{n:'Indah', g:'ZZZ', p:'980 Monochrome', img:'zzz.png'},
+{n:'Reza', g:'Wuthering Waves', p:'980 Lunite', img:'wuwa.png'},
+{n:'Tia', g:'Stumble Guys', p:'800 Gems', img:'stumble.png'},
+{n:'Eko', g:'Clash Royale', p:'1200 Gems', img:'cr.png'},
+{n:'Nisa', g:'Point Blank', p:'6000 PB Cash', img:'pb.png'},
+];
+
+function showLive(){
+let r = liveData[Math.floor(Math.random()*liveData.length)];
+document.getElementById('liveImg').src = r.img;
+document.getElementById('liveText').innerText = r.n + ' baru topup';
+document.getElementById('liveGame').innerText = r.g + ' ' + r.p + ' - baru saja';
+let box = document.getElementById('liveBox');
+box.style.display = 'flex';
+box.style.animation = 'slideIn .4s';
+setTimeout(()=>{
+box.style.animation = 'slideOut .4s';
+setTimeout(()=>box.style.display='none',400);
+},3500);
+// update running text
+document.getElementById('runText').innerText = `🔥 ${r.n} baru topup ${r.g} ${r.p} • ${liveData[Math.floor(Math.random()*liveData.length)].n} baru topup ${liveData[Math.floor(Math.random()*liveData.length)].g} • `;
+}
+// muncul pertama setelah 3 detik, lalu tiap 6 detik
+setTimeout(()=>{
+showLive();
+setInterval(showLive, 6000);
+},3000);
+// SIMPAN HTML ASLI
+let savedPop = document.getElementById('pop').innerHTML;
+let savedNew = document.getElementById('new').innerHTML;
+
+function renderList(list){
+  let p=document.getElementById('pop');
+  let n=document.getElementById('new');
+  p.innerHTML=''; n.innerHTML='';
+  list.forEach((g,i)=>{
+    let h=`<div class="card" onclick="openTopup('${g.n}')" style="cursor:pointer"><img src="${g.img}" class="card-img" loading="lazy" onerror="this.src='logo.png'"><div class="card-name">${g.n}</div></div>`;
+    if(i<6) p.innerHTML+=h; else n.innerHTML+=h;
+  });
+}
+
 function setCat(c){
-  document.querySelectorAll('.cat div').forEach(el=>{el.classList.remove('active');el.style.background='#18234f';el.style.color='#8fa0d0';});
-  let btn=document.getElementById('cat-'+c);btn.classList.add('active');btn.style.background='#ffcd00';btn.style.color='black';
-  if(c=='all'){document.getElementById('pop').innerHTML=savedPop;document.getElementById('new').innerHTML=savedNew;}
-  if(c=='topup'){render(games);}
-  if(c=='pulsa'){renderList(pulsaList);}
-  if(c=='ewallet'){renderList(ewalletList);}
-  if(c=='voucher'){renderList(voucherList);}
+  document.querySelectorAll('.cat div').forEach(el=>{
+    el.classList.remove('active');
+    el.style.background='#18234f';
+    el.style.color='#8fa0d0';
+  });
+  let btn=document.getElementById('cat-'+c);
+  btn.classList.add('active');
+  btn.style.background='#ffcd00';
+  btn.style.color='black';
+
+  if(c=='all'){
+    document.getElementById('pop').innerHTML=savedPop;
+    document.getElementById('new').innerHTML=savedNew;
+  }
+  if(c=='topup'){
+    render(games);
+  }
+  if(c=='pulsa'){
+    renderList(pulsaList);
+  }
+  if(c=='ewallet'){
+    renderList(ewalletList);
+  }
+  if(c=='voucher'){
+    renderList(voucherList);
+  }
 }
 </script>
 </body>
