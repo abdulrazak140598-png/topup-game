@@ -80,11 +80,11 @@ body{background:#0b122e}
 </div>
 
 <div class="cat">
-<div class="active">Semua Game</div>
-<div style="color:#8fa0d0;background:#18234f">Top Up</div>
-<div style="color:#8fa0d0;background:#18234f">Voucher</div>
-<div style="color:#8fa0d0;background:#18234f">Pulsa</div>
-<div style="color:#8fa0d0;background:#18234f">E-Wallet</div>
+<div onclick="setCat('all')" id="cat-all" class="active">Semua Game</div>
+<div onclick="setCat('topup')" id="cat-topup" style="color:#8fa0d0;background:#18234f">Top Up</div>
+<div onclick="setCat('voucher')" id="cat-voucher" style="color:#8fa0d0;background:#18234f">Voucher</div>
+<div onclick="setCat('pulsa')" id="cat-pulsa" style="color:#8fa0d0;background:#18234f">Pulsa</div>
+<div onclick="setCat('ewallet')" id="cat-ewallet" style="color:#8fa0d0;background:#18234f">E-Wallet</div>
 </div>
 
 <div class="section-title"><b style="font-size:13px">POPULER 🔥</b><span style="font-size:11px;color:#ffcd00">Lihat Semua ›</span></div>
@@ -384,6 +384,33 @@ setTimeout(()=>{
 showLive();
 setInterval(showLive, 6000);
 },3000);
+// SIMPAN HTML ASLI
+let savedPop = document.getElementById('pop').innerHTML;
+let savedNew = document.getElementById('new').innerHTML;
+
+function setCat(c){
+  // ganti warna tombol
+  document.querySelectorAll('.cat div').forEach(el=>{
+    el.classList.remove('active');
+    el.style.background='#18234f';
+    el.style.color='#8fa0d0';
+  });
+  let btn = document.getElementById('cat-'+c);
+  btn.classList.add('active');
+  btn.style.background='#ffcd00';
+  btn.style.color='black';
+
+  let pop = document.getElementById('pop');
+  let nw = document.getElementById('new');
+
+  if(c=='voucher' || c=='pulsa' || c=='ewallet'){
+    pop.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:30px;color:#5a6aa0;font-size:12px">Kosong - ${c} belum tersedia</div>`;
+    nw.innerHTML = '';
+  } else {
+    pop.innerHTML = savedPop;
+    nw.innerHTML = savedNew;
+  }
+}
 </script>
 </body>
 </html>
