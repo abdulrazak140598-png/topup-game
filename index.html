@@ -81,41 +81,6 @@ body{background:#0b122e}
 <script>
 function toggleMenu(){document.getElementById('drawer').classList.toggle('open');document.getElementById('dim').classList.toggle('open')}
 
-// AUTO SLIDE BANNER KAYA DIZASHOP
-  <div style="position:relative;overflow:hidden;border-radius:20px">
-<div id="slider" style="display:flex;transition:transform .5s ease;width:100%">
-<img src="banner.png" style="width:100%;flex-shrink:0;height:auto;aspect-ratio:3.4/1;object-fit:cover;display:block">
-<img src="banner2.png" style="width:100%;flex-shrink:0;height:auto;aspect-ratio:3.4/1;object-fit:cover;display:block">
-</div>
-<!-- titik indikator -->
-<div style="position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:6px">
-<div id="dot0" style="width:20px;height:6px;border-radius:10px;background:#ffcd00"></div>
-<div id="dot1" style="width:6px;height:6px;border-radius:10px;background:rgba(255,255,255,.4)"></div>
-</div>
-</div>
-
-  let current = 0;
-const slider = document.getElementById('slider');
-function showSlide(n){
-slider.style.transform = `translateX(-${n*100}%)`;
-document.getElementById('dot0').style.background = n==0?'#ffcd00':'rgba(255,255,255,.4)';
-document.getElementById('dot0').style.width = n==0?'20px':'6px';
-document.getElementById('dot1').style.background = n==1?'#ffcd00':'rgba(255,255,255,.4)';
-document.getElementById('dot1').style.width = n==1?'20px':'6px';
-}
-setInterval(()=>{
-current = (current+1)%2;
-showSlide(current);
-},3500);
-
-// bisa geser pakai jari
-let startX=0;
-slider.addEventListener('touchstart',e=>startX=e.touches[0].clientX);
-slider.addEventListener('touchend',e=>{
-let diff = startX - e.changedTouches[0].clientX;
-if(diff>50) {current=(current+1)%2; showSlide(current)}
-if(diff<-50) {current=(current-1+2)%2; showSlide(current)}
-});
 
 const games=[
 {n:'Mobile Legends', img:'mlbb.png'},
