@@ -227,47 +227,31 @@ let h=`<div class="card" onclick="openTopup('${g.n}')" style="cursor:pointer"><i
 if(i<6) p.innerHTML+=h; else nw.innerHTML+=h;
 });
 }
-
 function openTopup(name){
-let g = games.find(x=>x.n===name);
-selectedGame = g;
-document.getElementById('tName').innerText = g.n;
-document.getElementById('tImg').src = g.img;
-let list = document.getElementById('priceList');
-list.innerHTML='';
+let g=games.find(x=>x.n===name); selectedGame=g;
+document.getElementById('tName').innerText=g.n; document.getElementById('tImg').src=g.img;
+let list=document.getElementById('priceList'); list.innerHTML='';
 g.prices.forEach((pr,idx)=>{
-list.innerHTML+=`<div onclick="selectPrice(${idx})" id="pr${idx}" style="background:#0f1a3d;border:1px solid #24346a;border-radius:12px;padding:12px;cursor:pointer;position:relative">
-${pr.bonus?`<div style="position:absolute;top:-6px;right:8px;background:#ff3b3b;color:white;font-size:8px;font-weight:900;padding:2px 6px;border-radius:10px">${pr.bonus}</div>`:''}
-<div style="color:white;font-size:12px;font-weight:700">${pr.d}</div>
-<div style="color:#ffcd00;font-size:13px;font-weight:800;margin-top:4px">Rp ${pr.price.toLocaleString('id-ID')}</div>
-</div>`;
+list.innerHTML+=`<div onclick="selectPrice(${idx})" id="pr${idx}" style="background:#0f1a3d;border:1px solid #24346a;border-radius:12px;padding:12px;cursor:pointer"><div style="color:white;font-size:12px;font-weight:700">${pr.d}</div><div style="color:#ffcd00;font-size:13px;font-weight:800;margin-top:4px">Rp ${pr.price.toLocaleString('id-ID')}</div></div>`;
 });
-document.getElementById('totalPrice').innerText = 'Pilih diamond';
+document.getElementById('totalPrice').innerText='Pilih dulu';
 document.getElementById('buyBtn').style.background='#ccc';
-document.getElementById('buyBtn').style.color='#666';
 selectedPrice=null;
 document.getElementById('topupModal').style.display='block';
 }
-
 function selectPrice(idx){
-selectedPrice = selectedGame.prices[idx];
-document.querySelectorAll('[id^="pr"]').forEach(el=>{el.style.borderColor='#24346a'; el.style.background='#0f1a3d'});
-document.getElementById('pr'+idx).style.borderColor='#ffcd00';
-document.getElementById('pr'+idx).style.background='#2a2400';
-document.getElementById('totalPrice').innerText = 'Rp ' + selectedPrice.price.toLocaleString('id-ID');
-let btn = document.getElementById('buyBtn');
-btn.style.background='#ffcd00';
-btn.style.color='black';
+selectedPrice=selectedGame.prices[idx];
+document.querySelectorAll('[id^="pr"]').forEach(el=>{el.style.borderColor='#24346a';el.style.background='#0f1a3d'});
+document.getElementById('pr'+idx).style.borderColor='#ffcd00'; document.getElementById('pr'+idx).style.background='#2a2400';
+document.getElementById('totalPrice').innerText='Rp '+selectedPrice.price.toLocaleString('id-ID');
+let btn=document.getElementById('buyBtn'); btn.style.background='#ffcd00'; btn.style.color='black';
 }
-
 function closeTopup(){document.getElementById('topupModal').style.display='none'}
-
 function buyNow(){
-if(!selectedPrice) return alert('Pilih diamond dulu bang!');
-let uid = document.getElementById('userId').value;
-let zid = document.getElementById('zoneId').value;
-if(!uid) return alert('Isi User ID dulu!');
-let text = `Halo kak mau topup%0A%0AGame: ${selectedGame.n}%0AID: ${uid} (${zid})%0AItem: ${selectedPrice.d}%0AHarga: Rp ${selectedPrice.price.toLocaleString('id-ID')}`;
+if(!selectedPrice) return alert('Pilih diamond dulu!');
+let uid=document.getElementById('userId').value; if(!uid) return alert('Isi User ID dulu!');
+let zid=document.getElementById('zoneId').value;
+let text=`Halo kak mau topup%0AGame: ${selectedGame.n}%0AID: ${uid} (${zid})%0AItem: ${selectedPrice.d}%0AHarga: Rp ${selectedPrice.price.toLocaleString('id-ID')}`;
 window.open(`https://wa.me/6281234567890?text=${text}`,'_blank');
 }
 // SLIDER BANNER
