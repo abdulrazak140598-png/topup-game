@@ -82,7 +82,24 @@ function init(){
 }
 function render(){let g=gamesData[curGame]; list.innerHTML=''; g.prices.forEach((it,i)=>{let pr=it.p*rates[cur].rate; let txt=cur==='IDR'?'Rp '+it.p.toLocaleString('id-ID'):rates[cur].sym+pr.toFixed(2); list.innerHTML+=`<div onclick="pilih(${i})" id="it${i}" class="item"><div class="d">${it.d}</div><div class="p">${txt}</div></div>`;});}
 function pilih(i){sel=gamesData[curGame].prices[i]; document.querySelectorAll('.item').forEach(e=>e.classList.remove('active')); document.getElementById('it'+i).classList.add('active'); let pr=sel.p*rates[cur].rate; total.innerText=cur==='IDR'?'Rp '+sel.p.toLocaleString('id-ID'):rates[cur].sym+pr.toFixed(2); btn.classList.add('on');}
-function beli(){if(!sel) return alert('Pilih nominal dulu'); let u=uid.value; if(!u) return alert('Isi User ID'); let z=zid.value; let pr=cur==='IDR'?'Rp '+sel.p.toLocaleString('id-ID'):rates[cur].sym+(sel.p*rates[cur].rate).toFixed(2); let txt=`Halo kak mau topup%0AGame: ${curGame}%0AID: ${u} (${z})%0AItem: ${sel.d}%0AHarga: ${pr} (${cur})%0ABayar: ${pay}%0AMinta QRIS kak`; window.open(`https://wa.me/6282353459352?text=${txt}`,'_blank');}
+function beli(){
+ if(!sel) return alert('Pilih nominal dulu');
+ let u=uid.value; if(!u) return alert('Isi User ID');
+ let z=zid.value;
+ let pr=cur==='IDR'?'Rp '+sel.p.toLocaleString('id-ID'):rates[cur].sym+(sel.p*rates[cur].rate).toFixed(2);
+ document.getElementById('payInfo').innerHTML=`Game: <b style="color:white">${curGame}</b> • ${sel.d}<br>ID: <b style="color:white">${u} (${z})</b> • Total: <b style="color:#ffcd00">${pr}</b>`;
+ document.getElementById('payModal').style.display='flex';
+}
+function closePay(){document.getElementById('payModal').style.display='none'}
+function copyRek(){navigator.clipboard.writeText('1234567890'); alert('No BCA disalin!')}
+function copyDana(){navigator.clipboard.writeText('082353459352'); alert('No DANA disalin!')}
+function sudahBayar(){
+ let u=uid.value; let z=zid.value;
+ let pr=cur==='IDR'?'Rp '+sel.p.toLocaleString('id-ID'):rates[cur].sym+(sel.p*rates[cur].rate).toFixed(2);
+ let txt=`Halo kak saya sudah bayar%0AGame: ${curGame}%0AID: ${u} (${z})%0AItem: ${sel.d}%0AHarga: ${pr}%0ABayar: ${pay}%0ABukti TF saya kirim`;
+ window.open(`https://wa.me/6282353459352?text=${txt}`,'_blank');
+ closePay();
+}
 let pay='QRIS';
 function setPay(p){
  pay=p;
@@ -104,4 +121,45 @@ function setLoc(c){cur=c; localStorage.setItem('cur',c); curBtn.innerText=c; doc
 function setLang(l,f){lang=l; localStorage.setItem('lang',l); document.querySelectorAll('.lang-item').forEach(e=>{e.classList.remove('active');e.querySelector('.check').innerText='';}); document.getElementById('lang'+l).classList.add('active'); document.getElementById('lang'+l).querySelector('.check').innerText='✓'; if(l==='EN'){t1.innerText='Enter Account Data';t2.innerText='Select Amount';t3.innerText='Payment';tTotal.innerText='Total';btn.innerText='Buy';}else{t1.innerText='Masukkan Data Akun';t2.innerText='Pilih Nominal';t3.innerText='Bayar';tTotal.innerText='Total Bayar';btn.innerText='Beli';} if(!f) closeLoc();}
 locModal.addEventListener('click',e=>{if(e.target.id==='locModal')closeLoc()});
 init();
+<!-- POPUP BAYAR - QRIS & BANK -->
+<div id="payModal" style="position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:300;display:none;align-items:center;justify-content:center;padding:16px">
+<div style="background:#172250;border:1px solid #2a3a6e;width:100%;max-width:380px;border-radius:20px;padding:20px;text-align:center">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+    <div style="color:white;font-weight:800;font-size:16px">Selesaikan Pembayaran</div>
+    <div onclick="closePay()" style="width:30px;height:30px;background:#0f1a3d;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;cursor:pointer">✕</div>
+  </div>
+
+  <div id="payInfo" style="color:#8ea0d0;font-size:12px;margin-bottom:12px"></div>
+
+  <!-- QRIS IMAGE -->
+  <div id="qrBox" style="background:white;border-radius:16px;padding:12px;margin-bottom:12px">
+    <img id="qrImg" src="qris.png" style="width:100%;max-width:260px;border-radius:8px" onerror="this.src='https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=contoh-qris'">
+    <div style="color:#333;font-size:11px;margin-top:8px;font-weight:700">Scan QRIS pakai DANA / OVO / GoPay / mBanking</div>
+  </div>
+
+  <!-- NO REK BANK -->
+  <div style="background:#0b1430;border:1px solid #2a3a6e;border-radius:12px;padding:12px;text-align:left">
+    <div style="color:#8ea0d0;font-size:10px">Atau Transfer Manual:</div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
+      <div>
+        <div style="color:white;font-size:12px;font-weight:700">BCA - 1234567890</div>
+        <div style="color:#8ea0d0;font-size:11px">A/N STORE TOPUP</div>
+      </div>
+      <div onclick="copyRek()" style="background:#ffcd00;color:black;padding:6px 12px;border-radius:20px;font-size:11px;font-weight:800;cursor:pointer">Salin</div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">
+      <div>
+        <div style="color:white;font-size:12px;font-weight:700">DANA - 082353459352</div>
+        <div style="color:#8ea0d0;font-size:11px">A/N STORE TOPUP</div>
+      </div>
+      <div onclick="copyDana()" style="background:#ffcd00;color:black;padding:6px 12px;border-radius:20px;font-size:11px;font-weight:800;cursor:pointer">Salin</div>
+    </div>
+  </div>
+
+  <div style="margin-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:10px">
+    <div onclick="closePay()" style="background:#2a2a2a;color:white;padding:12px;border-radius:12px;font-weight:700;cursor:pointer">Batal</div>
+    <div onclick="sudahBayar()" style="background:#ffcd00;color:black;padding:12px;border-radius:12px;font-weight:800;cursor:pointer">Saya Sudah Bayar</div>
+  </div>
+</div>
+</div>
 </script></body></html>
