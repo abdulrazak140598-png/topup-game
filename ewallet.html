@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TOPUP E-WALLET</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Inter',sans-serif}
+body{background:#0b122e}.app{max-width:480px;margin:0 auto;background:#0f1a3d;min-height:100vh}
+.header{padding:12px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #1e2a5a;position:sticky;top:0;background:#0f1a3d;z-index:10}
+.card{background:#18234f;border:1px solid #24346a;border-radius:14px;padding:14px;cursor:pointer}
+.card.active{border-color:#ffcd00;background:#2f2f1a}
+.input{width:100%;background:#172250;border:1px solid #24346a;border-radius:12px;padding:13px;color:white;outline:none}
+#modal{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:100;display:none;align-items:end;justify-content:center}
+.box{background:white;width:100%;max-width:480px;border-radius:20px 20px 0 0;padding:20px;animation:up .3s}
+@keyframes up{from{transform:translateY(100%)}to{transform:translateY(0)}}
+</style>
+</head>
+<body>
+<div class="app">
+<div class="header"><div onclick="history.back()" style="color:white;font-size:22px;cursor:pointer">‹</div><img id="img" src="logo.png" style="width:36px;height:36px;border-radius:8px;background:#18234f"><div id="name" style="color:white;font-weight:800;font-size:13px">E-Wallet</div></div>
+<div style="padding:16px"><div style="color:white;font-size:12px;font-weight:700;margin-bottom:8px">Nomor E-Wallet</div><input id="no" class="input" placeholder="0812xxxx" type="tel"><div id="valid" style="color:#ff6b6b;font-size:10px;margin-top:6px;display:none">Nomor minimal 10 digit</div></div>
+<div style="padding:0 16px;color:white;font-size:12px;font-weight:700;margin:6px 0">Pilih Nominal</div>
+<div id="list" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px 110px"></div>
+</div>
+<div style="position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#0f1a3d;border-top:1px solid #1e2a5a;padding:12px 16px;display:flex;justify-content:space-between;align-items:center"><div><div style="color:#7a8bc0;font-size:10px">Total</div><div id="harga" style="color:white;font-weight:800">Pilih nominal</div></div><button onclick="showQris()" style="background:#ffcd00;color:black;border:none;padding:12px 24px;border-radius:12px;font-weight:900">BAYAR QRIS</button></div>
+
+<div id="modal" onclick="if(event.target.id=='modal') closeM()">
+<div class="box" style="text-align:center">
+<div style="display:flex;justify-content:space-between;margin-bottom:12px"><b style="color:black">Bayar E-Wallet QRIS</b><span onclick="closeM()" style="font-size:24px;cursor:pointer;color:black">✕</span></div>
+<div style="background:#f8f9ff;border-radius:12px;padding:12px;text-align:left;font-size:11px;color:#666">
+<div>Provider: <b id="qProv" style="color:black"></b></div>
+<div>No: <b id="qHp" style="color:black"></b></div>
+<div>ID: <b id="qId" style="color:black"></b></div>
+<div style="margin-top:8px;font-size:13px">Total: <b id="qTotal" style="color:#ff6b00"></b></div>
+</div>
+<div style="margin:12px 0;border:2px solid #ffcd00;border-radius:16px;padding:10px;display:inline-block"><img id="qImg" style="width:230px;height:230px"></div>
+<div id="cd" style="color:#ff3b3b;font-size:12px;font-weight:800">Sisa waktu: 10:00</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px"><button onclick="closeM()" style="background:#eee;padding:13px;border-radius:12px;border:none;font-weight:700">Batal</button><a id="wa" target="_blank" style="background:#25D366;color:white;padding:13px;border-radius:12px;font-weight:800;text-decoration:none">Sudah Bayar</a></div>
+</div>
+</div>
+
+<script>
+const nominals=[{name:'10.000',price:12000},{name:'20.000',price:22000},{name:'25.000',price:27000},{name:'50.000',price:52000},{name:'100.000',price:102000},{name:'200.000',price:202000}];
+let sel=null; let trx=''; let timer=null;
+const prov=new URLSearchParams(location.search).get('provider')||'DANA';
+document.getElementById('name').innerText=prov;
+document.getElementById('img').src=prov.toLowerCase()+'.png'; document.getElementById('img').onerror=function(){this.src='logo.png'};
+function render(){let h=''; nominals.forEach((n,i)=>{h+=`<div onclick="pick(${i})" id="c-${i}" class="card"><div style="color:white;font-weight:800;font-size:12px">${prov} ${n.name}</div><div style="color:#ffcd00;font-weight:800;margin-top:8px">Rp ${n.price.toLocaleString('id-ID')}</div></div>`}); document.getElementById('list').innerHTML=h;}
+function pick(i){document.querySelectorAll('.card').forEach(e=>e.classList.remove('active')); document.getElementById('c-'+i).classList.add('active'); sel=nominals[i]; document.getElementById('harga').innerText='Rp '+sel.price.toLocaleString('id-ID');}
+function showQris(){let no=document.getElementById('no').value.trim(); if(no.length<10){document.getElementById('valid').style.display='block';return;} if(!sel){alert('Pilih nominal');return;} trx='TRX'+Date.now().toString().slice(-6)+(Math.floor(Math.random()*900)+100); const uniq=sel.price+(parseInt(trx.slice(-3))%400); document.getElementById('qProv').innerText=prov; document.getElementById('qHp').innerText=no; document.getElementById('qId').innerText=trx; document.getElementById('qTotal').innerText='Rp '+uniq.toLocaleString('id-ID'); document.getElementById('qImg').src=`https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent(`TOPUPGAME|${trx}|${prov}|${no}|${uniq}`)}`; document.getElementById('wa').href=`https://wa.me/6282353459352?text=${encodeURIComponent(`Sudah bayar QRIS\nID:${trx}\n${prov} ${sel.name}\nNo:${no}\nTotal:Rp ${uniq}`)}`; document.getElementById('modal').style.display='flex'; let t=600; clearInterval(timer); timer=setInterval(()=>{let m=Math.floor(t/60),s=t%60; document.getElementById('cd').innerText=`Sisa waktu: ${m}:${s<10?'0':''}${s}`; if(t<=0)clearInterval(timer); t--;},1000);}
+function closeM(){document.getElementById('modal').style.display='none'; clearInterval(timer);}
+render();
+</script>
+</body>
+</html>
