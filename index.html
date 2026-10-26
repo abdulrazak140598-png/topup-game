@@ -35,11 +35,49 @@ body{background:#0b122e}
 <body>
 <div class="dim" id="dim" onclick="toggleMenu()"></div>
 <!-- MENU DRAWER KAYA OURASTORE -->
-<div class="menu-drawer" id="drawer" style="background:#1c1c1c;width:280px;padding:0;border-left:none">
-  <!-- HEADER -->
- <div style="display:flex;justify-content:space-between;align-items:center;padding:18px 20px;border-bottom:1px dashed #333">
-  <div style="background:#ffcd00;color:black;padding:5px 12px;border-radius:8px;font-weight:900;font-size:13px;letter-spacing:.3px">TOPUP GAME</div>
-  <span onclick="toggleMenu()" style="cursor:pointer;font-size:26px;color:white;line-height:1">✕</span>
+<!-- MENU DRAWER FULL FUNGSI - TANPA O -->
+<div class="menu-drawer" id="drawer" style="background:#1c1c1c;width:285px;padding:0;border-left:none">
+  
+  <!-- HEADER - TOPUP GAME + X -->
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:18px 20px;border-bottom:1px dashed #333">
+    <div style="background:#ffcd00;color:black;padding:6px 12px;border-radius:8px;font-weight:900;font-size:13px;letter-spacing:.3px">TOPUP GAME</div>
+    <span onclick="toggleMenu()" style="cursor:pointer;font-size:26px;color:white;line-height:1">✕</span>
+  </div>
+
+  <!-- MENU LIST SEMUA BISA DIKLIK -->
+  <div style="padding:10px 0">
+    
+    <div onclick="goTopup()" style="display:flex;justify-content:space-between;align-items:center;padding:15px 20px;color:white;font-size:14px;cursor:pointer;transition:.2s" onmouseover="this.style.background='#222'" onmouseout="this.style.background='transparent'">
+      <span>Topup</span><span>👜</span>
+    </div>
+
+    <div onclick="goCek()" style="display:flex;justify-content:space-between;align-items:center;padding:15px 20px;color:white;font-size:14px;cursor:pointer;transition:.2s" onmouseover="this.style.background='#222'" onmouseout="this.style.background='transparent'">
+      <span>Cek Transaksi</span><span>🔍</span>
+    </div>
+
+    <div onclick="goLeaderboard()" style="display:flex;justify-content:space-between;align-items:center;padding:15px 20px;color:white;font-size:14px;cursor:pointer;transition:.2s" onmouseover="this.style.background='#222'" onmouseout="this.style.background='transparent'">
+      <span>Leaderboard</span><span>🏆</span>
+    </div>
+
+    <div onclick="goArtikel()" style="display:flex;justify-content:space-between;align-items:center;padding:15px 20px;color:white;font-size:14px;cursor:pointer;transition:.2s" onmouseover="this.style.background='#222'" onmouseout="this.style.background='transparent'">
+      <span>Artikel</span><span>💬</span>
+    </div>
+
+    <div onclick="goKalkulator()" style="display:flex;justify-content:space-between;align-items:center;padding:15px 20px;color:white;font-size:14px;cursor:pointer;transition:.2s" onmouseover="this.style.background='#222'" onmouseout="this.style.background='transparent'">
+      <span>Kalkulator</span><span>→</span>
+    </div>
+
+    <div style="height:1px;background:#222;margin:12px 20px"></div>
+
+    <div onclick="goMasuk()" style="display:flex;justify-content:space-between;align-items:center;padding:15px 20px;color:white;font-size:14px;cursor:pointer;transition:.2s" onmouseover="this.style.background='#222'" onmouseout="this.style.background='transparent'">
+      <span>Masuk</span><span>↪</span>
+    </div>
+
+    <div onclick="goDaftar()" style="display:flex;justify-content:space-between;align-items:center;padding:15px 20px;color:white;font-size:14px;cursor:pointer;transition:.2s" onmouseover="this.style.background='#222'" onmouseout="this.style.background='transparent'">
+      <span>Daftar</span><span>👤+</span>
+    </div>
+
+  </div>
 </div>
 
   <!-- MENU LIST -->
@@ -244,6 +282,44 @@ body{background:#0b122e}
 <script>
 function toggleMenu(){document.getElementById('drawer').classList.toggle('open');document.getElementById('dim').classList.toggle('open')}
 
+// FUNGSI MENU - SEMUA BISA DIKLIK
+function goTopup(){
+  toggleMenu();
+  window.scrollTo({top:0,behavior:'smooth'});
+  document.getElementById('q').focus();
+}
+function goCek(){
+  toggleMenu();
+  let id = prompt("Masukkan ID Transaksi / No. WA kamu:");
+  if(id){ alert("Transaksi "+id+" sedang dicek...\nHubungi CS: 082353459352 untuk cek cepat"); window.open("https://wa.me/6282353459352?text=Cek transaksi "+id,"_blank"); }
+}
+function goLeaderboard(){
+  toggleMenu();
+  setTimeout(()=>{
+    let el = document.querySelector('div[style*="TOP SPENDER"]') || document.querySelector('div[style*="linear-gradient(135deg,#18234f"]');
+    if(el) el.scrollIntoView({behavior:'smooth'});
+  },300);
+}
+function goArtikel(){
+  toggleMenu();
+  window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
+}
+function goKalkulator(){
+  toggleMenu();
+  let dm = prompt("Mau topup berapa Diamond? Contoh: 86");
+  if(dm){
+    let harga = Math.round(dm * 250); // 1 diamond ~ 250 rupiah
+    alert(dm+" Diamond = Rp "+harga.toLocaleString('id-ID')+"\n\nBuka kalkulator lengkap? Chat CS aja");
+  }
+}
+function goMasuk(){
+  toggleMenu();
+  alert("Fitur Login segera hadir!\n\nUntuk sekarang, topup bisa langsung tanpa login kok, tetap aman 1-3 menit masuk.");
+}
+function goDaftar(){
+  toggleMenu();
+  alert("Fitur Daftar segera hadir!\n\nTopup sekarang gak perlu daftar, cukup masukin ID game aja, langsung diproses 24 jam!");
+}
 
 const games=[
 {n:'Mobile Legends', img:'mlbb.png'},
