@@ -1,37 +1,88 @@
 <!DOCTYPE html>
-<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TOPUP GAME</title><style>body{background:#0a1028;display:flex;justify-content:center;margin:0} .wrap{width:100%;max-width:440px;background:#0e1738;min-height:100vh} .card{background:#19244a;border-radius:16px;overflow:hidden;border:1px solid #22305f}</style></head>
-<body><div class="wrap">
-<header style="display:flex;justify-content:space-between;padding:12px 16px;position:sticky;top:0;background:#0e1738;z-index:10;border-bottom:1px solid #19244a">
-<div style="background:#facc15;color:black;padding:5px 14px;border-radius:8px;font-weight:900;font-size:13px">TOPUP GAME</div>
-<div style="display:flex;gap:8px;align-items:center"><button id="langBtn" style="background:#19244a;padding:6px 10px;border-radius:20px;font-size:11px;border:1px solid #22305f;color:white">EN / MYR</button><div style="font-size:20px">☰</div></div>
+<html lang="id">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TOPUP GAME</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:Inter,system-ui}
+body{background:#070e2a;display:flex;justify-content:center}
+.wrap{width:100%;max-width:430px;background:#101a3d;min-height:100vh;position:relative;overflow:hidden}
+.card{background:#1a2552;border:1px solid #243469;border-radius:16px;overflow:hidden}
+.card-top{height:96px;display:flex;align-items:center;justify-content:center}
+#side{position:fixed;top:0;right:-100%;width:280px;height:100%;background:#101a3d;z-index:99;transition:.3s ease;padding:20px;border-left:1px solid #243469}
+#side.open{right:0}
+.bg{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;z-index:90}
+.bg.open{display:block}
+</style>
+</head>
+<body>
+<div class="bg" id="bg" onclick="toggle()"></div>
+<div id="side">
+<div style="display:flex;justify-content:space-between;align-items:center;color:white"><b>MENU</b><span onclick="toggle()" style="cursor:pointer;font-size:20px">✕</span></div>
+<div style="margin-top:20px;display:flex;flex-direction:column;gap:10px">
+<div style="background:#1a2552;padding:14px;border-radius:12px;color:white;font-size:13px">🏠 Beranda</div>
+<div style="background:#1a2552;padding:14px;border-radius:12px;color:white;font-size:13px">📜 Riwayat</div>
+<div style="background:#1a2552;padding:14px;border-radius:12px;color:white;font-size:13px">💬 Bantuan CS</div>
+<div style="background:#facc15;padding:14px;border-radius:12px;color:black;font-weight:800;font-size:13px">🌐 EN / MYR - Ganti Negara</div>
+</div>
+</div>
+
+<div class="wrap">
+<header style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px;position:sticky;top:0;background:#101a3d;z-index:10">
+<div style="background:#facc15;color:#000;padding:6px 14px;border-radius:8px;font-weight:900;font-size:13px">TOPUP GAME</div>
+<div style="display:flex;gap:10px;align-items:center">
+<button style="background:#1a2552;border:1px solid #243469;color:white;padding:6px 12px;border-radius:20px;font-size:11px">EN / MYR</button>
+<button onclick="toggle()" style="background:none;border:none;color:white;font-size:22px;cursor:pointer;padding:2px 6px">☰</button>
+</div>
 </header>
-<div style="padding:16px">
-<img src="banner.png" style="width:100%;height:140px;object-fit:cover;border-radius:16px" onerror="this.src='banner2.png'">
-<input id="search" oninput="doFilter()" placeholder="Search Game or Voucher" style="width:100%;margin-top:14px;background:#19244a;border:1px solid #22305f;border-radius:12px;padding:10px 14px;color:white;outline:none">
-<div id="grid" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px"></div>
-<div style="margin-top:20px"><b style="font-size:12px">NEW GAMES ✨</b></div>
-<div id="grid2" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px"></div>
-</div></div>
+
+<div style="padding:16px;padding-bottom:80px">
+<img src="banner.png" style="width:100%;height:132px;object-fit:cover;border-radius:16px;display:block;border:1px solid #243469" onerror="this.src='banner2.png'; this.onerror=null">
+
+<input id="search" oninput="filter()" placeholder="Search Game or Voucher" style="width:100%;margin-top:14px;background:#1a2552;border:1px solid #243469;border-radius:12px;padding:11px 14px;color:white;outline:none;font-size:13px">
+
+<div style="margin-top:18px;display:flex;justify-content:space-between;align-items:center">
+<b style="font-size:12px;color:white;letter-spacing:.5px">POPULER 🔥</b><span style="font-size:11px;color:#facc15">Lihat Semua ></span>
+</div>
+
+<div id="grid" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px"></div>
+
+<div style="margin-top:22px"><b style="font-size:12px;color:white">NEW GAMES ✨</b></div>
+<div id="grid2" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px"></div>
+</div>
+</div>
+
 <script>
+function toggle(){document.getElementById('side').classList.toggle('open');document.getElementById('bg').classList.toggle('open')}
+
 const games=[
-{n:'Mobile Legends', img:'mlbb.png', bg:'#1e40af'},
-{n:'Free Fire', img:'ff.png', bg:'#111827'},
-{n:'PUBG Mobile', img:'pubg.png', bg:'#854d0e'},
-{n:'Valorant', img:'valorant.png', bg:'#7f1d1d'},
+{n:'Mobile Legends', img:'mlbb.png', bg:'#2b5cff'},
+{n:'Free Fire', img:'ff.png', bg:'#0f172a'},
+{n:'PUBG Mobile', img:'pubg.png', bg:'#b45309'},
+{n:'Valorant', img:'valorant.png', bg:'#991b1b'},
 {n:'ROBLOX', img:'roblox.png', bg:'#475569'},
-{n:'Genshin Impact', img:'genshin.png', bg:'#1e3a8a'},
-{n:'Honkai Star Rail', img:'honkai.png', bg:'#5b21b6'},
-{n:'Clash of Clans', img:'coc.png', bg:'#a16207'},
-{n:'CODM', img:'codm.png', bg:'#1a1a1a'},
+{n:'Genshin Impact', img:'genshin.png', bg:'#1e40ff'},
+{n:'Honkai Star Rail', img:'honkai.png', bg:'#6d28d9'},
+{n:'Clash of Clans', img:'coc.png', bg:'#d97706'},
+{n:'CODM', img:'codm.png', bg:'#171717'},
 ];
+
 function render(list){
 let g=document.getElementById('grid');let g2=document.getElementById('grid2');g.innerHTML='';g2.innerHTML='';
 list.forEach((x,i)=>{
-let html=`<div class="card"><div style="background:${x.bg};height:100px;display:flex;align-items:center;justify-content:center"><img src="${x.img}" style="width:65px;height:65px;object-fit:contain;background:white;border-radius:12px;padding:4px"></div><div style="padding:10px;text-align:center"><div style="font-size:11px;font-weight:800">${x.n}</div></div></div>`;
+let html=`<div class="card">
+<div class="card-top" style="background:${x.bg}">
+<img src="${x.img}" loading="lazy" style="width:64px;height:64px;object-fit:contain;background:white;border-radius:12px;padding:4px;display:block" onerror="this.src='logo.png'">
+</div>
+<div style="padding:10px;text-align:center">
+<div style="font-size:11px;font-weight:800;color:white;line-height:1.2">${x.n}</div>
+</div>
+</div>`;
 if(i<6){g.innerHTML+=html}else{g2.innerHTML+=html}
 });
 }
-function doFilter(){let q=document.getElementById('search').value.toLowerCase();render(games.filter(x=>x.n.toLowerCase().includes(q)))}
+function filter(){let q=document.getElementById('search').value.toLowerCase();render(games.filter(x=>x.n.toLowerCase().includes(q)))}
 render(games);
 </script>
-</body></html>
+</body>
+</html>
