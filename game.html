@@ -1,63 +1,15 @@
-<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Topup</title><style>*{box-sizing:border-box;margin:0;padding:0;font-family:Inter,system-ui}body{background:#0b122e;display:flex;justify-content:center}.app{width:100%;max-width:440px;background:#0f1a3d;min-height:100vh;overflow-x:hidden}.hdr{position:sticky;top:0;background:#0f1a3d;padding:12px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #1e2a5a;z-index:10}.back{width:32px;height:32px;background:#18234f;border-radius:10px;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none}.box{background:#172250;border:1px solid #24346a;border-radius:16px;padding:14px;margin:14px}.step{display:flex;align-items:center;gap:8px;margin-bottom:12px;color:white;font-weight:700;font-size:13px}.step span:first-child{background:#ffcd00;color:black;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.item{background:#0f1a3d;border:1px solid #24346a;border-radius:12px;padding:12px;cursor:pointer}.item.active{border-color:#ffcd00;background:#332a00}.item .d{color:white;font-size:12px;font-weight:700}.item .p{color:#ffcd00;font-size:14px;font-weight:800;margin-top:4px}.buy{width:100%;background:#3a3a3a;color:#888;padding:14px;border-radius:12px;text-align:center;font-weight:900;margin-top:12px;cursor:pointer}.buy.on{background:#ffcd00;color:black}.loc-item,.lang-item{display:flex;align-items:center;gap:12px;background:#2a2a2a;border:1px solid #333;padding:12px;border-radius:12px;margin-bottom:8px;color:white;font-size:13px;cursor:pointer}.loc-item.active,.lang-item.active{border-color:#facc15;background:#3a3410}.loc-item img,.lang-item img{width:24px;height:24px;border-radius:50%}.check{margin-left:auto;color:#facc15}input:focus{border-color:#ffcd00!important}</style></head><body><div class="app"><div class="hdr"><a href="./" class="back">←</a><img id="gImg" style="width:44px;height:44px;border-radius:12px;background:#222;object-fit:cover"><div style="flex:1"><div id="gName" style="color:white;font-weight:800">Loading</div><div style="color:#7a8bc0;font-size:11px">Proses 1-3 Menit</div></div><div id="curBtn" onclick="openLoc()" style="background:#18234f;border:1px solid #24346a;color:white;padding:6px 12px;border-radius:20px;font-size:12px;cursor:pointer">IDR</div></div>
+<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Topup</title><style>*{box-sizing:border-box;margin:0;padding:0;font-family:Inter,system-ui}body{background:#0b122e;display:flex;justify-content:center}.app{width:100%;max-width:440px;background:#0f1a3d;min-height:100vh;overflow-x:hidden}.hdr{position:sticky;top:0;background:#0f1a3d;padding:12px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #1e2a5a;z-index:10}.back{width:32px;height:32px;background:#18234f;border-radius:10px;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none}.box{background:#172250;border:1px solid #24346a;border-radius:16px;padding:14px;margin:14px}.step{display:flex;align-items:center;gap:8px;margin-bottom:12px;color:white;font-weight:700;font-size:13px}.step span:first-child{background:#ffcd00;color:black;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.item{background:#0f1a3d;border:1px solid #24346a;border-radius:12px;padding:12px;cursor:pointer}.item.active{border-color:#ffcd00;background:#332a00}.item .d{color:white;font-size:12px;font-weight:700}.item .p{color:#ffcd00;font-size:14px;font-weight:800;margin-top:4px}.buy{width:100%;background:#3a3a3a;color:#888;padding:14px;border-radius:12px;text-align:center;font-weight:900;margin-top:12px;cursor:pointer}.buy.on{background:#ffcd00;color:black}.loc-item,.lang-item{display:flex;align-items:center;gap:12px;background:#2a2a2a;border:1px solid #333;padding:12px;border-radius:12px;margin-bottom:8px;color:white;font-size:13px;cursor:pointer}.loc-item.active,.lang-item.active{border-color:#facc15;background:#3a3410}.loc-item img,.lang-item img{width:24px;height:24px;border-radius:50%}.check{margin-left:auto;color:#facc15}.pay-item.active{border-color:#ffcd00!important}.pay-item .pay-check.active{border-color:#ffcd00!important;color:#ffcd00}</style></head><body><div class="app"><div class="hdr"><a href="./" class="back">←</a><img id="gImg" style="width:44px;height:44px;border-radius:12px;background:#222;object-fit:cover"><div style="flex:1"><div id="gName" style="color:white;font-weight:800">Loading</div><div style="color:#7a8bc0;font-size:11px">Proses 1-3 Menit</div></div><div id="curBtn" onclick="openLoc()" style="background:#18234f;border:1px solid #24346a;color:white;padding:6px 12px;border-radius:20px;font-size:12px;cursor:pointer">IDR</div></div>
 
-<!-- STEP 1 CAKEP - POSISI DISINI -->
-<div class="box">
-  <div class="step"><span>1</span><span id="t1">Masukkan Data Akun</span></div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-    <div>
-      <div style="font-size:10px;color:#8ea0d0;margin-bottom:6px;font-weight:700;letter-spacing:.5px">USER ID</div>
-      <input id="uid" placeholder="12345678" style="width:100%;background:#0b1430;border:1.5px solid #2a3a6e;border-radius:12px;padding:13px;color:white;font-size:14px;outline:none">
-    </div>
-    <div>
-      <div style="font-size:10px;color:#8ea0d0;margin-bottom:6px;font-weight:700;letter-spacing:.5px">ZONE ID</div>
-      <input id="zid" placeholder="(1234)" style="width:100%;background:#0b1430;border:1.5px solid #2a3a6e;border-radius:12px;padding:13px;color:white;font-size:14px;outline:none">
-    </div>
-  </div>
-  <div style="margin-top:12px;background:rgba(255,205,0,.07);border:1px solid rgba(255,205,0,.18);border-radius:10px;padding:9px 10px;display:flex;gap:8px">
-    <span>💡</span><span style="font-size:11px;color:#d0c78a;line-height:14px">Buka profil MLBB > ID kamu ada di bawah nama. Contoh: <b style="color:white">12345678 (1234)</b></span>
-  </div>
-</div>
+<div class="box"><div class="step"><span>1</span><span id="t1">Masukkan Data Akun</span></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div><div style="font-size:10px;color:#8ea0d0;margin-bottom:6px;font-weight:700">USER ID</div><input id="uid" placeholder="12345678" style="width:100%;background:#0b1430;border:1.5px solid #2a3a6e;border-radius:12px;padding:13px;color:white;outline:none"></div><div><div style="font-size:10px;color:#8ea0d0;margin-bottom:6px;font-weight:700">ZONE ID</div><input id="zid" placeholder="1234" style="width:100%;background:#0b1430;border:1.5px solid #2a3a6e;border-radius:12px;padding:13px;color:white;outline:none"></div></div></div>
 
-<!-- STEP 2 -->
 <div class="box"><div class="step"><span>2</span><span id="t2">Pilih Nominal</span></div><div id="list" class="grid"></div></div>
-<!-- STEP 3 - PEMBAYARAN QRIS -->
-<div class="box">
-  <div class="step"><span>3</span><span id="t3">Pilih Pembayaran</span></div>
-  
-  <div id="payList" style="display:flex;flex-direction:column;gap:8px">
-    <!-- QRIS -->
-    <div onclick="setPay('QRIS')" id="payQRIS" class="pay-item active" style="display:flex;align-items:center;gap:12px;background:#0b1430;border:1.5px solid #ffcd00;border-radius:12px;padding:12px;cursor:pointer">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Logo_QRIS.svg" style="width:40px;height:28px;background:white;border-radius:6px;padding:4px;object-fit:contain">
-      <div style="flex:1">
-        <div style="color:white;font-size:13px;font-weight:700">QRIS All Payment</div>
-        <div style="color:#8ea0d0;font-size:10px">Scan semua e-wallet & m-banking</div>
-      </div>
-      <div class="pay-check" style="width:20px;height:20px;border-radius:50%;border:2px solid #ffcd00;display:flex;align-items:center;justify-content:center;color:#ffcd00;font-size:12px">✓</div>
-    </div>
 
-    <!-- DANA / GOPAY / OVO -->
-    <div onclick="setPay('EWALLET')" id="payEWALLET" class="pay-item" style="display:flex;align-items:center;gap:12px;background:#0b1430;border:1.5px solid #2a3a6e;border-radius:12px;padding:12px;cursor:pointer">
-      <div style="width:40px;height:28px;background:white;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#333">E-WALLET</div>
-      <div style="flex:1">
-        <div style="color:white;font-size:13px;font-weight:700">DANA / OVO / GoPay</div>
-        <div style="color:#8ea0d0;font-size:10px">Otomatis cek pembayaran</div>
-      </div>
-      <div class="pay-check" style="width:20px;height:20px;border-radius:50%;border:2px solid #2a3a6e;display:flex;align-items:center;justify-content:center"></div>
-    </div>
-  </div>
-
-  <!-- TOTAL BAYAR -->
-  <div style="margin-top:16px;background:#0b1430;border-radius:12px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center">
-    <div>
-      <div id="tTotal" style="color:#8ea0d0;font-size:10px">TOTAL BAYAR</div>
-      <div id="total" style="color:#ffcd00;font-weight:900;font-size:18px">Pilih nominal</div>
-    </div>
-    <div id="btn" onclick="beli()" class="buy" style="margin-top:0;width:auto;padding:12px 24px">Beli</div>
-  </div>
+<div class="box"><div class="step"><span>3</span><span id="t3">Pilih Pembayaran</span></div><div style="display:flex;flex-direction:column;gap:8px"><div onclick="setPay('QRIS')" id="payQRIS" class="pay-item active" style="display:flex;align-items:center;gap:12px;background:#0b1430;border:1.5px solid #ffcd00;border-radius:12px;padding:12px;cursor:pointer"><div style="width:40px;height:28px;background:white;border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:10px">QRIS</div><div style="flex:1"><div style="color:white;font-size:13px;font-weight:700">QRIS All Payment</div><div style="color:#8ea0d0;font-size:10px">E-Wallet & mBanking</div></div><div class="pay-check" style="width:20px;height:20px;border-radius:50%;border:2px solid #ffcd00;display:flex;align-items:center;justify-content:center;color:#ffcd00">✓</div></div><div onclick="setPay('BANK')" id="payBANK" class="pay-item" style="display:flex;align-items:center;gap:12px;background:#0b1430;border:1.5px solid #2a3a6e;border-radius:12px;padding:12px;cursor:pointer"><div style="width:40px;height:28px;background:white;border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:10px">BANK</div><div style="flex:1"><div style="color:white;font-size:13px;font-weight:700">Transfer Bank</div><div style="color:#8ea0d0;font-size:10px">BCA / DANA Manual</div></div><div class="pay-check" style="width:20px;height:20px;border-radius:50%;border:2px solid #2a3a6e;display:flex;align-items:center;justify-content:center"></div></div></div><div style="margin-top:14px;background:#0b1430;border-radius:12px;padding:12px;display:flex;justify-content:space-between;align-items:center"><div><div id="tTotal" style="color:#8ea0d0;font-size:10px">TOTAL BAYAR</div><div id="total" style="color:#ffcd00;font-weight:900;font-size:18px">Pilih nominal</div></div><div id="btn" onclick="beli()" class="buy" style="margin:0;width:auto;padding:12px 24px">Beli</div></div></div>
 </div>
 
-<!-- MODAL -->
 <div id="locModal" style="position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;display:none;align-items:end;justify-content:center"><div style="background:#1e1e1e;width:100%;max-width:440px;border-radius:20px 20px 0 0;padding:20px"><div style="color:white;font-weight:700;margin-bottom:12px">Lokasi</div><div onclick="setLoc('IDR')" class="loc-item active" data-cur="IDR"><img src="https://flagcdn.com/w40/id.png"><span>Indonesia (IDR)</span><span class="check">✓</span></div><div onclick="setLoc('MYR')" class="loc-item" data-cur="MYR"><img src="https://flagcdn.com/w40/my.png"><span>Malaysia (MYR)</span><span class="check"></span></div><div onclick="setLoc('PHP')" class="loc-item" data-cur="PHP"><img src="https://flagcdn.com/w40/ph.png"><span>Philippines (PHP)</span><span class="check"></span></div><div onclick="setLoc('SGD')" class="loc-item" data-cur="SGD"><img src="https://flagcdn.com/w40/sg.png"><span>Singapore (SGD)</span><span class="check"></span></div><div onclick="setLoc('THB')" class="loc-item" data-cur="THB"><img src="https://flagcdn.com/w40/th.png"><span>Thailand (THB)</span><span class="check"></span></div><div style="color:white;font-weight:700;margin:16px 0 12px">Bahasa</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div onclick="setLang('ID')" id="langID" class="lang-item active"><img src="https://flagcdn.com/w40/id.png"><span>ID</span><span class="check">✓</span></div><div onclick="setLang('EN')" id="langEN" class="lang-item"><img src="https://flagcdn.com/w40/gb.png"><span>EN</span><span class="check"></span></div></div><div onclick="closeLoc()" style="background:#2a2a2a;color:white;text-align:center;padding:12px;border-radius:12px;margin-top:16px;cursor:pointer">Tutup</div></div></div>
+
+<div id="payModal" style="position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:300;display:none;align-items:center;justify-content:center;padding:16px"><div style="background:#172250;border:1px solid #2a3a6e;width:100%;max-width:380px;border-radius:20px;padding:20px;text-align:center"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div style="color:white;font-weight:800">Pembayaran</div><div onclick="closePay()" style="width:30px;height:30px;background:#0f1a3d;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;cursor:pointer">✕</div></div><div id="payInfo" style="color:#8ea0d0;font-size:12px;margin-bottom:12px"></div><div style="background:white;border-radius:16px;padding:12px;margin-bottom:12px"><img id="qrImg" src="qris.png" style="width:100%;max-width:260px;border-radius:8px" onerror="this.src='https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=QRIS'"><div style="color:#333;font-size:11px;margin-top:8px;font-weight:700">Scan QRIS pakai DANA / OVO / GoPay / mBanking</div></div><div style="background:#0b1430;border:1px solid #2a3a6e;border-radius:12px;padding:12px;text-align:left"><div style="color:#8ea0d0;font-size:10px">Transfer Manual:</div><div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px"><div><div style="color:white;font-size:12px;font-weight:700">BCA - 1234567890</div><div style="color:#8ea0d0;font-size:11px">A/N TOPUP STORE</div></div><div onclick="navigator.clipboard.writeText('1234567890');alert('BCA disalin')" style="background:#ffcd00;color:black;padding:6px 12px;border-radius:20px;font-size:11px;font-weight:800;cursor:pointer">Salin</div></div><div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px"><div><div style="color:white;font-size:12px;font-weight:700">DANA - 082353459352</div><div style="color:#8ea0d0;font-size:11px">A/N TOPUP STORE</div></div><div onclick="navigator.clipboard.writeText('082353459352');alert('DANA disalin')" style="background:#ffcd00;color:black;padding:6px 12px;border-radius:20px;font-size:11px;font-weight:800;cursor:pointer">Salin</div></div></div><div style="margin-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:10px"><div onclick="closePay()" style="background:#2a2a2a;color:white;padding:12px;border-radius:12px;font-weight:700;cursor:pointer">Batal</div><div onclick="sudahBayar()" style="background:#ffcd00;color:black;padding:12px;border-radius:12px;font-weight:800;cursor:pointer">Sudah Bayar</div></div></div></div>
 
 <script>
 const gamesData={
@@ -72,94 +24,32 @@ const gamesData={
 'Call of Duty Mobile':{img:'codm.png',prices:[{d:'80 CP',p:15000}]},
 };
 const rates={IDR:{sym:'Rp ',rate:1},MYR:{sym:'RM ',rate:0.00029},PHP:{sym:'₱ ',rate:0.0036},SGD:{sym:'S$ ',rate:0.000086},THB:{sym:'฿ ',rate:0.0023}};
-let sel=null,curGame=null,cur=localStorage.getItem('cur')||'IDR',lang=localStorage.getItem('lang')||'ID';
+let sel=null,curGame=null,cur=localStorage.getItem('cur')||'IDR',lang=localStorage.getItem('lang')||'ID',pay='QRIS';
 function init(){
- let name=new URLSearchParams(location.search).get('game'); if(!name||!gamesData[name]){gName.innerText='Game tidak ada';return;}
- curGame=name; gName.innerText=name; gImg.src=gamesData[name].img;
- curBtn.innerText=cur; document.querySelectorAll('.loc-item').forEach(e=>{e.classList.remove('active');e.querySelector('.check').innerText='';});
- let a=document.querySelector(`[data-cur="${cur}"]`); if(a){a.classList.add('active');a.querySelector('.check').innerText='✓';}
- setLang(lang,true); render();
+ let name=new URLSearchParams(location.search).get('game');
+ if(!name){name='Mobile Legends';}
+ if(gamesData[name]) curGame=name; else curGame='Mobile Legends';
+ gName.innerText=curGame; gImg.src=gamesData[curGame].img;
+ curBtn.innerText=cur;
+ let a=document.querySelector(`[data-cur="${cur}"]`); if(a){document.querySelectorAll('.loc-item').forEach(e=>{e.classList.remove('active');e.querySelector('.check').innerText='';}); a.classList.add('active'); a.querySelector('.check').innerText='✓';}
+ setLang(lang,true);
+ render();
 }
-function render(){let g=gamesData[curGame]; list.innerHTML=''; g.prices.forEach((it,i)=>{let pr=it.p*rates[cur].rate; let txt=cur==='IDR'?'Rp '+it.p.toLocaleString('id-ID'):rates[cur].sym+pr.toFixed(2); list.innerHTML+=`<div onclick="pilih(${i})" id="it${i}" class="item"><div class="d">${it.d}</div><div class="p">${txt}</div></div>`;});}
-function pilih(i){sel=gamesData[curGame].prices[i]; document.querySelectorAll('.item').forEach(e=>e.classList.remove('active')); document.getElementById('it'+i).classList.add('active'); let pr=sel.p*rates[cur].rate; total.innerText=cur==='IDR'?'Rp '+sel.p.toLocaleString('id-ID'):rates[cur].sym+pr.toFixed(2); btn.classList.add('on');}
-function beli(){
- if(!sel) return alert('Pilih nominal dulu');
- let u=uid.value; if(!u) return alert('Isi User ID');
- let z=zid.value;
- let pr=cur==='IDR'?'Rp '+sel.p.toLocaleString('id-ID'):rates[cur].sym+(sel.p*rates[cur].rate).toFixed(2);
- document.getElementById('payInfo').innerHTML=`Game: <b style="color:white">${curGame}</b> • ${sel.d}<br>ID: <b style="color:white">${u} (${z})</b> • Total: <b style="color:#ffcd00">${pr}</b>`;
- document.getElementById('payModal').style.display='flex';
-}
-function closePay(){document.getElementById('payModal').style.display='none'}
-function copyRek(){navigator.clipboard.writeText('1234567890'); alert('No BCA disalin!')}
-function copyDana(){navigator.clipboard.writeText('082353459352'); alert('No DANA disalin!')}
-function sudahBayar(){
- let u=uid.value; let z=zid.value;
- let pr=cur==='IDR'?'Rp '+sel.p.toLocaleString('id-ID'):rates[cur].sym+(sel.p*rates[cur].rate).toFixed(2);
- let txt=`Halo kak saya sudah bayar%0AGame: ${curGame}%0AID: ${u} (${z})%0AItem: ${sel.d}%0AHarga: ${pr}%0ABayar: ${pay}%0ABukti TF saya kirim`;
- window.open(`https://wa.me/6282353459352?text=${txt}`,'_blank');
- closePay();
-}
-let pay='QRIS';
-function setPay(p){
- pay=p;
- document.querySelectorAll('.pay-item').forEach(e=>{
-   e.style.borderColor='#2a3a6e';
-   e.querySelector('.pay-check').innerText='';
-   e.querySelector('.pay-check').style.borderColor='#2a3a6e';
-   e.querySelector('.pay-check').style.color='#2a3a6e';
+function render(){
+ let g=gamesData[curGame]; let el=document.getElementById('list'); if(!el) return; el.innerHTML='';
+ g.prices.forEach((it,i)=>{
+   let pr=it.p*rates[cur].rate;
+   let txt=cur==='IDR'?'Rp '+it.p.toLocaleString('id-ID'):rates[cur].sym+pr.toFixed(2);
+   el.innerHTML+=`<div onclick="pilih(${i})" id="it${i}" class="item"><div class="d">${it.d}</div><div class="p">${txt}</div></div>`;
  });
- let active=document.getElementById('pay'+p);
- active.style.borderColor='#ffcd00';
- let check=active.querySelector('.pay-check');
- check.innerText='✓';
- check.style.borderColor='#ffcd00';
- check.style.color='#ffcd00';
 }
+function pilih(i){sel=gamesData[curGame].prices[i]; document.querySelectorAll('.item').forEach(e=>e.classList.remove('active')); document.getElementById('it'+i).classList.add('active'); let pr=sel.p*rates[cur].rate; total.innerText=cur==='IDR'?'Rp '+sel.p.toLocaleString('id-ID'):rates[cur].sym+pr.toFixed(2); btn.classList.add('on');}
+function setPay(p){pay=p; document.querySelectorAll('.pay-item').forEach(e=>{e.style.borderColor='#2a3a6e'; e.querySelector('.pay-check').innerText=''; e.querySelector('.pay-check').style.borderColor='#2a3a6e';}); let ac=document.getElementById('pay'+p); ac.style.borderColor='#ffcd00'; let ck=ac.querySelector('.pay-check'); ck.innerText='✓'; ck.style.borderColor='#ffcd00'; ck.style.color='#ffcd00';}
+function beli(){if(!sel){alert('Pilih nominal dulu'); return;} let u=uid.value; if(!u){alert('Isi User ID'); return;} let z=zid.value; let pr=cur==='IDR'?'Rp '+sel.p.toLocaleString('id-ID'):rates[cur].sym+(sel.p*rates[cur].rate).toFixed(2); payInfo.innerHTML=`Game: <b style="color:white">${curGame}</b> • ${sel.d}<br>ID: <b style="color:white">${u} (${z})</b><br>Total: <b style="color:#ffcd00">${pr}</b>`; payModal.style.display='flex';}
+function closePay(){payModal.style.display='none'} function sudahBayar(){let u=uid.value; let z=zid.value; let pr=cur==='IDR'?'Rp '+sel.p.toLocaleString('id-ID'):rates[cur].sym+(sel.p*rates[cur].rate).toFixed(2); let txt=`Halo kak saya sudah bayar%0AGame: ${curGame}%0AID: ${u} (${z})%0AItem: ${sel.d}%0AHarga: ${pr}%0ABayar: ${pay}`; window.open(`https://wa.me/6282353459352?text=${txt}`,'_blank'); closePay();}
 function openLoc(){locModal.style.display='flex'}function closeLoc(){locModal.style.display='none'}
-function setLoc(c){cur=c; localStorage.setItem('cur',c); curBtn.innerText=c; document.querySelectorAll('.loc-item').forEach(e=>{e.classList.remove('active');e.querySelector('.check').innerText='';}); document.querySelector(`[data-cur="${c}"]`).classList.add('active'); document.querySelector(`[data-cur="${c}"] .check`).innerText='✓'; render(); if(sel) pilih(gamesData[curGame].prices.indexOf(sel)); closeLoc();}
-function setLang(l,f){lang=l; localStorage.setItem('lang',l); document.querySelectorAll('.lang-item').forEach(e=>{e.classList.remove('active');e.querySelector('.check').innerText='';}); document.getElementById('lang'+l).classList.add('active'); document.getElementById('lang'+l).querySelector('.check').innerText='✓'; if(l==='EN'){t1.innerText='Enter Account Data';t2.innerText='Select Amount';t3.innerText='Payment';tTotal.innerText='Total';btn.innerText='Buy';}else{t1.innerText='Masukkan Data Akun';t2.innerText='Pilih Nominal';t3.innerText='Bayar';tTotal.innerText='Total Bayar';btn.innerText='Beli';} if(!f) closeLoc();}
-locModal.addEventListener('click',e=>{if(e.target.id==='locModal')closeLoc()});
+function setLoc(c){cur=c; localStorage.setItem('cur',c); curBtn.innerText=c; document.querySelectorAll('.loc-item').forEach(e=>{e.classList.remove('active');e.querySelector('.check').innerText='';}); let el=document.querySelector(`[data-cur="${c}"]`); if(el){el.classList.add('active'); el.querySelector('.check').innerText='✓';} render(); if(sel){let idx=gamesData[curGame].prices.indexOf(sel); if(idx>=0) pilih(idx);} closeLoc();}
+function setLang(l,f){lang=l; localStorage.setItem('lang',l); document.querySelectorAll('.lang-item').forEach(e=>{e.classList.remove('active');e.querySelector('.check').innerText='';}); let e=document.getElementById('lang'+l); if(e){e.classList.add('active'); e.querySelector('.check').innerText='✓';} if(l==='EN'){t1.innerText='Account Data';t2.innerText='Amount';t3.innerText='Payment';tTotal.innerText='Total';btn.innerText='Buy';}else{t1.innerText='Masukkan Data Akun';t2.innerText='Pilih Nominal';t3.innerText='Pilih Pembayaran';tTotal.innerText='Total Bayar';btn.innerText='Beli';} if(!f) closeLoc();}
+locModal.addEventListener('click',e=>{if(e.target.id==='locModal')closeLoc();}); payModal.addEventListener('click',e=>{if(e.target.id==='payModal')closePay();});
 init();
-<!-- POPUP BAYAR - QRIS & BANK -->
-<div id="payModal" style="position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:300;display:none;align-items:center;justify-content:center;padding:16px">
-<div style="background:#172250;border:1px solid #2a3a6e;width:100%;max-width:380px;border-radius:20px;padding:20px;text-align:center">
-  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
-    <div style="color:white;font-weight:800;font-size:16px">Selesaikan Pembayaran</div>
-    <div onclick="closePay()" style="width:30px;height:30px;background:#0f1a3d;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;cursor:pointer">✕</div>
-  </div>
-
-  <div id="payInfo" style="color:#8ea0d0;font-size:12px;margin-bottom:12px"></div>
-
-  <!-- QRIS IMAGE -->
-  <div id="qrBox" style="background:white;border-radius:16px;padding:12px;margin-bottom:12px">
-    <img id="qrImg" src="qris.png" style="width:100%;max-width:260px;border-radius:8px" onerror="this.src='https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=contoh-qris'">
-    <div style="color:#333;font-size:11px;margin-top:8px;font-weight:700">Scan QRIS pakai DANA / OVO / GoPay / mBanking</div>
-  </div>
-
-  <!-- NO REK BANK -->
-  <div style="background:#0b1430;border:1px solid #2a3a6e;border-radius:12px;padding:12px;text-align:left">
-    <div style="color:#8ea0d0;font-size:10px">Atau Transfer Manual:</div>
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
-      <div>
-        <div style="color:white;font-size:12px;font-weight:700">BCA - 1234567890</div>
-        <div style="color:#8ea0d0;font-size:11px">A/N STORE TOPUP</div>
-      </div>
-      <div onclick="copyRek()" style="background:#ffcd00;color:black;padding:6px 12px;border-radius:20px;font-size:11px;font-weight:800;cursor:pointer">Salin</div>
-    </div>
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">
-      <div>
-        <div style="color:white;font-size:12px;font-weight:700">DANA - 082353459352</div>
-        <div style="color:#8ea0d0;font-size:11px">A/N STORE TOPUP</div>
-      </div>
-      <div onclick="copyDana()" style="background:#ffcd00;color:black;padding:6px 12px;border-radius:20px;font-size:11px;font-weight:800;cursor:pointer">Salin</div>
-    </div>
-  </div>
-
-  <div style="margin-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:10px">
-    <div onclick="closePay()" style="background:#2a2a2a;color:white;padding:12px;border-radius:12px;font-weight:700;cursor:pointer">Batal</div>
-    <div onclick="sudahBayar()" style="background:#ffcd00;color:black;padding:12px;border-radius:12px;font-weight:800;cursor:pointer">Saya Sudah Bayar</div>
-  </div>
-</div>
-</div>
 </script></body></html>
