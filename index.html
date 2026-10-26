@@ -471,5 +471,28 @@ setInterval(showLive, 6000);
 
 </div>
 </div>
+<!-- KODE 1 - MODAL LIST HARGA -->
+<div id="topupModal" style="position:fixed;inset:0;background:#0f1a3d;z-index:400;display:none;overflow-y:auto">
+<div style="padding:12px 16px;display:flex;gap:10px;align-items:center;border-bottom:1px solid #1e2a5a">
+<div onclick="closeTopup()" style="width:32px;height:32px;background:#18234f;border-radius:10px;display:flex;align-items:center;justify-content:center;color:white;cursor:pointer">←</div>
+<img id="tImg" style="width:36px;height:36px;border-radius:10px">
+<div id="tName" style="color:white;font-weight:800">MLBB</div>
+</div>
+<div style="padding:16px">
+<div style="background:#172250;border:1px solid #24346a;border-radius:12px;padding:12px;margin-bottom:12px">
+<div style="color:white;font-size:13px;margin-bottom:8px">1. ID Akun</div>
+<input id="userId" placeholder="User ID" style="width:48%;background:#0f1a3d;border:1px solid #24346a;padding:10px;border-radius:8px;color:white">
+<input id="zoneId" placeholder="Zone ID" style="width:48%;background:#0f1a3d;border:1px solid #24346a;padding:10px;border-radius:8px;color:white">
+</div>
+<div style="background:#172250;border:1px solid #24346a;border-radius:12px;padding:12px">
+<div style="color:white;font-size:13px;margin-bottom:8px">2. Pilih Diamond</div>
+<div id="priceList" style="display:grid;grid-template-columns:1fr 1fr;gap:10px"></div>
+</div>
+<div style="margin-top:12px;background:#172250;border:1px solid #24346a;border-radius:12px;padding:12px;display:flex;justify-content:space-between">
+<div><div style="color:#7a8bc0;font-size:10px">Total</div><div id="totalPrice" style="color:#ffcd00;font-weight:900">Pilih dulu</div></div>
+<div id="buyBtn" onclick="buyNow()" style="background:#ccc;padding:10px 16px;border-radius:8px;font-weight:800">Beli</div>
+</div>
+</div>
+</div>
 </body>
 </html>
