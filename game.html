@@ -45,34 +45,28 @@ input{width:100%;background:#0f1a3d;border:1px solid #24346a;border-radius:10px;
     <div id="curBtn" onclick="openLoc()">IDR</div>
   </div>
 
-  <!-- STEP 1: ID -->
+  <!-- STEP 1: ID - MULAI -->
   <div class="box">
-    <div class="step"><span>1</span><span id="t1">Masukkan ID</span></div>
-    <div style="display:flex;gap:10px">
-      <input id="uid" placeholder="User ID">
-      <input id="zid" placeholder="Zone ID">
+    <div class="step"><span>1</span><span id="t1">Masukkan Data Akun</span></div>
+    
+    <div style="margin-bottom:10px">
+      <div style="color:#7a8bc0;font-size:11px;margin-bottom:6px">User ID</div>
+      <input id="uid" placeholder="Contoh: 12345678" type="number" inputmode="numeric">
     </div>
-  </div>
 
-  <!-- STEP 2: NOMINAL -->
-  <div class="box">
-    <div class="step"><span>2</span><span id="t2">Pilih Nominal</span></div>
-    <div id="list" class="grid"></div>
-  </div>
+    <div>
+      <div style="color:#7a8bc0;font-size:11px;margin-bottom:6px">Server / Zone ID</div>
+      <input id="zid" placeholder="Contoh: 1234 (4 angka di belakang ID)" type="number" inputmode="numeric">
+    </div>
 
-  <!-- STEP 3: BAYAR -->
-  <div class="box">
-    <div class="step"><span>3</span><span id="t3">Bayar</span></div>
-    <div style="display:flex;justify-content:space-between;align-items:center">
-      <div>
-        <div id="tTotal" style="color:#7a8bc0;font-size:11px">Total Bayar</div>
-        <div id="total" style="color:#ffcd00;font-weight:900;font-size:18px">Pilih nominal</div>
+    <div style="background:#0f1a3d;border:1px dashed #24346a;border-radius:10px;padding:8px 10px;margin-top:12px;display:flex;gap:8px">
+      <div style="color:#ffcd00;font-size:12px">💡</div>
+      <div style="color:#7a8bc0;font-size:10px;line-height:14px">
+        Buka Mobile Legends > Klik profil > ID ada di bawah Nama. Contoh: <b style="color:white">12345678 (1234)</b> = ID 12345678, Server 1234
       </div>
-      <div id="btn" onclick="beli()" class="buy">Beli</div>
     </div>
   </div>
-</div>
-
+  <!-- STEP 1: ID - SELESAI -->
 <!-- MODAL LOKASI & BAHASA -->
 <div id="locModal" style="position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:99;display:none;align-items:end;justify-content:center">
 <div style="background:#1e1e1e;width:100%;max-width:440px;border-radius:20px 20px 0 0;padding:20px">
