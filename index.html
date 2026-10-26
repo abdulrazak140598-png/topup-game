@@ -80,11 +80,11 @@ body{background:#0b122e}
 </div>
 
 <div class="cat">
-<div onclick="setCat('all')" id="cat-all" class="active">Semua Game</div>
-<div onclick="setCat('topup')" id="cat-topup" style="color:#8fa0d0;background:#18234f">Top Up</div>
-<div onclick="setCat('voucher')" id="cat-voucher" style="color:#8fa0d0;background:#18234f">Voucher</div>
-<div onclick="setCat('pulsa')" id="cat-pulsa" style="color:#8fa0d0;background:#18234f">Pulsa</div>
-<div onclick="setCat('ewallet')" id="cat-ewallet" style="color:#8fa0d0;background:#18234f">E-Wallet</div>
+<div class="active">Semua Game</div>
+<div style="color:#8fa0d0;background:#18234f">Top Up</div>
+<div style="color:#8fa0d0;background:#18234f">Voucher</div>
+<div style="color:#8fa0d0;background:#18234f">Pulsa</div>
+<div style="color:#8fa0d0;background:#18234f">E-Wallet</div>
 </div>
 
 <div class="section-title"><b style="font-size:13px">POPULER 🔥</b><span style="font-size:11px;color:#ffcd00">Lihat Semua ›</span></div>
@@ -199,6 +199,7 @@ body{background:#0b122e}
 </div>
 
 <div style="margin-top:40px;padding-top:20px;border-top:1px solid #222;display:flex;justify-content:space-between;align-items:center">
+<div style="color:#888;font-size:11px">© 2026 TOPUP GAME. All rights reserved.</div>
 <div style="color:#888;font-size:11px">© 2025 TOPUP GAME. All rights reserved.</div>
 <div style="background:#c4a484;width:36px;height:36px;border-radius:10px 10px 0 0;display:flex;align-items:center;justify-content:center">🎧</div>
 </div>
@@ -220,65 +221,6 @@ const games=[
 {n:'Honkai Star Rail', img:'honkai.png'},
 {n:'Clash of Clans', img:'coc.png'},
 {n:'Call of Duty Mobile', img:'codm.png'},
-
-// TAMBAHAN - LAKU KERAS
-{n:'Honor of Kings', img:'hok.png'},
-{n:'Free Fire MAX', img:'ffmax.png'},
-{n:'Arena of Valor', img:'aov.png'},
-{n:'League of Legends Wild Rift', img:'wildrift.png'},
-{n:'Blood Strike', img:'bloodstrike.png'},
-{n:'Farlight 84', img:'farlight.png'},
-{n:'Sausage Man', img:'sausage.png'},
-{n:'eFootball 2025', img:'efootball.png'},
-{n:'EA Sports FC Mobile', img:'fcmobile.png'},
-{n:'Zenless Zone Zero', img:'zzz.png'},
-{n:'Wuthering Waves', img:'wuwa.png'},
-{n:'Solo Leveling Arise', img:'solo.png'},
-{n:'Clash Royale', img:'cr.png'},
-{n:'Brawl Stars', img:'brawlstars.png'},
-{n:'Hay Day', img:'hayday.png'},
-{n:'Minecraft', img:'minecraft.png'},
-{n:'Point Blank', img:'pb.png'},
-{n:'Stumble Guys', img:'stumble.png'},
-{n:'Higgs Domino', img:'domino.png'},
-{n:'Lords Mobile', img:'lords.png'},
-{n:'State of Survival', img:'sos.png'},
-{n:'Whiteout Survival', img:'whiteout.png'},
-{n:'8 Ball Pool', img:'8ball.png'},
-{n:'Garena Undawn', img:'undawn.png'},
-{n:'Metal Slug Awakening', img:'metalslug.png'},
-{n:'Super Sus', img:'supersus.png'},
-{n:'Mobile Legends Adventure', img:'mla.png'},
-{n:'Ragnarok Origin', img:'ro.png'},
-{n:'Ragnarok M Eternal Love', img:'rom.png'},
-{n:'Dragon Raja', img:'dragonraja.png'},
-{n:'LifeAfter', img:'lifeafter.png'},
-{n:'Free Fire Lite', img:'fflite.png'},
-{n:'Apex Legends Mobile', img:'apex.png'},
-{n:' sausage man sudah', img:'sausage2.png'},
-];
-// DATA PULSA & LAINNYA
-const pulsaList = [
-{n:'Telkomsel', img:'telkomsel.png'},
-{n:'XL Axiata', img:'xl.png'},
-{n:'Indosat', img:'indosat.png'},
-{n:'Tri', img:'tri.png'},
-{n:'Smartfren', img:'smartfren.png'},
-{n:'Axis', img:'axis.png'},
-];
-
-const ewalletList = [
-{n:'DANA', img:'dana.png'},
-{n:'OVO', img:'ovo.png'},
-{n:'GoPay', img:'gopay.png'},
-{n:'ShopeePay', img:'shopeepay.png'},
-{n:'LinkAja', img:'linkaja.png'},
-];
-
-const voucherList = [
-{n:'Google Play', img:'googleplay.png'},
-{n:'Steam Wallet', img:'steam.png'},
-{n:'Garena Shell', img:'garena.png'},
 ];
 
 function render(list){
@@ -289,18 +231,7 @@ if(i<6) p.innerHTML+=h; else n.innerHTML+=h;
 });
 }
 function openTopup(name){
-  const pulsa=['Telkomsel','XL Axiata','Indosat','Tri','Smartfren','Axis'];
-  const ewallet=['DANA','OVO','GoPay','ShopeePay','LinkAja'];
-  const voucher=['Google Play','Steam Wallet','Garena Shell'];
-  if(pulsa.includes(name)){
-    location.href=`./pulsa.html?provider=${encodeURIComponent(name)}`;
-  } else if(ewallet.includes(name)){
-    location.href=`./ewallet.html?provider=${encodeURIComponent(name)}`;
-  } else if(voucher.includes(name)){
-    location.href=`./voucher.html?provider=${encodeURIComponent(name)}`;
-  } else {
-    location.href=`./game.html?game=${encodeURIComponent(name)}`;
-  }
+  window.location.href = `./game.html?game=${encodeURIComponent(name)}`;
 }
 function doSearch(){let v=document.getElementById('q').value.toLowerCase(); render(games.filter(x=>x.n.toLowerCase().includes(v))) }
 render(games);
@@ -422,7 +353,7 @@ if(e.target.id==='locModal') closeLoc();
 </style>
 
 <script>
-// DATA LIVE LEBIH BANYAK - BIAR KELIATAN RAME
+// DATA AKUN PALSU BIAR KELIATAN RAME - GANTI NAMA ASLI KALAU MAU
 const liveData = [
 {n:'Rizky*', g:'Mobile Legends', p:'86 Diamond', img:'./mlbb.png'},
 {n:'Andi*', g:'Free Fire', p:'70 Diamond', img:'./ff.png'},
@@ -432,104 +363,28 @@ const liveData = [
 {n:'Ahmad*', g:'ROBLOX', p:'800 Robux', img:'./roblox.png'},
 {n:'Dewi*', g:'Honkai Star Rail', p:'300 Jade', img:'./honkai.png'},
 {n:'Joko*', g:'CODM', p:'80 CP', img:'./codm.png'},
-{n:'Rina*', g:'Honor of Kings', p:'408 Tokens', img:'./hok.png'},
-{n:'Bayu*', g:'Free Fire MAX', p:'720 Diamond', img:'./ffmax.png'},
-{n:'Putri*', g:'AOV', p:'230 Vouchers', img:'./aov.png'},
-{n:'Doni*', g:'Wild Rift', p:'585 Wild Cores', img:'./wildrift.png'},
-{n:'Mega*', g:'Blood Strike', p:'500 Gold', img:'./bloodstrike.png'},
-{n:'Fajar*', g:'eFootball', p:'1040 Coins', img:'./efootball.png'},
-{n:'Lina*', g:'FC Mobile', p:'520 FC Points', img:'./fcmobile.png'},
-{n:'Reza*', g:'ZZZ', p:'980 Monochrome', img:'./zzz.png'},
-{n:'Tia*', g:'Wuthering Waves', p:'980 Lunite', img:'./wuwa.png'},
-{n:'Eko*', g:'Clash Royale', p:'1200 Gems', img:'./cr.png'},
-{n:'Indah*', g:'Brawl Stars', p:'360 Gems', img:'./brawlstars.png'},
-{n:'Yudi*', g:'Minecraft', p:'880 Minecoins', img:'./minecraft.png'},
-{n:'Sari*', g:'Point Blank', p:'6000 PB Cash', img:'./pb.png'},
-{n:'Ilham*', g:'Stumble Guys', p:'800 Gems', img:'./stumble.png'},
-{n:'Dian*', g:'Higgs Domino', p:'400M Koin', img:'./domino.png'},
-{n:'Agus*', g:'8 Ball Pool', p:'500 Cash', img:'./8ball.png'},
-{n:'Wulan*', g:'Super Sus', p:'520 Goldstar', img:'./supersus.png'},
 ];
-
-const liveNames = ['Rizky*','Andi*','Budi*','Siti*','Alya*','Dewi*','Putri*','Joko*','Agus*','Rina*','Fajar*','Bayu*','Indah*','Reza*','Doni*','Mega*','Lina*','Tia*','Eko*','Nisa*','Yudi*','Ahmad*','Dian*','Sari*','Rudi*','Wulan*','Fikri*','Anisa*','Ilham*','Citra*'];
-const timeTexts = ['baru saja', '1 detik lalu', '2 detik lalu', 'beberapa detik lalu', 'barusan'];
-const topupTexts = ['baru topup', 'berhasil topup', 'baru saja beli', 'baru checkout'];
 
 function showLive(){
 let r = liveData[Math.floor(Math.random()*liveData.length)];
-let randomName = liveNames[Math.floor(Math.random()*liveNames.length)];
-let useRandomName = Math.random() > 0.5;
-let finalName = useRandomName ? randomName : r.n;
-let finalTopupText = topupTexts[Math.floor(Math.random()*topupTexts.length)];
-let finalTime = timeTexts[Math.floor(Math.random()*timeTexts.length)];
 document.getElementById('liveImg').src = r.img;
-document.getElementById('liveText').innerText = `${finalName} ${finalTopupText}`;
-document.getElementById('liveGame').innerText = `${r.g} ${r.p} - ${finalTime}`;
+document.getElementById('liveText').innerText = r.n + ' baru topup';
+document.getElementById('liveGame').innerText = r.g + ' ' + r.p + ' - baru saja';
 let box = document.getElementById('liveBox');
 box.style.display = 'flex';
-box.style.animation = 'slideIn .4s ease forwards';
-let r2 = liveData[Math.floor(Math.random()*liveData.length)];
-let r3 = liveData[Math.floor(Math.random()*liveData.length)];
-let n2 = liveNames[Math.floor(Math.random()*liveNames.length)];
-let n3 = liveNames[Math.floor(Math.random()*liveNames.length)];
-document.getElementById('runText').innerText = `🔥 ${finalName} ${finalTopupText} ${r.g} ${r.p} • ${n2} ${topupTexts[Math.floor(Math.random()*topupTexts.length)]} ${r2.g} ${r2.p} • ${n3} baru topup ${r3.g} • Topup cepat 1-3 menit 24 jam 🔥`;
+box.style.animation = 'slideIn .4s';
 setTimeout(()=>{
-box.style.animation = 'slideOut .4s ease forwards';
+box.style.animation = 'slideOut .4s';
 setTimeout(()=>box.style.display='none',400);
-},4000);
+},3500);
+// update running text
+document.getElementById('runText').innerText = `🔥 ${r.n} baru topup ${r.g} ${r.p} • ${liveData[Math.floor(Math.random()*liveData.length)].n} baru topup ${liveData[Math.floor(Math.random()*liveData.length)].g} • `;
 }
+// muncul pertama setelah 3 detik, lalu tiap 6 detik
 setTimeout(()=>{
 showLive();
-setInterval(showLive, 4500);
-},2000);
-setInterval(()=>{
-if(Math.random() > 0.8){
- setTimeout(showLive, 800);
-}
-}, 6000);
-
-// SIMPAN HTML ASLI
-let savedPop = document.getElementById('pop').innerHTML;
-let savedNew = document.getElementById('new').innerHTML;
-
-function renderList(list){
-  let p=document.getElementById('pop');
-  let n=document.getElementById('new');
-  p.innerHTML=''; n.innerHTML='';
-  list.forEach((g,i)=>{
-    let h=`<div class="card" onclick="openTopup('${g.n}')" style="cursor:pointer"><img src="${g.img}" class="card-img" loading="lazy" onerror="this.src='logo.png'"><div class="card-name">${g.n}</div></div>`;
-    if(i<6) p.innerHTML+=h; else n.innerHTML+=h;
-  });
-}
-
-function setCat(c){
-  document.querySelectorAll('.cat div').forEach(el=>{
-    el.classList.remove('active');
-    el.style.background='#18234f';
-    el.style.color='#8fa0d0';
-  });
-  let btn=document.getElementById('cat-'+c);
-  btn.classList.add('active');
-  btn.style.background='#ffcd00';
-  btn.style.color='black';
-
-  if(c=='all'){
-    document.getElementById('pop').innerHTML=savedPop;
-    document.getElementById('new').innerHTML=savedNew;
-  }
-  if(c=='topup'){
-    render(games);
-  }
-  if(c=='pulsa'){
-    renderList(pulsaList);
-  }
-  if(c=='ewallet'){
-    renderList(ewalletList);
-  }
-  if(c=='voucher'){
-    renderList(voucherList);
-  }
-}
+setInterval(showLive, 6000);
+},3000);
 </script>
 </body>
 </html>
