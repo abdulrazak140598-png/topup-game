@@ -1,81 +1,37 @@
 <!DOCTYPE html>
-<html lang="id">
-<head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>TOPUP GAME</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<style>
-body{background:#0a1028;display:flex;justify-content:center}
-.wrap{width:100%;max-width:440px;background:#0e1738;min-height:100vh;position:relative}
-.card{background:#19244a;border-radius:16px;overflow:hidden;border:1px solid #22305f}
-#menu{position:fixed;top:0;right:-100%;width:280px;height:100%;background:#111a35;z-index:99;transition:.3s;padding:20px;border-left:1px solid #22305f}
-#menu.open{right:0}
-</style>
-</head>
-<body>
-<div class="wrap">
-<header style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px;position:sticky;top:0;background:#0e1738;z-index:10;border-bottom:1px solid #19244a">
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TOPUP GAME</title><style>body{background:#0a1028;display:flex;justify-content:center;margin:0} .wrap{width:100%;max-width:440px;background:#0e1738;min-height:100vh} .card{background:#19244a;border-radius:16px;overflow:hidden;border:1px solid #22305f}</style></head>
+<body><div class="wrap">
+<header style="display:flex;justify-content:space-between;padding:12px 16px;position:sticky;top:0;background:#0e1738;z-index:10;border-bottom:1px solid #19244a">
 <div style="background:#facc15;color:black;padding:5px 14px;border-radius:8px;font-weight:900;font-size:13px">TOPUP GAME</div>
-<div style="display:flex;gap:8px;align-items:center">
-<button onclick="toggleLang()" id="langBtn" style="background:#19244a;padding:6px 10px;border-radius:20px;font-size:11px;border:1px solid #22305f">EN / MYR</button>
-<div onclick="toggleMenu()" style="font-size:20px;cursor:pointer;padding:4px 8px">☰</div>
-</div>
+<div style="display:flex;gap:8px;align-items:center"><button id="langBtn" style="background:#19244a;padding:6px 10px;border-radius:20px;font-size:11px;border:1px solid #22305f;color:white">EN / MYR</button><div style="font-size:20px">☰</div></div>
 </header>
-
-<div id="menu">
-<div style="display:flex;justify-content:space-between"><b>MENU</b><span onclick="toggleMenu()" style="cursor:pointer">✕</span></div>
-<div style="margin-top:20px;display:flex;flex-direction:column;gap:12px">
-<a style="background:#19244a;padding:12px;border-radius:10px">🏠 Home</a>
-<a style="background:#19244a;padding:12px;border-radius:10px">📜 Riwayat Transaksi</a>
-<a style="background:#19244a;padding:12px;border-radius:10px">💬 Hubungi CS</a>
-<a style="background:#19244a;padding:12px;border-radius:10px" onclick="toggleLang()">🌐 Ganti Bahasa / Negara</a>
-</div>
-</div>
-
 <div style="padding:16px">
-<div style="background:linear-gradient(90deg,#7c3aed,#facc15);border-radius:16px;padding:18px;display:flex;justify-content:space-between;align-items:center">
-<img src="banner.png" style="width:100%;height:130px;object-fit:cover;border-radius:16px;display:block" onerror="this.src='banner2.png'">
-</div>
+<img src="banner.png" style="width:100%;height:140px;object-fit:cover;border-radius:16px" onerror="this.src='banner2.png'">
 <input id="search" oninput="doFilter()" placeholder="Search Game or Voucher" style="width:100%;margin-top:14px;background:#19244a;border:1px solid #22305f;border-radius:12px;padding:10px 14px;color:white;outline:none">
-<div style="display:flex;gap:8px;margin-top:12px;overflow:auto">
-<button style="background:#facc15;color:black;padding:6px 12px;border-radius:20px;font-size:11px;font-weight:700">Top Up Games</button>
-<button style="background:#19244a;padding:6px 12px;border-radius:20px;font-size:11px;border:1px solid #22305f">Voucher</button>
-<button style="background:#19244a;padding:6px 12px;border-radius:20px;font-size:11px;border:1px solid #22305f">Entertainment</button>
-<button style="background:#19244a;padding:6px 12px;border-radius:20px;font-size:11px;border:1px solid #22305f">Pulsa & PLN</button>
-</div>
-<div style="display:flex;justify-content:space-between;margin-top:16px"><b style="font-size:12px">POPULER 🔥</b><span style="font-size:11px;color:#facc15">Lihat Semua ></span></div>
-<div id="grid" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px"></div>
+<div id="grid" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px"></div>
 <div style="margin-top:20px"><b style="font-size:12px">NEW GAMES ✨</b></div>
 <div id="grid2" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px"></div>
-</div>
-</div>
-
+</div></div>
 <script>
-let lang='MYR';
-function toggleMenu(){document.getElementById('menu').classList.toggle('open')}
-function toggleLang(){
-lang=lang==='MYR'?'IDR':'MYR';
-document.getElementById('langBtn').innerText=lang==='MYR'?'EN / MYR':'ID / IDR';
-render(games.filter(x=>document.getElementById('search').value.toLowerCase()==''||x.n.toLowerCase().includes(document.getElementById('search').value.toLowerCase())));
-}
-
+const games=[
+{n:'Mobile Legends', img:'mlbb.png', bg:'#1e40af'},
+{n:'Free Fire', img:'ff.png', bg:'#111827'},
+{n:'PUBG Mobile', img:'pubg.png', bg:'#854d0e'},
+{n:'Valorant', img:'valorant.png', bg:'#7f1d1d'},
+{n:'ROBLOX', img:'roblox.png', bg:'#475569'},
+{n:'Genshin Impact', img:'genshin.png', bg:'#1e3a8a'},
+{n:'Honkai Star Rail', img:'honkai.png', bg:'#5b21b6'},
+{n:'Clash of Clans', img:'coc.png', bg:'#a16207'},
+{n:'CODM', img:'codm.png', bg:'#1a1a1a'},
+];
 function render(list){
 let g=document.getElementById('grid');let g2=document.getElementById('grid2');g.innerHTML='';g2.innerHTML='';
 list.forEach((x,i)=>{
-let html=`<div class="card"><div style="background:${x.bg};height:92px;display:flex;align-items:center;justify-content:center"><img src="${x.img}" style="width:62px;height:62px;object-fit:contain;background:white;border-radius:12px;padding:4px"></div><div style="padding:10px;text-align:center"><div style="font-size:11px;font-weight:800">${x.n}</div></div></div>`;
-if(i<6){g.innerHTML+=html}else{g2.innerHTML+=html}
-});
-}
-function render(list){
-let g=document.getElementById('grid');let g2=document.getElementById('grid2');g.innerHTML='';g2.innerHTML='';
-list.forEach((x,i)=>{
-let price=lang==='MYR'?x.priceMYR:x.priceIDR;
-let html=`<div class="card"><div style="background:${x.bg};height:92px;display:flex;align-items:center;justify-content:center"><img src="${x.img}" style="width:62px;height:62px;object-fit:contain;background:white;border-radius:12px;padding:4px"></div><div style="padding:10px"><div style="font-size:11px;font-weight:700">${x.n}</div><div style="font-size:11px;color:#facc15;font-weight:900;margin-top:2px">${price}</div></div></div>`;
+let html=`<div class="card"><div style="background:${x.bg};height:100px;display:flex;align-items:center;justify-content:center"><img src="${x.img}" style="width:65px;height:65px;object-fit:contain;background:white;border-radius:12px;padding:4px"></div><div style="padding:10px;text-align:center"><div style="font-size:11px;font-weight:800">${x.n}</div></div></div>`;
 if(i<6){g.innerHTML+=html}else{g2.innerHTML+=html}
 });
 }
 function doFilter(){let q=document.getElementById('search').value.toLowerCase();render(games.filter(x=>x.n.toLowerCase().includes(q)))}
 render(games);
 </script>
-</body>
-</html>
+</body></html>
