@@ -597,16 +597,48 @@ function openTopup(name){
 function doSearch(){let v=document.getElementById('q').value.toLowerCase(); render(games.filter(x=>x.n.toLowerCase().includes(v))) }
 render(games);
 // SLIDER BANNER
+// SLIDER BANNER - AUTO + GESER MANUAL
 let cur = 0;
 const s = document.getElementById('slider');
+let startX = 0, isDrag = false;
+let autoSlide;
+
 function show(n){
+  cur = n;
   s.style.transform = `translateX(-${n*100}%)`;
   document.getElementById('dot0').style.background = n==0 ? '#ffcd00' : 'rgba(255,255,255,.4)';
   document.getElementById('dot0').style.width = n==0 ? '20px' : '6px';
   document.getElementById('dot1').style.background = n==1 ? '#ffcd00' : 'rgba(255,255,255,.4)';
   document.getElementById('dot1').style.width = n==1 ? '20px' : '6px';
 }
-setInterval(()=>{ cur = (cur+1)%2; show(cur); }, 3500);
+
+function startAuto(){ autoSlide = setInterval(()=>{ show((cur+1)%2); }, 3500); }
+function stopAuto(){ clearInterval(autoSlide); }
+
+startAuto();
+
+// DOT BISA DI KLIK
+document.getElementById('dot0').onclick = ()=>{ show(0); stopAuto(); startAuto(); }
+document.getElementById('dot1').onclick = ()=>{ show(1); stopAuto(); startAuto(); }
+
+// GESER PAKAI JARI / MOUSE
+s.addEventListener('touchstart', e=>{ startX = e.touches[0].clientX; isDrag = true; stopAuto(); });
+s.addEventListener('touchend', e=>{
+  if(!isDrag) return;
+  let diff = e.changedTouches[0].clientX - startX;
+  if(diff < -50) show(1);
+  if(diff > 50) show(0);
+  isDrag = false; startAuto();
+});
+
+s.addEventListener('mousedown', e=>{ startX = e.clientX; isDrag = true; stopAuto(); s.style.cursor='grabbing'; });
+window.addEventListener('mouseup', e=>{
+  if(!isDrag) return;
+  let diff = e.clientX - startX;
+  if(diff < -50) show(1);
+  if(diff > 50) show(0);
+  isDrag = false; s.style.cursor='grab'; startAuto();
+});
 function openLoc(){document.getElementById('locModal').style.display='flex'}
 function closeLoc(){document.getElementById('locModal').style.display='none'}
 
