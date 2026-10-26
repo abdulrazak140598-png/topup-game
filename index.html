@@ -111,6 +111,7 @@ body{background:#0b122e}
     </div>
   </div>
 </div>
+
 <!-- SELESAI BANNER -->
 <!-- ===== PENEMPATAN KODE 8 JAM MELAYANG - DI SINI BANG, DI BAWAH BANNER, DI ATAS SEARCH ===== -->
 <div class="promo-float" style="margin:12px 16px;background:linear-gradient(135deg,#ffcd00,#ffb800);border-radius:14px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;color:black;font-weight:900;">
@@ -151,8 +152,6 @@ setInterval(()=>{
 <div id="pop" class="grid"></div>
 
 <div class="section-title"><b style="font-size:13px">NEW RELEASE ✨</b></div>
-<div id="new" class="grid" style="padding-bottom:90px"></div>
-</div>
 <div id="new" class="grid"></div>
 
 <!-- 33 GAME DISEMBUNYIKAN -->
@@ -558,16 +557,11 @@ const voucherList = [
 
 let showAll = false;
 function render(list){
-let p=document.getElementById('pop');let n=document.getElementById('new');p.innerHTML='';n.innerHTML='';
-list.forEach((g,i)=>{
-let h=`<div class="card" onclick="openTopup('${g.n}')" style="cursor:pointer"><img src="${g.img}" class="card-img" loading="lazy" onerror="this.src='logo.png'"><div class="card-name">${g.n}</div></div>`;
-if(i<10) p.innerHTML+=h; else n.innerHTML+=h;
-});
   let p=document.getElementById('pop');
   let n=document.getElementById('new');
   let h=document.getElementById('hiddenGames');
   p.innerHTML=''; n.innerHTML=''; h.innerHTML='';
-  
+
   list.forEach((g,i)=>{
     let html=`<div class="card" onclick="openTopup('${g.n}')"><img src="${g.img}" class="card-img" onerror="this.src='logo.png'"><div class="card-name">${g.n}</div></div>`;
     if(i<6) p.innerHTML+=html;
