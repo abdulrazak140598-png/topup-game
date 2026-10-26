@@ -150,93 +150,9 @@ setInterval(()=>{
 <div class="section-title"><b style="font-size:13px">POPULER 🔥</b><span style="font-size:11px;color:#ffcd00">Lihat Semua ›</span></div>
 <div id="pop" class="grid"></div>
 
-<!-- NEW RELEASE - 4 AWAL + TOMBOL MUNCULKAN - SESUAI LIST ABANG -->
-<div style="padding:16px">
-  <div style="display:flex;justify-content:space-between;align-items:center">
-    <div style="display:flex;align-items:center;gap:8px">
-      <div style="width:32px;height:32px;background:linear-gradient(135deg,#ffcd00,#ffb800);border-radius:8px;display:flex;align-items:center;justify-content:center">🔥</div>
-      <div>
-        <div style="color:white;font-weight:900;font-size:14px">NEW RELEASE</div>
-        <div id="nrCount" style="color:#7a8bc0;font-size:10px">4 dari 33 game</div>
-      </div>
-    </div>
-  </div>
-
-  <div id="nrGrid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px"></div>
-
-  <button id="nrBtn" style="width:100%;margin-top:14px;background:linear-gradient(135deg,#18234f,#1e2f6b);border:1px solid #24346a;color:white;padding:12px;border-radius:14px;font-weight:800;font-size:12px;cursor:pointer">
-    ▼ LIHAT SEMUA (33 GAME)
-  </button>
+<div class="section-title"><b style="font-size:13px">NEW RELEASE ✨</b></div>
+<div id="new" class="grid" style="padding-bottom:90px"></div>
 </div>
-
-<script>
-const newReleaseGames = [
-{n:'Clash of Clans', img:'coc.png'},
-{n:'Free Fire', img:'ff.png'},
-{n:'Arena of Valor', img:'aov.png'},
-{n:'League of Legends Wild Rift', img:'wildrift.png'},
-{n:'Blood Strike', img:'bloodstrike.png'},
-{n:'Farlight 84', img:'farlight.png'},
-{n:'Sausage Man', img:'sausage.png'},
-{n:'EA Sports FC Mobile', img:'fcmobile.png'},
-{n:'Zenless Zone Zero', img:'zzz.png'},
-{n:'Wuthering Waves', img:'wuwa.png'},
-{n:'Solo Leveling Arise', img:'solo.png'},
-{n:'Clash Royale', img:'cr.png'},
-{n:'Brawl Stars', img:'brawlstars.png'},
-{n:'Hay Day', img:'hayday.png'},
-{n:'Minecraft', img:'minecraft.png'},
-{n:'Point Blank', img:'pb.png'},
-{n:'Stumble Guys', img:'stumble.png'},
-{n:'Higgs Domino', img:'domino.png'},
-{n:'Lords Mobile', img:'lords.png'},
-{n:'State of Survival', img:'sos.png'},
-{n:'Whiteout Survival', img:'whiteout.png'},
-{n:'8 Ball Pool', img:'8ball.png'},
-{n:'Garena Undawn', img:'undawn.png'},
-{n:'Metal Slug Awakening', img:'metalslug.png'},
-{n:'Super Sus', img:'supersus.png'},
-{n:'Mobile Legends Adventure', img:'mla.png'},
-{n:'Ragnarok Origin', img:'ro.png'},
-{n:'Ragnarok M Eternal Love', img:'rom.png'},
-{n:'Dragon Raja', img:'dragonraja.png'},
-{n:'LifeAfter', img:'lifeafter.png'},
-{n:'Free Fire Lite', img:'fflite.png'},
-{n:'Apex Legends Mobile', img:'apex.png'},
-{n:'Sausage Man 2', img:'sausage2.png'},
-];
-
-const grid = document.getElementById('nrGrid');
-const btn = document.getElementById('nrBtn');
-const count = document.getElementById('nrCount');
-let showAll = false;
-
-function render(){
-  grid.innerHTML = '';
-  let limit = showAll ? newReleaseGames.length : 4;
-  for(let i=0; i<limit; i++){
-    let g = newReleaseGames[i];
-    grid.innerHTML += `
-      <a href="./${g.img.replace('.png','.html')}" style="text-decoration:none">
-        <div style="background:#18234f;border:1px solid #24346a;border-radius:14px;padding:6px;text-align:center">
-          <img src="./${g.img}" onerror="this.src='https://via.placeholder.com/100?text=${g.n}'" style="width:100%;border-radius:10px;aspect-ratio:1;object-fit:cover;background:#0f1a3d">
-          <div style="color:white;font-size:9px;font-weight:700;margin-top:5px;line-height:1.2;height:22px;overflow:hidden;display:flex;align-items:center;justify-content:center">${g.n}</div>
-        </div>
-      </a>
-    `;
-  }
-  count.innerText = showAll ? `${newReleaseGames.length} game tampil` : `4 dari ${newReleaseGames.length} game`;
-  btn.innerText = showAll ? '▲ SEMBUNYIKAN' : `▼ LIHAT SEMUA (${newReleaseGames.length} GAME)`;
-}
-
-btn.onclick = () => {
-  showAll = !showAll;
-  render();
-  if(!showAll) document.getElementById('nrGrid').scrollIntoView({behavior:'smooth'});
-};
-
-render();
-</script>
 
 <!-- TOP SPENDER - TARUH DI SINI, DI ATAS FOOTER -->
 <!-- ULASAN BINTANG 5 LIVE - TARUH DI BAWAH TOP SPENDER -->
