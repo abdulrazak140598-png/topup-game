@@ -225,9 +225,12 @@ const games=[
 function render(list){
 let p=document.getElementById('pop');let n=document.getElementById('new');p.innerHTML='';n.innerHTML='';
 list.forEach((g,i)=>{
-let h=`<div class="card"><img src="${g.img}" class="card-img" loading="lazy" onerror="this.src='logo.png'"><div class="card-name">${g.n}</div></div>`;
+let h=`<div class="card" onclick="openTopup('${g.n}')" style="cursor:pointer"><img src="${g.img}" class="card-img" loading="lazy" onerror="this.src='logo.png'"><div class="card-name">${g.n}</div></div>`;
 if(i<6) p.innerHTML+=h; else n.innerHTML+=h;
 });
+}
+function openTopup(name){
+  window.location.href = `./game.html?game=${encodeURIComponent(name)}`;
 }
 function doSearch(){let v=document.getElementById('q').value.toLowerCase(); render(games.filter(x=>x.n.toLowerCase().includes(v))) }
 render(games);
