@@ -253,14 +253,17 @@ if(i<6) p.innerHTML+=h; else n.innerHTML+=h;
 });
 }
 function openTopup(name){
-  let pulsa = ['Telkomsel','XL Axiata','Indosat','Tri','Smartfren','Axis'];
-  let ewallet = ['DANA','OVO','GoPay','ShopeePay','LinkAja'];
-  let voucher = ['Google Play','Steam Wallet','Garena Shell'];
-  
-  if(pulsa.includes(name) || ewallet.includes(name) || voucher.includes(name)){
-    window.location.href = `./pulsa.html?provider=${encodeURIComponent(name)}`;
+  const pulsa=['Telkomsel','XL Axiata','Indosat','Tri','Smartfren','Axis'];
+  const ewallet=['DANA','OVO','GoPay','ShopeePay','LinkAja'];
+  const voucher=['Google Play','Steam Wallet','Garena Shell'];
+  if(pulsa.includes(name)){
+    location.href=`./pulsa.html?provider=${encodeURIComponent(name)}`;
+  } else if(ewallet.includes(name)){
+    location.href=`./ewallet.html?provider=${encodeURIComponent(name)}`;
+  } else if(voucher.includes(name)){
+    location.href=`./voucher.html?provider=${encodeURIComponent(name)}`;
   } else {
-    window.location.href = `./game.html?game=${encodeURIComponent(name)}`;
+    location.href=`./game.html?game=${encodeURIComponent(name)}`;
   }
 }
 function doSearch(){let v=document.getElementById('q').value.toLowerCase(); render(games.filter(x=>x.n.toLowerCase().includes(v))) }
