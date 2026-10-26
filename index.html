@@ -150,10 +150,98 @@ setInterval(()=>{
 <div class="section-title"><b style="font-size:13px">POPULER 🔥</b><span style="font-size:11px;color:#ffcd00">Lihat Semua ›</span></div>
 <div id="pop" class="grid"></div>
 
-<div class="section-title"><b style="font-size:13px">NEW RELEASE ✨</b></div>
-<div id="new" class="grid" style="padding-bottom:90px"></div>
+<!-- NEW RELEASE - KLIK UNTUK LIHAT SEMUA -->
+<style>
+.game-item{transition:.3s cubic-bezier(.4,0,.2,1)}
+.game-item.hide{display:none}
+#newReleaseGrid.show-all .game-item.hide{display:block;animation:fadeIn .4s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+#toggleIcon{transition:transform .3s ease}
+#newReleaseGrid.show-all + #toggleWrap #toggleIcon{transform:rotate(180deg)}
+</style>
+
+<div style="padding:16px">
+  <!-- HEADER BISA DIKLIK -->
+  <div id="newReleaseHeader" style="display:flex;justify-content:space-between;align-items:center;cursor:pointer;user-select:none">
+    <div style="display:flex;align-items:center;gap:8px">
+      <div style="width:32px;height:32px;background:linear-gradient(135deg,#ffcd00,#ffb800);border-radius:8px;display:flex;align-items:center;justify-content:center">🔥</div>
+      <div>
+        <div style="color:white;font-weight:900;font-size:14px">NEW RELEASE</div>
+        <div id="gameCountText" style="color:#7a8bc0;font-size:10px">6 dari 18 game • Klik untuk lihat semua</div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;background:#18234f;border:1px solid #24346a;padding:8px 14px;border-radius:20px">
+      <span id="toggleText" style="color:white;font-size:11px;font-weight:800">LIHAT SEMUA</span>
+      <span id="toggleIcon" style="color:#ffcd00;font-size:12px">▼</span>
+    </div>
+  </div>
+
+  <!-- GRID GAME -->
+  <div id="newReleaseGrid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px">
+    <!-- 6 GAME PERTAMA - SELALU MUNCUL -->
+    <div class="game-item" style="background:#18234f;border-radius:14px;padding:8px;text-align:center;border:1px solid #24346a"><img src="./ml.jpg" style="width:100%;border-radius:10px;aspect-ratio:1"><div style="color:white;font-size:11px;font-weight:700;margin-top:6px">Mobile Legends</div></div>
+    <div class="game-item" style="background:#18234f;border-radius:14px;padding:8px;text-align:center;border:1px solid #24346a"><img src="./ff.jpg" style="width:100%;border-radius:10px;aspect-ratio:1"><div style="color:white;font-size:11px;font-weight:700;margin-top:6px">Free Fire</div></div>
+    <div class="game-item" style="background:#18234f;border-radius:14px;padding:8px;text-align:center;border:1px solid #24346a"><img src="./pubg.jpg" style="width:100%;border-radius:10px;aspect-ratio:1"><div style="color:white;font-size:11px;font-weight:700;margin-top:6px">PUBG Mobile</div></div>
+    <div class="game-item" style="background:#18234f;border-radius:14px;padding:8px;text-align:center;border:1px solid #24346a"><img src="./valo.jpg" style="width:100%;border-radius:10px;aspect-ratio:1"><div style="color:white;font-size:11px;font-weight:700;margin-top:6px">Valorant</div></div>
+    <div class="game-item" style="background:#18234f;border-radius:14px;padding:8px;text-align:center;border:1px solid #24346a"><img src="./genshin.jpg" style="width:100%;border-radius:10px;aspect-ratio:1"><div style="color:white;font-size:11px;font-weight:700;margin-top:6px">Genshin</div></div>
+    <div class="game-item" style="background:#18234f;border-radius:14px;padding:8px;text-align:center;border:1px solid #24346a"><img src="./roblox.jpg" style="width:100%;border-radius:10px;aspect-ratio:1"><div style="color:white;font-size:11px;font-weight:700;margin-top:6px">Roblox</div></div>
+
+    <!-- SISANYA - TERSEMBUNYI AWALNYA -->
+    <div class="game-item hide" style="background:#18234f;border-radius:14px;padding:8px;text-align:center;border:1px solid #24346a"><img src="./hok.jpg" style="width:100%;border-radius:10px;aspect-ratio:1"><div style="color:white;font-size:11px;font-weight:700;margin-top:6px">HOK</div></div>
+    <div class="game-item hide" style="background:#18234f;border-radius:14px;padding:8px;text-align:center;border:1px solid #24346a"><img src="./codm.jpg" style="width:100%;border-radius:10px;aspect-ratio:1"><div style="color:white;font-size:11px;font-weight:700;margin-top:6px">CODM</div></div>
+    <div class="game-item hide" style="background:#18234f;border-radius:14px;padding:8px;text-align:center;border:1px solid #24346a"><img src="./mc.jpg" style="width:100%;border-radius:10px;aspect-ratio:1"><div style="color:white;font-size:11px;font-weight:700;margin-top:6px">Minecraft</div></div>
+    <div class="game-item hide" style="background:#18234f;border-radius:14px;padding:8px;text-align:center;border:1px solid #24346a"><img src="./aov.jpg" style="width:100%;border-radius:10px;aspect-ratio:1"><div style="color:white;font-size:11px;font-weight:700;margin-top:6px">AOV</div></div>
+    <div class="game-item hide" style="background:#18234f;border-radius:14px;padding:8px;text-align:center;border:1px solid #24346a"><img src="./lol.jpg" style="width:100%;border-radius:10px;aspect-ratio:1"><div style="color:white;font-size:11px;font-weight:700;margin-top:6px">LOL Wild Rift</div></div>
+    <div class="game-item hide" style="background:#18234f;border-radius:14px;padding:8px;text-align:center;border:1px solid #24346a"><img src="./eggy.jpg" style="width:100%;border-radius:10px;aspect-ratio:1"><div style="color:white;font-size:11px;font-weight:700;margin-top:6px">Eggy Party</div></div>
+    <div class="game-item hide" style="background:#18234f;border-radius:14px;padding:8px;text-align:center;border:1px solid #24346a"><img src="./stumble.jpg" style="width:100%;border-radius:10px;aspect-ratio:1"><div style="color:white;font-size:11px;font-weight:700;margin-top:6px">Stumble Guys</div></div>
+    <div class="game-item hide" style="background:#18234f;border-radius:14px;padding:8px;text-align:center;border:1px solid #24346a"><img src="./pb.jpg" style="width:100%;border-radius:10px;aspect-ratio:1"><div style="color:white;font-size:11px;font-weight:700;margin-top:6px">Point Blank</div></div>
+    <div class="game-item hide" style="background:#18234f;border-radius:14px;padding:8px;text-align:center;border:1px solid #24346a"><img src="./efootball.jpg" style="width:100%;border-radius:10px;aspect-ratio:1"><div style="color:white;font-size:11px;font-weight:700;margin-top:6px">eFootball</div></div>
+    <div class="game-item hide" style="background:#18234f;border-radius:14px;padding:8px;text-align:center;border:1px solid #24346a"><img src="./ Sausage.jpg" style="width:100%;border-radius:10px;aspect-ratio:1"><div style="color:white;font-size:11px;font-weight:700;margin-top:6px">Sausage Man</div></div>
+    <div class="game-item hide" style="background:#18234f;border-radius:14px;padding:8px;text-align:center;border:1px solid #24346a"><img src="./supercell.jpg" style="width:100%;border-radius:10px;aspect-ratio:1"><div style="color:white;font-size:11px;font-weight:700;margin-top:6px">Supercell</div></div>
+    <div class="game-item hide" style="background:#18234f;border-radius:14px;padding:8px;text-align:center;border:1px solid #24346a"><img src="./speed.jpg" style="width:100%;border-radius:10px;aspect-ratio:1"><div style="color:white;font-size:11px;font-weight:700;margin-top:6px">Speed Drifters</div></div>
+  </div>
+
+  <!-- TOMBOL BAWAH - BISA DIKLIK JUGA -->
+  <div id="toggleWrap" style="text-align:center;margin-top:14px">
+    <button id="toggleBtn" style="width:100%;background:linear-gradient(135deg,#18234f,#1e2f6b);border:1px solid #24346a;color:white;padding:12px;border-radius:14px;font-weight:800;font-size:12px;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer">
+      <span id="toggleBtnText">🔽 LIHAT 12 GAME LAINNYA</span>
+      <span id="toggleBtnCount" style="background:#ffcd00;color:black;padding:3px 8px;border-radius:20px;font-size:10px">+12</span>
+    </button>
+  </div>
 </div>
 
+<script>
+(function(){
+  const grid = document.getElementById('newReleaseGrid');
+  const header = document.getElementById('newReleaseHeader');
+  const btn = document.getElementById('toggleBtn');
+  const toggleText = document.getElementById('toggleText');
+  const toggleBtnText = document.getElementById('toggleBtnText');
+  const gameCountText = document.getElementById('gameCountText');
+  const hiddenCount = document.querySelectorAll('.game-item.hide').length;
+  const total = document.querySelectorAll('.game-item').length;
+
+  function toggle(){
+    const isShow = grid.classList.contains('show-all');
+    if(isShow){
+      grid.classList.remove('show-all');
+      toggleText.innerText = 'LIHAT SEMUA';
+      toggleBtnText.innerText = `🔽 LIHAT ${hiddenCount} GAME LAINNYA`;
+      gameCountText.innerText = `6 dari ${total} game • Klik untuk lihat semua`;
+      // Scroll balik ke atas New Release biar gak loncat
+      document.getElementById('newReleaseHeader').scrollIntoView({behavior:'smooth', block:'start'});
+    } else {
+      grid.classList.add('show-all');
+      toggleText.innerText = 'SEMBUNYIKAN';
+      toggleBtnText.innerText = '🔼 SEMBUNYIKAN GAME';
+      gameCountText.innerText = `${total} game tampil semua • Klik untuk sembunyikan`;
+    }
+  }
+
+  header.addEventListener('click', toggle);
+  btn.addEventListener('click', toggle);
+})();
+</script>
 <!-- TOP SPENDER - TARUH DI SINI, DI ATAS FOOTER -->
 <!-- ULASAN BINTANG 5 LIVE - TARUH DI BAWAH TOP SPENDER -->
 <style>
