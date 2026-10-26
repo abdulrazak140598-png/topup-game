@@ -487,14 +487,7 @@ if(Math.random() > 0.8){
  setTimeout(showLive, 800);
 }
 }, 6000);
-// update running text
-document.getElementById('runText').innerText = `🔥 ${r.n} baru topup ${r.g} ${r.p} • ${liveData[Math.floor(Math.random()*liveData.length)].n} baru topup ${liveData[Math.floor(Math.random()*liveData.length)].g} • `;
-}
-// muncul pertama setelah 3 detik, lalu tiap 6 detik
-setTimeout(()=>{
-showLive();
-setInterval(showLive, 6000);
-},3000);
+
 // SIMPAN HTML ASLI
 let savedPop = document.getElementById('pop').innerHTML;
 let savedNew = document.getElementById('new').innerHTML;
