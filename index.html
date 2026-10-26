@@ -147,9 +147,61 @@ setInterval(()=>{
 <div onclick="setCat('ewallet')" id="cat-ewallet" style="color:#8fa0d0;background:#18234f">E-Wallet</div>
 </div>
 
-<div class="section-title"><b style="font-size:13px">POPULER 🔥</b><span style="font-size:11px;color:#ffcd00">Lihat Semua ›</span></div>
-<div id="pop" class="grid"></div>
+<!-- POPULER - 8 GAME + TOMBOL -->
+<div style="padding:16px;margin-top:8px">
+  <div style="display:flex;justify-content:space-between;align-items:center">
+    <div style="display:flex;align-items:center;gap:8px">
+      <div style="width:32px;height:32px;background:linear-gradient(135deg,#ffcd00,#ffb800);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px">⭐</div>
+      <div style="color:white;font-weight:900;font-size:14px">POPULER</div>
+    </div>
+    <div id="popCount" style="color:#7a8bc0;font-size:11px">8 dari 14 game</div>
+  </div>
 
+  <div id="popGrid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px">
+    <!-- 8 GAME POPULER AWAL -->
+    <a href="./mlbb.html" style="text-decoration:none"><img src="./mlbb.png" style="width:100%;border-radius:12px;aspect-ratio:1;object-fit:cover;background:#18234f;border:1px solid #24346a"><div style="color:white;font-size:10px;font-weight:700;text-align:center;margin-top:5px">MLBB</div><div style="background:#ffcd00;color:black;font-size:8px;font-weight:800;text-align:center;border-radius:20px;margin-top:3px;padding:2px">🔥 HOT</div></a>
+    <a href="./freefire.html" style="text-decoration:none"><img src="./freefire.png" style="width:100%;border-radius:12px;aspect-ratio:1;object-fit:cover;background:#18234f;border:1px solid #24346a"><div style="color:white;font-size:10px;font-weight:700;text-align:center;margin-top:5px">Free Fire</div><div style="background:#00c851;color:white;font-size:8px;font-weight:800;text-align:center;border-radius:20px;margin-top:3px;padding:2px">-15%</div></a>
+    <a href="./pubg.html" style="text-decoration:none"><img src="./pubg.png" style="width:100%;border-radius:12px;aspect-ratio:1;object-fit:cover;background:#18234f;border:1px solid #24346a"><div style="color:white;font-size:10px;font-weight:700;text-align:center;margin-top:5px">PUBG</div></a>
+    <a href="./valorant.html" style="text-decoration:none"><img src="./valorant.png" style="width:100%;border-radius:12px;aspect-ratio:1;object-fit:cover;background:#18234f;border:1px solid #24346a"><div style="color:white;font-size:10px;font-weight:700;text-align:center;margin-top:5px">Valorant</div></a>
+    <a href="./genshin.html" style="text-decoration:none"><img src="./genshin.png" style="width:100%;border-radius:12px;aspect-ratio:1;object-fit:cover;background:#18234f;border:1px solid #24346a"><div style="color:white;font-size:10px;font-weight:700;text-align:center;margin-top:5px">Genshin</div></a>
+    <a href="./roblox.html" style="text-decoration:none"><img src="./roblox.png" style="width:100%;border-radius:12px;aspect-ratio:1;object-fit:cover;background:#18234f;border:1px solid #24346a"><div style="color:white;font-size:10px;font-weight:700;text-align:center;margin-top:5px">Roblox</div></a>
+    <a href="./hok.html" style="text-decoration:none"><img src="./hok.png" style="width:100%;border-radius:12px;aspect-ratio:1;object-fit:cover;background:#18234f;border:1px solid #24346a"><div style="color:white;font-size:10px;font-weight:700;text-align:center;margin-top:5px">HOK</div></a>
+    <a href="./codm.html" style="text-decoration:none"><img src="./codm.png" style="width:100%;border-radius:12px;aspect-ratio:1;object-fit:cover;background:#18234f;border:1px solid #24346a"><div style="color:white;font-size:10px;font-weight:700;text-align:center;margin-top:5px">CODM</div></a>
+
+    <!-- GAME TERSEMBUNYI -->
+    <a href="./aov.html" class="popExtra" style="display:none;text-decoration:none"><img src="./aov.png" style="width:100%;border-radius:12px;aspect-ratio:1;object-fit:cover;background:#18234f;border:1px solid #24346a"><div style="color:white;font-size:10px;font-weight:700;text-align:center;margin-top:5px">AOV</div></a>
+    <a href="./pb.html" class="popExtra" style="display:none;text-decoration:none"><img src="./pb.png" style="width:100%;border-radius:12px;aspect-ratio:1;object-fit:cover;background:#18234f;border:1px solid #24346a"><div style="color:white;font-size:10px;font-weight:700;text-align:center;margin-top:5px">Point Blank</div></a>
+    <a href="./efootball.html" class="popExtra" style="display:none;text-decoration:none"><img src="./efootball.png" style="width:100%;border-radius:12px;aspect-ratio:1;object-fit:cover;background:#18234f;border:1px solid #24346a"><div style="color:white;font-size:10px;font-weight:700;text-align:center;margin-top:5px">eFootball</div></a>
+    <a href="./lol.html" class="popExtra" style="display:none;text-decoration:none"><img src="./lol.png" style="width:100%;border-radius:12px;aspect-ratio:1;object-fit:cover;background:#18234f;border:1px solid #24346a"><div style="color:white;font-size:10px;font-weight:700;text-align:center;margin-top:5px">LOL</div></a>
+    <a href="./mc.html" class="popExtra" style="display:none;text-decoration:none"><img src="./mc.png" style="width:100%;border-radius:12px;aspect-ratio:1;object-fit:cover;background:#18234f;border:1px solid #24346a"><div style="color:white;font-size:10px;font-weight:700;text-align:center;margin-top:5px">Minecraft</div></a>
+    <a href="./stumble.html" class="popExtra" style="display:none;text-decoration:none"><img src="./stumble.png" style="width:100%;border-radius:12px;aspect-ratio:1;object-fit:cover;background:#18234f;border:1px solid #24346a"><div style="color:white;font-size:10px;font-weight:700;text-align:center;margin-top:5px">Stumble</div></a>
+  </div>
+
+  <button id="popBtn" style="width:100%;margin-top:14px;background:linear-gradient(135deg,#18234f,#1e2f6b);border:1px solid #24346a;color:white;padding:12px;border-radius:14px;font-weight:800;font-size:12px;cursor:pointer">
+    ▼ LIHAT SEMUA POPULER (14 GAME)
+  </button>
+</div>
+
+<script>
+(function(){
+  const btn = document.getElementById('popBtn');
+  const extras = document.querySelectorAll('.popExtra');
+  const info = document.getElementById('popCount');
+  let open = false;
+  btn.onclick = () => {
+    open = !open;
+    extras.forEach(e => e.style.display = open ? 'block' : 'none');
+    if(open){
+      btn.textContent = '▲ SEMBUNYIKAN';
+      info.textContent = '14 game tampil';
+    } else {
+      btn.textContent = '▼ LIHAT SEMUA POPULER (14 GAME)';
+      info.textContent = '8 dari 14 game';
+      document.getElementById('popGrid').scrollIntoView({behavior:'smooth'});
+    }
+  }
+})();
+</script>
 <!-- NEW RELEASE - 8 GAME AWAL + TOMBOL SEMBUNYIKAN -->
 <div style="padding:16px">
   <div style="display:flex;justify-content:space-between;align-items:center">
