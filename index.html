@@ -208,32 +208,17 @@ body{background:#0b122e}
 
 <script>
 const games=[
-{n:'Mobile Legends',img:'./mlbb.png', prices:[
-{d:'86 Diamond', price:20000, bonus:''},
-{d:'172 Diamond', price:39000, bonus:''},
-{d:'257 Diamond', price:58000, bonus:''},
-{d:'344 Diamond', price:77000, bonus:'Best'},
-{d:'514 Diamond', price:115000, bonus:''},
-{d:'706 Diamond', price:155000, bonus:'HOT'},
-{d:'878 Diamond', price:195000, bonus:''},
-{d:'1050 Diamond', price:230000, bonus:''},
-{d:'1412 Diamond', price:310000, bonus:''},
-{d:'2195 Diamond', price:465000, bonus:''},
-]},
-{n:'Free Fire',img:'./ff.png', prices:[
-{d:'70 Diamond', price:10000},{d:'140 Diamond', price:20000},{d:'355 Diamond', price:50000},{d:'720 Diamond', price:100000},
-]},
-{n:'PUBG Mobile',img:'./pubg.png', prices:[{d:'60 UC', price:14000},{d:'325 UC', price:70000}]},
-{n:'Valorant',img:'./valorant.png', prices:[{d:'125 VP', price:15000}]},
-{n:'ROBLOX',img:'./roblox.png', prices:[{d:'80 Robux', price:12000}]},
-{n:'Genshin Impact',img:'./genshin.png', prices:[{d:'300 Genesis', price:65000}]},
-{n:'Honkai Star Rail',img:'./honkai.png', prices:[{d:'300 Jade', price:65000}]},
-{n:'Clash of Clans',img:'./coc.png', prices:[{d:'500 Gems', price:70000}]},
-{n:'CODM',img:'./codm.png', prices:[{d:'80 CP', price:15000}]},
+{n:'Mobile Legends',img:'./mlbb.png', prices:[{d:'86 Diamond',price:20000},{d:'172 Diamond',price:39000},{d:'257 Diamond',price:58000},{d:'344 Diamond',price:77000},{d:'514 Diamond',price:115000},{d:'706 Diamond',price:155000}]},
+{n:'Free Fire',img:'./ff.png', prices:[{d:'70 Diamond',price:10000},{d:'140 Diamond',price:20000},{d:'355 Diamond',price:50000}]},
+{n:'PUBG Mobile',img:'./pubg.png', prices:[{d:'60 UC',price:14000},{d:'325 UC',price:70000}]},
+{n:'Valorant',img:'./valorant.png', prices:[{d:'125 VP',price:15000}]},
+{n:'ROBLOX',img:'./roblox.png', prices:[{d:'80 Robux',price:12000}]},
+{n:'Genshin Impact',img:'./genshin.png', prices:[{d:'300 Genesis',price:65000}]},
+{n:'Honkai Star Rail',img:'./honkai.png', prices:[{d:'300 Jade',price:65000}]},
+{n:'Clash of Clans',img:'./coc.png', prices:[{d:'500 Gems',price:70000}]},
+{n:'CODM',img:'./codm.png', prices:[{d:'80 CP',price:15000}]},
 ];
-
-let selectedPrice = null;
-let selectedGame = null;
+let selectedPrice=null; let selectedGame=null;
 
 function render(list){
 let p=document.getElementById('pop'),nw=document.getElementById('new');p.innerHTML='';nw.innerHTML='';
