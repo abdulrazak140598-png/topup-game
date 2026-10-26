@@ -321,5 +321,61 @@ if(e.target.id==='locModal') closeLoc();
 }
 #waFloat:hover{transform:scale(1.1)}
 </style>
+<!-- LIVE TOPUP - BIKIN ORANG GAMPANG MAU TOPUP -->
+<div id="liveBox" style="position:fixed;left:16px;bottom:90px;z-index:250;display:none;align-items:center;gap:10px;background:#1a1a1a;border:1px solid #333;padding:10px 14px;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.5);animation:slideIn .4s">
+<img id="liveImg" src="./mlbb.png" style="width:38px;height:38px;border-radius:10px;object-fit:cover;background:#222">
+<div>
+<div style="color:#ffcd00;font-size:11px;font-weight:800">✓ Berhasil Topup</div>
+<div id="liveText" style="color:white;font-size:11px;font-weight:600">Rizky baru topup</div>
+<div id="liveGame" style="color:#aaa;font-size:10px">Mobile Legends 86 Diamond - 2 detik lalu</div>
+</div>
+</div>
+
+<!-- Running text atas banner -->
+<div style="margin:0 16px;background:#172250;border:1px solid #24346a;border-radius:10px;padding:8px 12px;display:flex;align-items:center;gap:8px;overflow:hidden">
+<span style="background:#ff3b3b;color:white;font-size:9px;font-weight:900;padding:3px 6px;border-radius:6px;animation:blink 1s infinite">LIVE</span>
+<div id="runText" style="color:#8fa0d0;font-size:11px;white-space:nowrap;overflow:hidden">🔥 Andi baru topup Free Fire 70 Diamond • Siska baru topup Valorant 420 VP • </div>
+</div>
+
+<style>
+@keyframes slideIn{from{transform:translateX(-100%);opacity:0}to{transform:translateX(0);opacity:1}}
+@keyframes slideOut{from{transform:translateX(0);opacity:1}to{transform:translateX(-100%);opacity:0}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+</style>
+
+<script>
+// DATA AKUN PALSU BIAR KELIATAN RAME - GANTI NAMA ASLI KALAU MAU
+const liveData = [
+{n:'Rizky*', g:'Mobile Legends', p:'86 Diamond', img:'./mlbb.png'},
+{n:'Andi*', g:'Free Fire', p:'70 Diamond', img:'./ff.png'},
+{n:'Siska*', g:'Valorant', p:'420 VP', img:'./valorant.png'},
+{n:'Faisal*', g:'PUBG Mobile', p:'325 UC', img:'./pubg.png'},
+{n:'Budi*', g:'Genshin Impact', p:'300 Genesis', img:'./genshin.png'},
+{n:'Ahmad*', g:'ROBLOX', p:'800 Robux', img:'./roblox.png'},
+{n:'Dewi*', g:'Honkai Star Rail', p:'300 Jade', img:'./honkai.png'},
+{n:'Joko*', g:'CODM', p:'80 CP', img:'./codm.png'},
+];
+
+function showLive(){
+let r = liveData[Math.floor(Math.random()*liveData.length)];
+document.getElementById('liveImg').src = r.img;
+document.getElementById('liveText').innerText = r.n + ' baru topup';
+document.getElementById('liveGame').innerText = r.g + ' ' + r.p + ' - baru saja';
+let box = document.getElementById('liveBox');
+box.style.display = 'flex';
+box.style.animation = 'slideIn .4s';
+setTimeout(()=>{
+box.style.animation = 'slideOut .4s';
+setTimeout(()=>box.style.display='none',400);
+},3500);
+// update running text
+document.getElementById('runText').innerText = `🔥 ${r.n} baru topup ${r.g} ${r.p} • ${liveData[Math.floor(Math.random()*liveData.length)].n} baru topup ${liveData[Math.floor(Math.random()*liveData.length)].g} • `;
+}
+// muncul pertama setelah 3 detik, lalu tiap 6 detik
+setTimeout(()=>{
+showLive();
+setInterval(showLive, 6000);
+},3000);
+</script>
 </body>
 </html>
