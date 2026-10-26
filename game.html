@@ -20,8 +20,40 @@
 
 <!-- STEP 2 -->
 <div class="box"><div class="step"><span>2</span><span id="t2">Pilih Nominal</span></div><div id="list" class="grid"></div></div>
-<!-- STEP 3 -->
-<div class="box"><div class="step"><span>3</span><span id="t3">Bayar</span></div><div style="display:flex;justify-content:space-between;align-items:center"><div><div id="tTotal" style="color:#7a8bc0;font-size:11px">Total Bayar</div><div id="total" style="color:#ffcd00;font-weight:900;font-size:18px">Pilih nominal</div></div><div id="btn" onclick="beli()" class="buy">Beli</div></div></div>
+<!-- STEP 3 - PEMBAYARAN QRIS -->
+<div class="box">
+  <div class="step"><span>3</span><span id="t3">Pilih Pembayaran</span></div>
+  
+  <div id="payList" style="display:flex;flex-direction:column;gap:8px">
+    <!-- QRIS -->
+    <div onclick="setPay('QRIS')" id="payQRIS" class="pay-item active" style="display:flex;align-items:center;gap:12px;background:#0b1430;border:1.5px solid #ffcd00;border-radius:12px;padding:12px;cursor:pointer">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Logo_QRIS.svg" style="width:40px;height:28px;background:white;border-radius:6px;padding:4px;object-fit:contain">
+      <div style="flex:1">
+        <div style="color:white;font-size:13px;font-weight:700">QRIS All Payment</div>
+        <div style="color:#8ea0d0;font-size:10px">Scan semua e-wallet & m-banking</div>
+      </div>
+      <div class="pay-check" style="width:20px;height:20px;border-radius:50%;border:2px solid #ffcd00;display:flex;align-items:center;justify-content:center;color:#ffcd00;font-size:12px">✓</div>
+    </div>
+
+    <!-- DANA / GOPAY / OVO -->
+    <div onclick="setPay('EWALLET')" id="payEWALLET" class="pay-item" style="display:flex;align-items:center;gap:12px;background:#0b1430;border:1.5px solid #2a3a6e;border-radius:12px;padding:12px;cursor:pointer">
+      <div style="width:40px;height:28px;background:white;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#333">E-WALLET</div>
+      <div style="flex:1">
+        <div style="color:white;font-size:13px;font-weight:700">DANA / OVO / GoPay</div>
+        <div style="color:#8ea0d0;font-size:10px">Otomatis cek pembayaran</div>
+      </div>
+      <div class="pay-check" style="width:20px;height:20px;border-radius:50%;border:2px solid #2a3a6e;display:flex;align-items:center;justify-content:center"></div>
+    </div>
+  </div>
+
+  <!-- TOTAL BAYAR -->
+  <div style="margin-top:16px;background:#0b1430;border-radius:12px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center">
+    <div>
+      <div id="tTotal" style="color:#8ea0d0;font-size:10px">TOTAL BAYAR</div>
+      <div id="total" style="color:#ffcd00;font-weight:900;font-size:18px">Pilih nominal</div>
+    </div>
+    <div id="btn" onclick="beli()" class="buy" style="margin-top:0;width:auto;padding:12px 24px">Beli</div>
+  </div>
 </div>
 
 <!-- MODAL -->
@@ -50,7 +82,23 @@ function init(){
 }
 function render(){let g=gamesData[curGame]; list.innerHTML=''; g.prices.forEach((it,i)=>{let pr=it.p*rates[cur].rate; let txt=cur==='IDR'?'Rp '+it.p.toLocaleString('id-ID'):rates[cur].sym+pr.toFixed(2); list.innerHTML+=`<div onclick="pilih(${i})" id="it${i}" class="item"><div class="d">${it.d}</div><div class="p">${txt}</div></div>`;});}
 function pilih(i){sel=gamesData[curGame].prices[i]; document.querySelectorAll('.item').forEach(e=>e.classList.remove('active')); document.getElementById('it'+i).classList.add('active'); let pr=sel.p*rates[cur].rate; total.innerText=cur==='IDR'?'Rp '+sel.p.toLocaleString('id-ID'):rates[cur].sym+pr.toFixed(2); btn.classList.add('on');}
-function beli(){if(!sel) return alert('Pilih nominal dulu'); let u=uid.value; if(!u) return alert('Isi User ID'); let z=zid.value; let pr=cur==='IDR'?'Rp '+sel.p.toLocaleString('id-ID'):rates[cur].sym+(sel.p*rates[cur].rate).toFixed(2); let txt=`Halo kak mau topup%0AGame: ${curGame}%0AID: ${u} (${z})%0AItem: ${sel.d}%0AHarga: ${pr} (${cur})`; window.open(`https://wa.me/6282353459352?text=${txt}`,'_blank');}
+function beli(){if(!sel) return alert('Pilih nominal dulu'); let u=uid.value; if(!u) return alert('Isi User ID'); let z=zid.value; let pr=cur==='IDR'?'Rp '+sel.p.toLocaleString('id-ID'):rates[cur].sym+(sel.p*rates[cur].rate).toFixed(2); let txt=`Halo kak mau topup%0AGame: ${curGame}%0AID: ${u} (${z})%0AItem: ${sel.d}%0AHarga: ${pr} (${cur})%0ABayar: ${pay}%0AMinta QRIS kak`; window.open(`https://wa.me/6282353459352?text=${txt}`,'_blank');}
+let pay='QRIS';
+function setPay(p){
+ pay=p;
+ document.querySelectorAll('.pay-item').forEach(e=>{
+   e.style.borderColor='#2a3a6e';
+   e.querySelector('.pay-check').innerText='';
+   e.querySelector('.pay-check').style.borderColor='#2a3a6e';
+   e.querySelector('.pay-check').style.color='#2a3a6e';
+ });
+ let active=document.getElementById('pay'+p);
+ active.style.borderColor='#ffcd00';
+ let check=active.querySelector('.pay-check');
+ check.innerText='✓';
+ check.style.borderColor='#ffcd00';
+ check.style.color='#ffcd00';
+}
 function openLoc(){locModal.style.display='flex'}function closeLoc(){locModal.style.display='none'}
 function setLoc(c){cur=c; localStorage.setItem('cur',c); curBtn.innerText=c; document.querySelectorAll('.loc-item').forEach(e=>{e.classList.remove('active');e.querySelector('.check').innerText='';}); document.querySelector(`[data-cur="${c}"]`).classList.add('active'); document.querySelector(`[data-cur="${c}"] .check`).innerText='✓'; render(); if(sel) pilih(gamesData[curGame].prices.indexOf(sel)); closeLoc();}
 function setLang(l,f){lang=l; localStorage.setItem('lang',l); document.querySelectorAll('.lang-item').forEach(e=>{e.classList.remove('active');e.querySelector('.check').innerText='';}); document.getElementById('lang'+l).classList.add('active'); document.getElementById('lang'+l).querySelector('.check').innerText='✓'; if(l==='EN'){t1.innerText='Enter Account Data';t2.innerText='Select Amount';t3.innerText='Payment';tTotal.innerText='Total';btn.innerText='Buy';}else{t1.innerText='Masukkan Data Akun';t2.innerText='Pilih Nominal';t3.innerText='Bayar';tTotal.innerText='Total Bayar';btn.innerText='Beli';} if(!f) closeLoc();}
