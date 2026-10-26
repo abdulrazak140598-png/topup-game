@@ -219,11 +219,11 @@ const games=[
 {n:'ROBLOX', img:'roblox.png'},
 {n:'Genshin Impact', img:'genshin.png'},
 {n:'Honkai Star Rail', img:'honkai.png'},
-{n:'Clash of Clans', img:'coc.png'},
+{n:'Honor of Kings', img:'hok.png'},
 {n:'Call of Duty Mobile', img:'codm.png'},
 
 // TAMBAHAN - LAKU KERAS
-{n:'Honor of Kings', img:'hok.png'},
+{n:'Clash of Clans', img:'coc.png'},
 {n:'Free Fire', img:'ff.png'},
 {n:'Arena of Valor', img:'aov.png'},
 {n:'League of Legends Wild Rift', img:'wildrift.png'},
@@ -285,7 +285,7 @@ function render(list){
 let p=document.getElementById('pop');let n=document.getElementById('new');p.innerHTML='';n.innerHTML='';
 list.forEach((g,i)=>{
 let h=`<div class="card" onclick="openTopup('${g.n}')" style="cursor:pointer"><img src="${g.img}" class="card-img" loading="lazy" onerror="this.src='logo.png'"><div class="card-name">${g.n}</div></div>`;
-if(i<8) p.innerHTML+=h; else n.innerHTML+=h;
+if(i<10) p.innerHTML+=h; else n.innerHTML+=h;
 });
 }
 function openTopup(name){
