@@ -1,87 +1,111 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>TOPUP GAME</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TOPUP GAME - Murah, Cepat & Terpercaya</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;800&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:Inter,system-ui}
-body{background:#070e2a;display:flex;justify-content:center}
-.wrap{width:100%;max-width:430px;background:#101a3d;min-height:100vh;position:relative;overflow:hidden}
-.card{background:#1a2552;border:1px solid #243469;border-radius:16px;overflow:hidden}
-.card-top{height:96px;display:flex;align-items:center;justify-content:center}
-#side{position:fixed;top:0;right:-100%;width:280px;height:100%;background:#101a3d;z-index:99;transition:.3s ease;padding:20px;border-left:1px solid #243469}
-#side.open{right:0}
-.bg{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;z-index:90}
-.bg.open{display:block}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Inter',system-ui}
+body{background:#060d26;display:flex;justify-content:center}
+.app{width:100%;max-width:440px;background:#101a3d;min-height:100vh;position:relative}
+.card{background:#1a2552;border:1px solid #243469;border-radius:18px;overflow:hidden;cursor:pointer;transition:.2s}
+.card:active{transform:scale(.97)}
+.card-top{height:105px;display:flex;align-items:center;justify-content:center}
+.menu{position:fixed;top:0;right:-100%;width:300px;height:100%;background:#101a3d;z-index:100;transition:.35s;padding:24px;border-left:1px solid #243469}
+.menu.open{right:0}
+.dim{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;z-index:90}
+.dim.open{display:block}
 </style>
 </head>
 <body>
-<div class="bg" id="bg" onclick="toggle()"></div>
-<div id="side">
-<div style="display:flex;justify-content:space-between;align-items:center;color:white"><b>MENU</b><span onclick="toggle()" style="cursor:pointer;font-size:20px">✕</span></div>
-<div style="margin-top:20px;display:flex;flex-direction:column;gap:10px">
-<div style="background:#1a2552;padding:14px;border-radius:12px;color:white;font-size:13px">🏠 Beranda</div>
-<div style="background:#1a2552;padding:14px;border-radius:12px;color:white;font-size:13px">📜 Riwayat</div>
-<div style="background:#1a2552;padding:14px;border-radius:12px;color:white;font-size:13px">💬 Bantuan CS</div>
-<div style="background:#facc15;padding:14px;border-radius:12px;color:black;font-weight:800;font-size:13px">🌐 EN / MYR - Ganti Negara</div>
+<div class="dim" id="dim" onclick="openMenu()"></div>
+<div class="menu" id="sideMenu">
+<div style="display:flex;justify-content:space-between;align-items:center;color:white">
+<b>MENU</b><span onclick="openMenu()" style="font-size:22px;cursor:pointer">✕</span>
+</div>
+<div style="margin-top:24px;display:grid;gap:10px">
+<div style="background:#1a2552;padding:14px;border-radius:12px;color:white">🏠 Beranda</div>
+<div style="background:#1a2552;padding:14px;border-radius:12px;color:white">📜 Cek Transaksi</div>
+<div style="background:#1a2552;padding:14px;border-radius:12px;color:white">💬 Hubungi CS</div>
+<div style="background:#facc15;padding:14px;border-radius:12px;color:black;font-weight:800">EN / MYR</div>
 </div>
 </div>
 
-<div class="wrap">
-<header style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px;position:sticky;top:0;background:#101a3d;z-index:10">
-<div style="background:#facc15;color:#000;padding:6px 14px;border-radius:8px;font-weight:900;font-size:13px">TOPUP GAME</div>
-<div style="display:flex;gap:10px;align-items:center">
-<button style="background:#1a2552;border:1px solid #243469;color:white;padding:6px 12px;border-radius:20px;font-size:11px">EN / MYR</button>
-<button onclick="toggle()" style="background:none;border:none;color:white;font-size:22px;cursor:pointer;padding:2px 6px">☰</button>
+<div class="app">
+<header style="display:flex;justify-content:space-between;align-items:center;padding:14px 16px;position:sticky;top:0;background:#101a3d;z-index:10">
+<div style="display:flex;align-items:center;gap:8px">
+<img src="logo.png" style="width:32px;height:32px;object-fit:contain;border-radius:8px;background:white;padding:2px" onerror="this.style.display='none'">
+<div style="background:#facc15;color:black;padding:6px 14px;border-radius:8px;font-weight:900;font-size:13px">TOPUP GAME</div>
+</div>
+<div style="display:flex;align-items:center;gap:10px">
+<div style="background:#1a2552;border:1px solid #243469;color:white;padding:6px 12px;border-radius:20px;font-size:11px">EN / MYR</div>
+<div onclick="openMenu()" style="color:white;font-size:24px;cursor:pointer;padding:0 6px">☰</div>
 </div>
 </header>
 
-<div style="padding:16px;padding-bottom:80px">
-<img src="banner.png" style="width:100%;height:132px;object-fit:cover;border-radius:16px;display:block;border:1px solid #243469" onerror="this.src='banner2.png'; this.onerror=null">
+<div style="padding:16px;padding-bottom:90px">
+<!-- BANNER PAKAI FILE ABANG -->
+<img src="banner.png" style="width:100%;height:148px;object-fit:cover;border-radius:18px;border:1px solid #243469;display:block" onerror="this.src='banner2.png'">
 
-<input id="search" oninput="filter()" placeholder="Search Game or Voucher" style="width:100%;margin-top:14px;background:#1a2552;border:1px solid #243469;border-radius:12px;padding:11px 14px;color:white;outline:none;font-size:13px">
+<input id="search" oninput="filterGame()" placeholder="Search Game or Voucher" style="width:100%;margin-top:16px;background:#1a2552;border:1px solid #243469;border-radius:14px;padding:12px 16px;color:white;outline:none;font-size:13px">
 
-<div style="margin-top:18px;display:flex;justify-content:space-between;align-items:center">
-<b style="font-size:12px;color:white;letter-spacing:.5px">POPULER 🔥</b><span style="font-size:11px;color:#facc15">Lihat Semua ></span>
+<div style="display:flex;gap:8px;margin-top:14px;overflow:auto;white-space:nowrap;padding-bottom:2px">
+<div style="background:#facc15;color:black;padding:7px 14px;border-radius:20px;font-size:11px;font-weight:800">Top Up Games</div>
+<div style="background:#1a2552;border:1px solid #243469;color:#8fa0d0;padding:7px 14px;border-radius:20px;font-size:11px">Voucher</div>
+<div style="background:#1a2552;border:1px solid #243469;color:#8fa0d0;padding:7px 14px;border-radius:20px;font-size:11px">Entertainment</div>
+<div style="background:#1a2552;border:1px solid #243469;color:#8fa0d0;padding:7px 14px;border-radius:20px;font-size:11px">Pulsa & PLN</div>
 </div>
 
-<div id="grid" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px"></div>
+<div style="margin-top:20px;display:flex;justify-content:space-between;align-items:center">
+<b style="color:white;font-size:13px;letter-spacing:.3px">POPULER 🔥</b>
+<span style="color:#facc15;font-size:11px">Lihat Semua ></span>
+</div>
+<div id="gridPopuler" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px"></div>
 
-<div style="margin-top:22px"><b style="font-size:12px;color:white">NEW GAMES ✨</b></div>
-<div id="grid2" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px"></div>
+<div style="margin-top:24px"><b style="color:white;font-size:13px">NEW GAMES ✨</b></div>
+<div id="gridNew" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px"></div>
+</div>
 </div>
 </div>
 
 <script>
-function toggle(){document.getElementById('side').classList.toggle('open');document.getElementById('bg').classList.toggle('open')}
+function openMenu(){
+document.getElementById('sideMenu').classList.toggle('open');
+document.getElementById('dim').classList.toggle('open');
+}
 
-const games=[
-{n:'Mobile Legends', img:'mlbb.png', bg:'#2b5cff'},
-{n:'Free Fire', img:'ff.png', bg:'#0f172a'},
-{n:'PUBG Mobile', img:'pubg.png', bg:'#b45309'},
-{n:'Valorant', img:'valorant.png', bg:'#991b1b'},
-{n:'ROBLOX', img:'roblox.png', bg:'#475569'},
-{n:'Genshin Impact', img:'genshin.png', bg:'#1e40ff'},
-{n:'Honkai Star Rail', img:'honkai.png', bg:'#6d28d9'},
-{n:'Clash of Clans', img:'coc.png', bg:'#d97706'},
-{n:'CODM', img:'codm.png', bg:'#171717'},
+// DAFTAR GAME - PAKAI FILE ASLI ABANG
+const games = [
+{n:'Mobile Legends', img:'mlbb.png', c:'#2a5bff'},
+{n:'Free Fire', img:'ff.png', c:'#111827'},
+{n:'PUBG Mobile', img:'pubg.png', c:'#c27a00'},
+{n:'Valorant', img:'valorant.png', c:'#b91c1c'},
+{n:'ROBLOX', img:'roblox.png', c:'#5a6a85'},
+{n:'Genshin Impact', img:'genshin.png', c:'#2040ff'},
+{n:'Honkai Star Rail', img:'honkai.png', c:'#6d28d9'},
+{n:'Clash of Clans', img:'coc.png', c:'#e38a00'},
+{n:'CODM', img:'codm.png', c:'#1a1a1a'},
 ];
 
 function render(list){
-let g=document.getElementById('grid');let g2=document.getElementById('grid2');g.innerHTML='';g2.innerHTML='';
-list.forEach((x,i)=>{
-let html=`<div class="card">
-<div class="card-top" style="background:${x.bg}">
-<img src="${x.img}" loading="lazy" style="width:64px;height:64px;object-fit:contain;background:white;border-radius:12px;padding:4px;display:block" onerror="this.src='logo.png'">
+let pop=document.getElementById('gridPopuler');
+let nw=document.getElementById('gridNew');
+pop.innerHTML=''; nw.innerHTML='';
+list.forEach((g,i)=>{
+let html = `<div class="card">
+<div class="card-top" style="background:${g.c}">
+<img src="${g.img}" style="width:68px;height:68px;object-fit:contain;background:white;border-radius:14px;padding:5px" onerror="this.src='logo.png'">
 </div>
-<div style="padding:10px;text-align:center">
-<div style="font-size:11px;font-weight:800;color:white;line-height:1.2">${x.n}</div>
-</div>
+<div style="padding:11px;text-align:center"><div style="color:white;font-size:11px;font-weight:800;line-height:1.2">${g.n}</div></div>
 </div>`;
-if(i<6){g.innerHTML+=html}else{g2.innerHTML+=html}
+if(i<6) pop.innerHTML+=html; else nw.innerHTML+=html;
 });
 }
-function filter(){let q=document.getElementById('search').value.toLowerCase();render(games.filter(x=>x.n.toLowerCase().includes(q)))}
+function filterGame(){
+let q=document.getElementById('search').value.toLowerCase();
+render(games.filter(x=>x.n.toLowerCase().includes(q)));
+}
 render(games);
 </script>
 </body>
