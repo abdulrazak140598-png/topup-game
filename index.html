@@ -151,8 +151,14 @@ setInterval(()=>{
 <div id="pop" class="grid"></div>
 
 <div class="section-title"><b style="font-size:13px">NEW RELEASE ✨</b></div>
-<div id="new" class="grid" style="padding-bottom:90px"></div>
-</div>
+<div id="new" class="grid"></div>
+
+<!-- 33 GAME DISEMBUNYIKAN -->
+<div id="hiddenGames" class="grid" style="display:none"></div>
+
+<button id="btnMore" onclick="toggleAll()" style="margin:0 16px 90px;width:calc(100% - 32px);background:#ffcd00;color:black;padding:14px;border-radius:14px;font-weight:900;border:none;cursor:pointer">
+▼ LIHAT 33 GAME LAINNYA
+</button>
 
 <!-- TOP SPENDER - TARUH DI SINI, DI ATAS FOOTER -->
 <!-- ULASAN BINTANG 5 LIVE - TARUH DI BAWAH TOP SPENDER -->
@@ -548,12 +554,30 @@ const voucherList = [
 {n:'Garena Shell', img:'garena.png'},
 ];
 
+let showAll = false;
 function render(list){
-let p=document.getElementById('pop');let n=document.getElementById('new');p.innerHTML='';n.innerHTML='';
-list.forEach((g,i)=>{
-let h=`<div class="card" onclick="openTopup('${g.n}')" style="cursor:pointer"><img src="${g.img}" class="card-img" loading="lazy" onerror="this.src='logo.png'"><div class="card-name">${g.n}</div></div>`;
-if(i<10) p.innerHTML+=h; else n.innerHTML+=h;
-});
+  let p=document.getElementById('pop');
+  let n=document.getElementById('new');
+  let h=document.getElementById('hiddenGames');
+  p.innerHTML=''; n.innerHTML=''; h.innerHTML='';
+  
+  list.forEach((g,i)=>{
+    let html=`<div class="card" onclick="openTopup('${g.n}')"><img src="${g.img}" class="card-img" onerror="this.src='logo.png'"><div class="card-name">${g.n}</div></div>`;
+    if(i<6) p.innerHTML+=html;
+    else if(i<10) n.innerHTML+=html;
+    else h.innerHTML+=html;
+  });
+  let btn = document.getElementById('btnMore');
+  if(btn){
+    btn.innerText = `▼ LIHAT ${list.length-10} GAME LAINNYA`;
+    btn.style.display = list.length > 10 ? 'block' : 'none';
+  }
+}
+
+function toggleAll(){
+  showAll = !showAll;
+  document.getElementById('hiddenGames').style.display = showAll ? 'grid' : 'none';
+  document.getElementById('btnMore').innerText = showAll ? '▲ SEMBUNYIKAN' : `▼ LIHAT ${games.length-10} GAME LAINNYA`;
 }
 function openTopup(name){
   const pulsa=['Telkomsel','XL Axiata','Indosat','Tri','Smartfren','Axis'];
