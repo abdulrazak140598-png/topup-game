@@ -150,9 +150,100 @@ setInterval(()=>{
 <div class="section-title"><b style="font-size:13px">POPULER 🔥</b><span style="font-size:11px;color:#ffcd00">Lihat Semua ›</span></div>
 <div id="pop" class="grid"></div>
 
-<div class="section-title"><b style="font-size:13px">NEW RELEASE ✨</b></div>
-<div id="new" class="grid" style="padding-bottom:90px"></div>
+<!-- NEW RELEASE - 4 MUNCUL, SISANYA LIST ABANG YANG DISEMBUNYIKAN -->
+<div style="padding:16px">
+  <div style="display:flex;justify-content:space-between;align-items:center">
+    <div style="display:flex;align-items:center;gap:8px">
+      <div style="width:32px;height:32px;background:#ffcd00;border-radius:8px;display:flex;align-items:center;justify-content:center">🔥</div>
+      <div style="color:white;font-weight:900">NEW RELEASE</div>
+    </div>
+    <div id="nrCount" style="color:#7a8bc0;font-size:11px">4 Game</div>
+  </div>
+
+  <div id="nrGrid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px"></div>
+
+  <button id="nrBtn" type="button" style="width:100%;margin-top:14px;background:#ffcd00;color:black;padding:13px;border-radius:14px;font-weight:900;font-size:13px;border:none;cursor:pointer;position:relative;z-index:999">
+    ▼ LIHAT 29 GAME LAINNYA
+  </button>
 </div>
+
+<script>
+// 4 YANG MUNCUL AWAL
+const visibleGames = [
+  {n:'Clash of Clans', img:'coc.png'},
+  {n:'Free Fire', img:'ff.png'},
+  {n:'Arena of Valor', img:'aov.png'},
+  {n:'League Wild Rift', img:'wildrift.png'},
+];
+
+// YANG DISEMBUNYIKAN - LIST DARI ABANG
+const hiddenGames = [
+{n:'Blood Strike', img:'bloodstrike.png'},
+{n:'Farlight 84', img:'farlight.png'},
+{n:'Sausage Man', img:'sausage.png'},
+{n:'EA Sports FC Mobile', img:'fcmobile.png'},
+{n:'Zenless Zone Zero', img:'zzz.png'},
+{n:'Wuthering Waves', img:'wuwa.png'},
+{n:'Solo Leveling Arise', img:'solo.png'},
+{n:'Clash Royale', img:'cr.png'},
+{n:'Brawl Stars', img:'brawlstars.png'},
+{n:'Hay Day', img:'hayday.png'},
+{n:'Minecraft', img:'minecraft.png'},
+{n:'Point Blank', img:'pb.png'},
+{n:'Stumble Guys', img:'stumble.png'},
+{n:'Higgs Domino', img:'domino.png'},
+{n:'Lords Mobile', img:'lords.png'},
+{n:'State of Survival', img:'sos.png'},
+{n:'Whiteout Survival', img:'whiteout.png'},
+{n:'8 Ball Pool', img:'8ball.png'},
+{n:'Garena Undawn', img:'undawn.png'},
+{n:'Metal Slug Awakening', img:'metalslug.png'},
+{n:'Super Sus', img:'supersus.png'},
+{n:'Mobile Legends Adventure', img:'mla.png'},
+{n:'Ragnarok Origin', img:'ro.png'},
+{n:'Ragnarok M Eternal Love', img:'rom.png'},
+{n:'Dragon Raja', img:'dragonraja.png'},
+{n:'LifeAfter', img:'lifeafter.png'},
+{n:'Free Fire Lite', img:'fflite.png'},
+{n:'Apex Legends Mobile', img:'apex.png'},
+{n:'Sausage Man 2', img:'sausage2.png'}
+];
+
+let isOpen = false;
+const grid = document.getElementById('nrGrid');
+const btn = document.getElementById('nrBtn');
+const count = document.getElementById('nrCount');
+
+function makeCard(g){
+  return `
+  <div style="background:#18234f;border:1px solid #24346a;border-radius:14px;padding:6px;text-align:center">
+    <div style="width:100%;aspect-ratio:1;background:#0f1a3d;border-radius:10px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+      <img src="./${g.img}" alt="${g.n}" 
+        style="width:100%;height:100%;object-fit:cover"
+        onerror="this.outerHTML='<div style=\\'width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1e2f6b,#18234f);color:#ffcd00;font-weight:900;font-size:20px\\'>${g.n.charAt(0)}</div>'">
+    </div>
+    <div style="color:white;font-size:9px;font-weight:700;margin-top:5px;height:24px;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.1">${g.n}</div>
+  </div>`;
+}
+
+function render(){
+  let html = '';
+  visibleGames.forEach(g => html += makeCard(g));
+  if(isOpen){
+    hiddenGames.forEach(g => html += makeCard(g));
+  }
+  grid.innerHTML = html;
+  count.innerText = isOpen ? `${visibleGames.length + hiddenGames.length} Game` : `${visibleGames.length} dari ${visibleGames.length + hiddenGames.length}`;
+  btn.innerText = isOpen ? '▲ SEMBUNYIKAN' : `▼ LIHAT ${hiddenGames.length} GAME LAINNYA`;
+}
+
+btn.onclick = function(){
+  isOpen = !isOpen;
+  render();
+};
+
+render();
+</script>
 
 <!-- TOP SPENDER - TARUH DI SINI, DI ATAS FOOTER -->
 <!-- ULASAN BINTANG 5 LIVE - TARUH DI BAWAH TOP SPENDER -->
