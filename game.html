@@ -1,168 +1,59 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Topup Game</title>
-<style>
-/* ===== STYLE UTAMA ===== */
-*{box-sizing:border-box;margin:0;padding:0;font-family:Inter,system-ui}
-body{background:#0b122e;display:flex;justify-content:center}
-.app{width:100%;max-width:440px;background:#0f1a3d;min-height:100vh;overflow-x:hidden}
-/* HEADER */
-.hdr{position:sticky;top:0;background:#0f1a3d;padding:12px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #1e2a5a;z-index:10}
-.back{width:32px;height:32px;background:#18234f;border-radius:10px;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none}
-#gImg{width:44px;height:44px;border-radius:12px;background:#222;object-fit:cover}
-#curBtn{background:#18234f;border:1px solid #24346a;color:white;padding:6px 12px;border-radius:20px;font-size:12px;cursor:pointer}
-/* KOTAK */
-.box{background:#172250;border:1px solid #24346a;border-radius:16px;padding:14px;margin:14px}
-.step{display:flex;align-items:center;gap:8px;margin-bottom:12px;color:white;font-weight:700;font-size:13px}
-.step span{background:#ffcd00;color:black;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px}
-input{width:100%;background:#0f1a3d;border:1px solid #24346a;border-radius:10px;padding:12px;color:white;outline:none}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.item{background:#0f1a3d;border:1px solid #24346a;border-radius:12px;padding:12px;cursor:pointer}
-.item.active{border-color:#ffcd00;background:#332a00}
-.item .d{color:white;font-size:12px;font-weight:600}.item .p{color:#ffcd00;font-size:14px;font-weight:800;margin-top:4px}
-.buy{width:100%;background:#555;color:#999;padding:14px;border-radius:12px;text-align:center;font-weight:900;cursor:pointer;margin-top:12px}
-.buy.on{background:#ffcd00;color:black}
-/* POPUP MATA UANG & BAHASA */
-.loc-item,.lang-item{display:flex;align-items:center;gap:12px;background:#2a2a2a;border:1px solid #333;padding:12px;border-radius:12px;margin-bottom:8px;color:white;font-size:13px;cursor:pointer}
-.loc-item.active,.lang-item.active{border-color:#facc15;background:#3a3410}
-.loc-item img,.lang-item img{width:24px;height:24px;border-radius:50%}
-.check{margin-left:auto;color:#facc15}
-</style>
-</head>
-<body>
-<div class="app">
-  <!-- HEADER -->
-  <div class="hdr">
-    <a href="./" class="back">←</a>
-    <img id="gImg" src="">
-    <div style="flex:1">
-      <div id="gName" style="color:white;font-weight:800">Loading...</div>
-      <div style="color:#7a8bc0;font-size:11px">Proses 1-3 Menit</div>
-    </div>
-    <div id="curBtn" onclick="openLoc()">IDR</div>
-  </div>
+<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Topup</title><style>*{box-sizing:border-box;margin:0;padding:0;font-family:Inter,system-ui}body{background:#0b122e;display:flex;justify-content:center}.app{width:100%;max-width:440px;background:#0f1a3d;min-height:100vh;overflow-x:hidden}.hdr{position:sticky;top:0;background:#0f1a3d;padding:12px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #1e2a5a;z-index:10}.back{width:32px;height:32px;background:#18234f;border-radius:10px;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none}.box{background:#172250;border:1px solid #24346a;border-radius:16px;padding:14px;margin:14px}.step{display:flex;align-items:center;gap:8px;margin-bottom:12px;color:white;font-weight:700;font-size:13px}.step span:first-child{background:#ffcd00;color:black;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.item{background:#0f1a3d;border:1px solid #24346a;border-radius:12px;padding:12px;cursor:pointer}.item.active{border-color:#ffcd00;background:#332a00}.item .d{color:white;font-size:12px;font-weight:700}.item .p{color:#ffcd00;font-size:14px;font-weight:800;margin-top:4px}.buy{width:100%;background:#3a3a3a;color:#888;padding:14px;border-radius:12px;text-align:center;font-weight:900;margin-top:12px;cursor:pointer}.buy.on{background:#ffcd00;color:black}.loc-item,.lang-item{display:flex;align-items:center;gap:12px;background:#2a2a2a;border:1px solid #333;padding:12px;border-radius:12px;margin-bottom:8px;color:white;font-size:13px;cursor:pointer}.loc-item.active,.lang-item.active{border-color:#facc15;background:#3a3410}.loc-item img,.lang-item img{width:24px;height:24px;border-radius:50%}.check{margin-left:auto;color:#facc15}input:focus{border-color:#ffcd00!important}</style></head><body><div class="app"><div class="hdr"><a href="./" class="back">←</a><img id="gImg" style="width:44px;height:44px;border-radius:12px;background:#222;object-fit:cover"><div style="flex:1"><div id="gName" style="color:white;font-weight:800">Loading</div><div style="color:#7a8bc0;font-size:11px">Proses 1-3 Menit</div></div><div id="curBtn" onclick="openLoc()" style="background:#18234f;border:1px solid #24346a;color:white;padding:6px 12px;border-radius:20px;font-size:12px;cursor:pointer">IDR</div></div>
 
-  <!-- STEP 1: ID - MULAI -->
-  <div class="box">
-    <div class="step"><span>1</span><span id="t1">Masukkan Data Akun</span></div>
-    
-    <div style="margin-bottom:10px">
-      <div style="color:#7a8bc0;font-size:11px;margin-bottom:6px">User ID</div>
-      <input id="uid" placeholder="Contoh: 12345678" type="number" inputmode="numeric">
-    </div>
-
-    <div>
-      <div style="color:#7a8bc0;font-size:11px;margin-bottom:6px">Server / Zone ID</div>
-      <input id="zid" placeholder="Contoh: 1234 (4 angka di belakang ID)" type="number" inputmode="numeric">
-    </div>
-
-    <div style="background:#0f1a3d;border:1px dashed #24346a;border-radius:10px;padding:8px 10px;margin-top:12px;display:flex;gap:8px">
-      <div style="color:#ffcd00;font-size:12px">💡</div>
-      <div style="color:#7a8bc0;font-size:10px;line-height:14px">
-        Buka Mobile Legends > Klik profil > ID ada di bawah Nama. Contoh: <b style="color:white">12345678 (1234)</b> = ID 12345678, Server 1234
-      </div>
-    </div>
-  </div>
-  <!-- STEP 1: ID - SELESAI -->
-<!-- MODAL LOKASI & BAHASA -->
-<div id="locModal" style="position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:99;display:none;align-items:end;justify-content:center">
-<div style="background:#1e1e1e;width:100%;max-width:440px;border-radius:20px 20px 0 0;padding:20px">
-  <div style="color:white;font-weight:700;margin-bottom:12px">Pilih Lokasi</div>
-  <div onclick="setLoc('IDR')" class="loc-item active" data-cur="IDR"><img src="https://flagcdn.com/w40/id.png"><span>Indonesia (IDR)</span><span class="check">✓</span></div>
-  <div onclick="setLoc('MYR')" class="loc-item" data-cur="MYR"><img src="https://flagcdn.com/w40/my.png"><span>Malaysia (MYR)</span><span class="check"></span></div>
-  <div onclick="setLoc('PHP')" class="loc-item" data-cur="PHP"><img src="https://flagcdn.com/w40/ph.png"><span>Philippines (PHP)</span><span class="check"></span></div>
-  <div onclick="setLoc('SGD')" class="loc-item" data-cur="SGD"><img src="https://flagcdn.com/w40/sg.png"><span>Singapore (SGD)</span><span class="check"></span></div>
-  <div onclick="setLoc('THB')" class="loc-item" data-cur="THB"><img src="https://flagcdn.com/w40/th.png"><span>Thailand (THB)</span><span class="check"></span></div>
-  
-  <div style="color:white;font-weight:700;margin:18px 0 12px">Bahasa</div>
+<!-- STEP 1 CAKEP - POSISI DISINI -->
+<div class="box">
+  <div class="step"><span>1</span><span id="t1">Masukkan Data Akun</span></div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-    <div onclick="setLang('ID')" id="langID" class="lang-item active"><img src="https://flagcdn.com/w40/id.png"><span>ID</span><span class="check">✓</span></div>
-    <div onclick="setLang('EN')" id="langEN" class="lang-item"><img src="https://flagcdn.com/w40/gb.png"><span>EN</span><span class="check"></span></div>
+    <div>
+      <div style="font-size:10px;color:#8ea0d0;margin-bottom:6px;font-weight:700;letter-spacing:.5px">USER ID</div>
+      <input id="uid" placeholder="12345678" style="width:100%;background:#0b1430;border:1.5px solid #2a3a6e;border-radius:12px;padding:13px;color:white;font-size:14px;outline:none">
+    </div>
+    <div>
+      <div style="font-size:10px;color:#8ea0d0;margin-bottom:6px;font-weight:700;letter-spacing:.5px">ZONE ID</div>
+      <input id="zid" placeholder="(1234)" style="width:100%;background:#0b1430;border:1.5px solid #2a3a6e;border-radius:12px;padding:13px;color:white;font-size:14px;outline:none">
+    </div>
   </div>
-  <div onclick="closeLoc()" style="background:#2a2a2a;color:white;text-align:center;padding:12px;border-radius:12px;margin-top:16px;cursor:pointer">Tutup</div>
+  <div style="margin-top:12px;background:rgba(255,205,0,.07);border:1px solid rgba(255,205,0,.18);border-radius:10px;padding:9px 10px;display:flex;gap:8px">
+    <span>💡</span><span style="font-size:11px;color:#d0c78a;line-height:14px">Buka profil MLBB > ID kamu ada di bawah nama. Contoh: <b style="color:white">12345678 (1234)</b></span>
+  </div>
 </div>
+
+<!-- STEP 2 -->
+<div class="box"><div class="step"><span>2</span><span id="t2">Pilih Nominal</span></div><div id="list" class="grid"></div></div>
+<!-- STEP 3 -->
+<div class="box"><div class="step"><span>3</span><span id="t3">Bayar</span></div><div style="display:flex;justify-content:space-between;align-items:center"><div><div id="tTotal" style="color:#7a8bc0;font-size:11px">Total Bayar</div><div id="total" style="color:#ffcd00;font-weight:900;font-size:18px">Pilih nominal</div></div><div id="btn" onclick="beli()" class="buy">Beli</div></div></div>
 </div>
+
+<!-- MODAL -->
+<div id="locModal" style="position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;display:none;align-items:end;justify-content:center"><div style="background:#1e1e1e;width:100%;max-width:440px;border-radius:20px 20px 0 0;padding:20px"><div style="color:white;font-weight:700;margin-bottom:12px">Lokasi</div><div onclick="setLoc('IDR')" class="loc-item active" data-cur="IDR"><img src="https://flagcdn.com/w40/id.png"><span>Indonesia (IDR)</span><span class="check">✓</span></div><div onclick="setLoc('MYR')" class="loc-item" data-cur="MYR"><img src="https://flagcdn.com/w40/my.png"><span>Malaysia (MYR)</span><span class="check"></span></div><div onclick="setLoc('PHP')" class="loc-item" data-cur="PHP"><img src="https://flagcdn.com/w40/ph.png"><span>Philippines (PHP)</span><span class="check"></span></div><div onclick="setLoc('SGD')" class="loc-item" data-cur="SGD"><img src="https://flagcdn.com/w40/sg.png"><span>Singapore (SGD)</span><span class="check"></span></div><div onclick="setLoc('THB')" class="loc-item" data-cur="THB"><img src="https://flagcdn.com/w40/th.png"><span>Thailand (THB)</span><span class="check"></span></div><div style="color:white;font-weight:700;margin:16px 0 12px">Bahasa</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div onclick="setLang('ID')" id="langID" class="lang-item active"><img src="https://flagcdn.com/w40/id.png"><span>ID</span><span class="check">✓</span></div><div onclick="setLang('EN')" id="langEN" class="lang-item"><img src="https://flagcdn.com/w40/gb.png"><span>EN</span><span class="check"></span></div></div><div onclick="closeLoc()" style="background:#2a2a2a;color:white;text-align:center;padding:12px;border-radius:12px;margin-top:16px;cursor:pointer">Tutup</div></div></div>
 
 <script>
-// ===== GANTI DI SINI KALAU MAU GANTI HARGA =====
 const gamesData={
-'Mobile Legends':{img:'mlbb.png',prices:[{d:'86 Diamond',p:20000},{d:'172 Diamond',p:39000},{d:'257 Diamond',p:58000},{d:'514 Diamond',p:115000}]},
-'Free Fire':{img:'ff.png',prices:[{d:'70 Diamond',p:10000},{d:'140 Diamond',p:20000}]},
-'PUBG Mobile':{img:'pubg.png',prices:[{d:'60 UC',p:14000}]},
-'Valorant':{img:'valorant.png',prices:[{d:'125 VP',p:15000}]},
+'Mobile Legends':{img:'mlbb.png',prices:[{d:'86 Diamond',p:20000},{d:'172 Diamond',p:39000},{d:'257 Diamond',p:58000},{d:'344 Diamond',p:77000},{d:'514 Diamond',p:115000}]},
+'Free Fire':{img:'ff.png',prices:[{d:'70 Diamond',p:10000},{d:'140 Diamond',p:20000},{d:'355 Diamond',p:50000}]},
+'PUBG Mobile':{img:'pubg.png',prices:[{d:'60 UC',p:14000},{d:'325 UC',p:70000}]},
+'Valorant':{img:'valorant.png',prices:[{d:'125 VP',p:15000},{d:'420 VP',p:50000}]},
 'ROBLOX':{img:'roblox.png',prices:[{d:'80 Robux',p:12000}]},
 'Genshin Impact':{img:'genshin.png',prices:[{d:'300 Genesis',p:65000}]},
 'Honkai Star Rail':{img:'honkai.png',prices:[{d:'300 Jade',p:65000}]},
 'Clash of Clans':{img:'coc.png',prices:[{d:'500 Gems',p:70000}]},
 'Call of Duty Mobile':{img:'codm.png',prices:[{d:'80 CP',p:15000}]},
 };
-// ===== RATE MATA UANG (EDIT KALAU KURS NAIK) =====
 const rates={IDR:{sym:'Rp ',rate:1},MYR:{sym:'RM ',rate:0.00029},PHP:{sym:'₱ ',rate:0.0036},SGD:{sym:'S$ ',rate:0.000086},THB:{sym:'฿ ',rate:0.0023}};
-
 let sel=null,curGame=null,cur=localStorage.getItem('cur')||'IDR',lang=localStorage.getItem('lang')||'ID';
-
 function init(){
- let name=new URLSearchParams(location.search).get('game');
- if(!name||!gamesData[name]){document.getElementById('gName').innerText='Game tidak ditemukan';return;}
- curGame=name;
- document.getElementById('gName').innerText=name;
- document.getElementById('gImg').src=gamesData[name].img;
- document.getElementById('curBtn').innerText=cur;
- // set aktif
- document.querySelectorAll('.loc-item').forEach(e=>{e.classList.remove('active');e.querySelector('.check').innerText='';});
+ let name=new URLSearchParams(location.search).get('game'); if(!name||!gamesData[name]){gName.innerText='Game tidak ada';return;}
+ curGame=name; gName.innerText=name; gImg.src=gamesData[name].img;
+ curBtn.innerText=cur; document.querySelectorAll('.loc-item').forEach(e=>{e.classList.remove('active');e.querySelector('.check').innerText='';});
  let a=document.querySelector(`[data-cur="${cur}"]`); if(a){a.classList.add('active');a.querySelector('.check').innerText='✓';}
- setLang(lang,true);
- render();
+ setLang(lang,true); render();
 }
-function render(){
- let g=gamesData[curGame]; let el=document.getElementById('list'); el.innerHTML='';
- g.prices.forEach((it,i)=>{
-   let pr=it.p*rates[cur].rate;
-   let txt=cur==='IDR'?'Rp '+it.p.toLocaleString('id-ID'):rates[cur].sym+pr.toFixed(cur==='MYR'||cur==='SGD'?2:0);
-   el.innerHTML+=`<div onclick="pilih(${i})" id="it${i}" class="item"><div class="d">${it.d}</div><div class="p">${txt}</div></div>`;
- });
-}
-function pilih(i){
- sel=gamesData[curGame].prices[i];
- document.querySelectorAll('.item').forEach(e=>e.classList.remove('active'));
- document.getElementById('it'+i).classList.add('active');
- let pr=sel.p*rates[cur].rate;
- document.getElementById('total').innerText=cur==='IDR'?'Rp '+sel.p.toLocaleString('id-ID'):rates[cur].sym+pr.toFixed(2);
- document.getElementById('btn').classList.add('on');
-}
-function beli(){
- if(!sel) return alert(lang==='ID'?'Pilih nominal dulu':'Choose amount first');
- let u=document.getElementById('uid').value; if(!u) return alert('Isi User ID');
- let z=document.getElementById('zid').value;
- let pr=cur==='IDR'?'Rp '+sel.p.toLocaleString('id-ID'):rates[cur].sym+(sel.p*rates[cur].rate).toFixed(2);
- let txt=`Halo kak mau topup%0AGame: ${curGame}%0AID: ${u} (${z})%0AItem: ${sel.d}%0AHarga: ${pr} (${cur})`;
- window.open(`https://wa.me/6282353459352?text=${txt}`,'_blank'); // GANTI NOMOR WA DISINI
-}
-function openLoc(){document.getElementById('locModal').style.display='flex'}
-function closeLoc(){document.getElementById('locModal').style.display='none'}
-function setLoc(c){
- cur=c; localStorage.setItem('cur',c);
- document.getElementById('curBtn').innerText=c;
- document.querySelectorAll('.loc-item').forEach(e=>{e.classList.remove('active');e.querySelector('.check').innerText='';});
- document.querySelector(`[data-cur="${c}"]`).classList.add('active');
- document.querySelector(`[data-cur="${c}"] .check`).innerText='✓';
- render(); if(sel) pilih(gamesData[curGame].prices.indexOf(sel));
- closeLoc();
-}
-function setLang(l,first){
- lang=l; localStorage.setItem('lang',l);
- document.querySelectorAll('.lang-item').forEach(e=>{e.classList.remove('active');e.querySelector('.check').innerText='';});
- document.getElementById('lang'+l).classList.add('active');
- document.getElementById('lang'+l).querySelector('.check').innerText='✓';
- if(l==='EN'){t1.innerText='Enter ID';t2.innerText='Select Amount';t3.innerText='Payment';tTotal.innerText='Total';btn.innerText='Buy';}
- else{t1.innerText='Masukkan ID';t2.innerText='Pilih Nominal';t3.innerText='Bayar';tTotal.innerText='Total Bayar';btn.innerText='Beli';}
- if(!first) closeLoc();
-}
+function render(){let g=gamesData[curGame]; list.innerHTML=''; g.prices.forEach((it,i)=>{let pr=it.p*rates[cur].rate; let txt=cur==='IDR'?'Rp '+it.p.toLocaleString('id-ID'):rates[cur].sym+pr.toFixed(2); list.innerHTML+=`<div onclick="pilih(${i})" id="it${i}" class="item"><div class="d">${it.d}</div><div class="p">${txt}</div></div>`;});}
+function pilih(i){sel=gamesData[curGame].prices[i]; document.querySelectorAll('.item').forEach(e=>e.classList.remove('active')); document.getElementById('it'+i).classList.add('active'); let pr=sel.p*rates[cur].rate; total.innerText=cur==='IDR'?'Rp '+sel.p.toLocaleString('id-ID'):rates[cur].sym+pr.toFixed(2); btn.classList.add('on');}
+function beli(){if(!sel) return alert('Pilih nominal dulu'); let u=uid.value; if(!u) return alert('Isi User ID'); let z=zid.value; let pr=cur==='IDR'?'Rp '+sel.p.toLocaleString('id-ID'):rates[cur].sym+(sel.p*rates[cur].rate).toFixed(2); let txt=`Halo kak mau topup%0AGame: ${curGame}%0AID: ${u} (${z})%0AItem: ${sel.d}%0AHarga: ${pr} (${cur})`; window.open(`https://wa.me/6282353459352?text=${txt}`,'_blank');}
+function openLoc(){locModal.style.display='flex'}function closeLoc(){locModal.style.display='none'}
+function setLoc(c){cur=c; localStorage.setItem('cur',c); curBtn.innerText=c; document.querySelectorAll('.loc-item').forEach(e=>{e.classList.remove('active');e.querySelector('.check').innerText='';}); document.querySelector(`[data-cur="${c}"]`).classList.add('active'); document.querySelector(`[data-cur="${c}"] .check`).innerText='✓'; render(); if(sel) pilih(gamesData[curGame].prices.indexOf(sel)); closeLoc();}
+function setLang(l,f){lang=l; localStorage.setItem('lang',l); document.querySelectorAll('.lang-item').forEach(e=>{e.classList.remove('active');e.querySelector('.check').innerText='';}); document.getElementById('lang'+l).classList.add('active'); document.getElementById('lang'+l).querySelector('.check').innerText='✓'; if(l==='EN'){t1.innerText='Enter Account Data';t2.innerText='Select Amount';t3.innerText='Payment';tTotal.innerText='Total';btn.innerText='Buy';}else{t1.innerText='Masukkan Data Akun';t2.innerText='Pilih Nominal';t3.innerText='Bayar';tTotal.innerText='Total Bayar';btn.innerText='Beli';} if(!f) closeLoc();}
 locModal.addEventListener('click',e=>{if(e.target.id==='locModal')closeLoc()});
 init();
-</script>
-</body>
-</html>
+</script></body></html>
