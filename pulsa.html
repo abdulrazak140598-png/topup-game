@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TOPUP PULSA</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Inter',sans-serif}
+body{background:#0b122e}
+.app{max-width:480px;margin:0 auto;background:#0f1a3d;min-height:100vh}
+.header{padding:12px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #1e2a5a;background:#0f1a3d;position:sticky;top:0;z-index:10}
+.card-nominal{background:#18234f;border:1px solid #24346a;border-radius:14px;padding:14px;cursor:pointer;transition:.2s}
+.card-nominal.active{border-color:#ffcd00;background:#2a2f00}
+.input-box{width:100%;background:#172250;border:1px solid #24346a;border-radius:12px;padding:13px;color:white;outline:none}
+</style>
+</head>
+<body>
+<div class="app">
+<div class="header">
+<div onclick="history.back()" style="color:white;font-size:20px;cursor:pointer">‹</div>
+<div style="display:flex;align-items:center;gap:10px">
+<img id="pImg" src="logo.png" style="width:36px;height:36px;border-radius:8px;background:#18234f;object-fit:cover">
+<div>
+<div id="pName" style="color:white;font-weight:800;font-size:13px">Pulsa</div>
+<div style="color:#7a8bc0;font-size:10px">Isi pulsa instan 24 jam</div>
+</div>
+</div>
+</div>
+
+<div style="padding:16px">
+<div style="color:white;font-weight:700;font-size:12px;margin-bottom:8px">Nomor HP</div>
+<input id="nohp" class="input-box" placeholder="Contoh: 081234567890" type="tel">
+<div id="valid" style="color:#ff6b6b;font-size:10px;margin-top:6px;display:none">Nomor minimal 10 digit</div>
+</div>
+
+<div style="padding:0 16px;color:white;font-weight:700;font-size:12px;margin:6px 0">Pilih Nominal</div>
+<div id="list" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px 100px"></div>
+</div>
+
+<div style="position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#0f1a3d;border-top:1px solid #1e2a5a;padding:12px 16px;display:flex;justify-content:space-between;align-items:center">
+<div><div style="color:#7a8bc0;font-size:10px">Harga</div><div id="harga" style="color:white;font-weight:800;font-size:14px">Pilih nominal</div></div>
+<button onclick="beli()" style="background:#ffcd00;color:black;border:none;padding:12px 24px;border-radius:12px;font-weight:900;font-size:13px;cursor:pointer">BELI SEKARANG</button>
+</div>
+
+<script>
+const nominals=[
+{name:'5.000', price:7000},
+{name:'10.000', price:12000},
+{name:'15.000', price:17000},
+{name:'20.000', price:22000},
+{name:'25.000', price:27000},
+{name:'50.000', price:52000},
+{name:'100.000', price:102000},
+{name:'200.000', price:202000},
+];
+
+let selected = null;
+const params = new URLSearchParams(location.search);
+const provider = params.get('provider') || 'Telkomsel';
+document.getElementById('pName').innerText = provider;
+document.getElementById('pImg').src = provider.toLowerCase().replace(' ','') + '.png';
+document.getElementById('pImg').onerror = function(){this.src='logo.png'};
+
+function render(){
+  let h='';
+  nominals.forEach((n,i)=>{
+    h+=`<div onclick="pick(${i})" id="nom-${i}" class="card-nominal">
+    <div style="color:white;font-weight:800;font-size:12px">${provider} ${n.name}</div>
+    <div style="color:#8fa0d0;font-size:10px;margin-top:2px">Pulsa Reguler</div>
+    <div style="color:#ffcd00;font-weight:800;font-size:12px;margin-top:8px">Rp ${n.price.toLocaleString('id-ID')}</div>
+    </div>`;
+  });
+  document.getElementById('list').innerHTML=h;
+}
+function pick(i){
+  document.querySelectorAll('.card-nominal').forEach(e=>e.classList.remove('active'));
+  document.getElementById('nom-'+i).classList.add('active');
+  selected = nominals[i];
+  document.getElementById('harga').innerText = 'Rp ' + selected.price.toLocaleString('id-ID');
+}
+function beli(){
+  let no = document.getElementById('nohp').value;
+  if(no.length < 10){document.getElementById('valid').style.display='block';return;}
+  if(!selected){alert('Pilih nominal dulu bang');return;}
+  // ARAHKAN KE WA ATAU CHECKOUT ABANG
+  let text = `Halo kak mau isi pulsa ${provider} ${selected.name} ke nomor ${no} harga Rp ${selected.price}`;
+  window.open('https://wa.me/6282353459352?text='+encodeURIComponent(text), '_blank');
+}
+render();
+</script>
+</body>
+</html>
