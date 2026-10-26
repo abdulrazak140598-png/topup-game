@@ -212,7 +212,8 @@ function toggleMenu(){document.getElementById('drawer').classList.toggle('open')
 
 const games=[
 {n:'Mobile Legends', img:'mlbb.png'},
-{n:'Free Fire', img:'ff.png'},
+{n:'Free Fire MAX', img:'ffmax.png'},
+{n:'eFootball 2025', img:'efootball.png'},
 {n:'PUBG Mobile', img:'pubg.png'},
 {n:'Valorant', img:'valorant.png'},
 {n:'ROBLOX', img:'roblox.png'},
@@ -223,13 +224,12 @@ const games=[
 
 // TAMBAHAN - LAKU KERAS
 {n:'Honor of Kings', img:'hok.png'},
-{n:'Free Fire MAX', img:'ffmax.png'},
+{n:'Free Fire', img:'ff.png'},
 {n:'Arena of Valor', img:'aov.png'},
 {n:'League of Legends Wild Rift', img:'wildrift.png'},
 {n:'Blood Strike', img:'bloodstrike.png'},
 {n:'Farlight 84', img:'farlight.png'},
 {n:'Sausage Man', img:'sausage.png'},
-{n:'eFootball 2025', img:'efootball.png'},
 {n:'EA Sports FC Mobile', img:'fcmobile.png'},
 {n:'Zenless Zone Zero', img:'zzz.png'},
 {n:'Wuthering Waves', img:'wuwa.png'},
@@ -285,7 +285,7 @@ function render(list){
 let p=document.getElementById('pop');let n=document.getElementById('new');p.innerHTML='';n.innerHTML='';
 list.forEach((g,i)=>{
 let h=`<div class="card" onclick="openTopup('${g.n}')" style="cursor:pointer"><img src="${g.img}" class="card-img" loading="lazy" onerror="this.src='logo.png'"><div class="card-name">${g.n}</div></div>`;
-if(i<6) p.innerHTML+=h; else n.innerHTML+=h;
+if(i<8) p.innerHTML+=h; else n.innerHTML+=h;
 });
 }
 function openTopup(name){
