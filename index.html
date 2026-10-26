@@ -86,7 +86,8 @@ body{background:#0b122e}
 <img src="logo.png" onerror="this.src='mlbb.png'">
 <div style="background:#ffcd00;color:black;padding:6px 14px;border-radius:9px;font-weight:900;font-size:14px;letter-spacing:.3px">TOPUP GAME</div>
 </div>
-  <div style="display:flex;align-items:center;gap:12px">
+  <div style="display:flex;align-items:center;gap:10px">
+<div onclick="openSearch()" style="background:#18234f;border:1px solid #24346a;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;color:white;font-size:16px">🔍</div>
 <div onclick="openLoc()" style="background:#18234f;border:1px solid #24346a;color:white;padding:5px 10px;border-radius:20px;font-size:11px;cursor:pointer" id="curBtn">ID / IDR</div>
 <div onclick="toggleMenu()" style="color:white;font-size:26px;cursor:pointer">☰</div>
 </div>
@@ -111,10 +112,7 @@ body{background:#0b122e}
 <div class="banner-wrap">
 </div>
 
-<div class="search">
-<span style="color:#6b7db8">🔍</span>
-<input id="q" oninput="doSearch()" placeholder="Cari game atau voucher...">
-</div>
+<input id="q" type="hidden">
 
 <div class="cat">
 <div onclick="setCat('all')" id="cat-all" class="active">Semua Game</div>
@@ -122,6 +120,11 @@ body{background:#0b122e}
 <div onclick="setCat('voucher')" id="cat-voucher" style="color:#8fa0d0;background:#18234f">Voucher</div>
 <div onclick="setCat('pulsa')" id="cat-pulsa" style="color:#8fa0d0;background:#18234f">Pulsa</div>
 <div onclick="setCat('ewallet')" id="cat-ewallet" style="color:#8fa0d0;background:#18234f">E-Wallet</div>
+</div>
+
+<div style="margin:12px 16px;background:linear-gradient(90deg,#ffcd00,#ffb800);border-radius:12px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;color:black;font-weight:800">
+  <div style="font-size:13px">⏰ PROMO BERAKHIR DALAM</div>
+  <div id="countdown12" style="background:black;color:#ffcd00;padding:6px 10px;border-radius:8px;font-size:14px;font-weight:900">12:00:00</div>
 </div>
 
 <div class="section-title"><b style="font-size:13px">POPULER 🔥</b><span style="font-size:11px;color:#ffcd00">Lihat Semua ›</span></div>
