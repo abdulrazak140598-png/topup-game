@@ -49,6 +49,21 @@ body{background:#0b122e}
 <img src="logo.png" onerror="this.src='mlbb.png'">
 <div style="background:#ffcd00;color:black;padding:6px 14px;border-radius:9px;font-weight:900;font-size:14px;letter-spacing:.3px">TOPUP GAME</div>
 </div>
+  <!-- MULAI BANNER SLIDER - TARUH DISINI -->
+<div style="padding:16px">
+  <div style="position:relative;overflow:hidden;border-radius:20px">
+    <div id="slider" style="display:flex;transition:transform 0.5s ease">
+      <img src="./banner.png" style="width:100%;flex-shrink:0;aspect-ratio:3.4/1;object-fit:cover;display:block">
+      <img src="./banner2.png" style="width:100%;flex-shrink:0;aspect-ratio:3.4/1;object-fit:cover;display:block">
+    </div>
+    <!-- titik kuning -->
+    <div style="position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:6px">
+      <div id="dot0" style="width:20px;height:6px;border-radius:10px;background:#ffcd00"></div>
+      <div id="dot1" style="width:6px;height:6px;border-radius:10px;background:rgba(255,255,255,.4)"></div>
+    </div>
+  </div>
+</div>
+<!-- SELESAI BANNER -->
 <div style="display:flex;align-items:center;gap:12px">
 <div style="background:#18234f;border:1px solid #24346a;color:white;padding:6px 12px;border-radius:20px;font-size:11px">EN / MYR</div>
 <div onclick="toggleMenu()" style="color:white;font-size:26px;cursor:pointer">☰</div>
@@ -103,6 +118,17 @@ if(i<6) p.innerHTML+=h; else n.innerHTML+=h;
 }
 function doSearch(){let v=document.getElementById('q').value.toLowerCase(); render(games.filter(x=>x.n.toLowerCase().includes(v))) }
 render(games);
+// SLIDER BANNER
+let cur = 0;
+const s = document.getElementById('slider');
+function show(n){
+  s.style.transform = `translateX(-${n*100}%)`;
+  document.getElementById('dot0').style.background = n==0 ? '#ffcd00' : 'rgba(255,255,255,.4)';
+  document.getElementById('dot0').style.width = n==0 ? '20px' : '6px';
+  document.getElementById('dot1').style.background = n==1 ? '#ffcd00' : 'rgba(255,255,255,.4)';
+  document.getElementById('dot1').style.width = n==1 ? '20px' : '6px';
+}
+setInterval(()=>{ cur = (cur+1)%2; show(cur); }, 3500);
 </script>
 </body>
 </html>
