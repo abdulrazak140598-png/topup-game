@@ -221,6 +221,29 @@ const games=[
 {n:'Clash of Clans', img:'coc.png'},
 {n:'Call of Duty Mobile', img:'codm.png'},
 ];
+// DATA PULSA & LAINNYA
+const pulsaList = [
+{n:'Telkomsel', img:'telkomsel.png'},
+{n:'XL Axiata', img:'xl.png'},
+{n:'Indosat', img:'indosat.png'},
+{n:'Tri', img:'tri.png'},
+{n:'Smartfren', img:'smartfren.png'},
+{n:'Axis', img:'axis.png'},
+];
+
+const ewalletList = [
+{n:'DANA', img:'dana.png'},
+{n:'OVO', img:'ovo.png'},
+{n:'GoPay', img:'gopay.png'},
+{n:'ShopeePay', img:'shopeepay.png'},
+{n:'LinkAja', img:'linkaja.png'},
+];
+
+const voucherList = [
+{n:'Google Play', img:'googleplay.png'},
+{n:'Steam Wallet', img:'steam.png'},
+{n:'Garena Shell', img:'garena.png'},
+];
 
 function render(list){
 let p=document.getElementById('pop');let n=document.getElementById('new');p.innerHTML='';n.innerHTML='';
@@ -388,27 +411,42 @@ setInterval(showLive, 6000);
 let savedPop = document.getElementById('pop').innerHTML;
 let savedNew = document.getElementById('new').innerHTML;
 
+function renderList(list){
+  let p=document.getElementById('pop');
+  let n=document.getElementById('new');
+  p.innerHTML=''; n.innerHTML='';
+  list.forEach((g,i)=>{
+    let h=`<div class="card" onclick="openTopup('${g.n}')" style="cursor:pointer"><img src="${g.img}" class="card-img" loading="lazy" onerror="this.src='logo.png'"><div class="card-name">${g.n}</div></div>`;
+    if(i<6) p.innerHTML+=h; else n.innerHTML+=h;
+  });
+}
+
 function setCat(c){
-  // ganti warna tombol
   document.querySelectorAll('.cat div').forEach(el=>{
     el.classList.remove('active');
     el.style.background='#18234f';
     el.style.color='#8fa0d0';
   });
-  let btn = document.getElementById('cat-'+c);
+  let btn=document.getElementById('cat-'+c);
   btn.classList.add('active');
   btn.style.background='#ffcd00';
   btn.style.color='black';
 
-  let pop = document.getElementById('pop');
-  let nw = document.getElementById('new');
-
-  if(c=='voucher' || c=='pulsa' || c=='ewallet'){
-    pop.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:30px;color:#5a6aa0;font-size:12px">Kosong - ${c} belum tersedia</div>`;
-    nw.innerHTML = '';
-  } else {
-    pop.innerHTML = savedPop;
-    nw.innerHTML = savedNew;
+  if(c=='all'){
+    document.getElementById('pop').innerHTML=savedPop;
+    document.getElementById('new').innerHTML=savedNew;
+  }
+  if(c=='topup'){
+    render(games);
+  }
+  if(c=='pulsa'){
+    renderList(pulsaList);
+  }
+  if(c=='ewallet'){
+    renderList(ewalletList);
+  }
+  if(c=='voucher'){
+    renderList(voucherList);
   }
 }
 </script>
