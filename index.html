@@ -207,30 +207,84 @@ body{background:#0b122e}
 <!-- SELESAI FOOTER -->
 
 <script>
-function toggleMenu(){document.getElementById('drawer').classList.toggle('open');document.getElementById('dim').classList.toggle('open')}
-
-
 const games=[
-{n:'Mobile Legends', img:'mlbb.png'},
-{n:'Free Fire', img:'ff.png'},
-{n:'PUBG Mobile', img:'pubg.png'},
-{n:'Valorant', img:'valorant.png'},
-{n:'ROBLOX', img:'roblox.png'},
-{n:'Genshin Impact', img:'genshin.png'},
-{n:'Honkai Star Rail', img:'honkai.png'},
-{n:'Clash of Clans', img:'coc.png'},
-{n:'Call of Duty Mobile', img:'codm.png'},
+{n:'Mobile Legends',img:'./mlbb.png', prices:[
+{d:'86 Diamond', price:20000, bonus:''},
+{d:'172 Diamond', price:39000, bonus:''},
+{d:'257 Diamond', price:58000, bonus:''},
+{d:'344 Diamond', price:77000, bonus:'Best'},
+{d:'514 Diamond', price:115000, bonus:''},
+{d:'706 Diamond', price:155000, bonus:'HOT'},
+{d:'878 Diamond', price:195000, bonus:''},
+{d:'1050 Diamond', price:230000, bonus:''},
+{d:'1412 Diamond', price:310000, bonus:''},
+{d:'2195 Diamond', price:465000, bonus:''},
+]},
+{n:'Free Fire',img:'./ff.png', prices:[
+{d:'70 Diamond', price:10000},{d:'140 Diamond', price:20000},{d:'355 Diamond', price:50000},{d:'720 Diamond', price:100000},
+]},
+{n:'PUBG Mobile',img:'./pubg.png', prices:[{d:'60 UC', price:14000},{d:'325 UC', price:70000}]},
+{n:'Valorant',img:'./valorant.png', prices:[{d:'125 VP', price:15000}]},
+{n:'ROBLOX',img:'./roblox.png', prices:[{d:'80 Robux', price:12000}]},
+{n:'Genshin Impact',img:'./genshin.png', prices:[{d:'300 Genesis', price:65000}]},
+{n:'Honkai Star Rail',img:'./honkai.png', prices:[{d:'300 Jade', price:65000}]},
+{n:'Clash of Clans',img:'./coc.png', prices:[{d:'500 Gems', price:70000}]},
+{n:'CODM',img:'./codm.png', prices:[{d:'80 CP', price:15000}]},
 ];
 
+let selectedPrice = null;
+let selectedGame = null;
+
 function render(list){
-let p=document.getElementById('pop');let n=document.getElementById('new');p.innerHTML='';n.innerHTML='';
+let p=document.getElementById('pop'),nw=document.getElementById('new');p.innerHTML='';nw.innerHTML='';
 list.forEach((g,i)=>{
-let h=`<div class="card"><img src="${g.img}" class="card-img" loading="lazy" onerror="this.src='logo.png'"><div class="card-name">${g.n}</div></div>`;
-if(i<6) p.innerHTML+=h; else n.innerHTML+=h;
+let h=`<div class="card" onclick="openTopup('${g.n}')" style="cursor:pointer"><img src="${g.img}" onerror="this.src='./logo.png'"><div class="card-name">${g.n}</div></div>`;
+if(i<6) p.innerHTML+=h; else nw.innerHTML+=h;
 });
 }
-function doSearch(){let v=document.getElementById('q').value.toLowerCase(); render(games.filter(x=>x.n.toLowerCase().includes(v))) }
-render(games);
+
+function openTopup(name){
+let g = games.find(x=>x.n===name);
+selectedGame = g;
+document.getElementById('tName').innerText = g.n;
+document.getElementById('tImg').src = g.img;
+let list = document.getElementById('priceList');
+list.innerHTML='';
+g.prices.forEach((pr,idx)=>{
+list.innerHTML+=`<div onclick="selectPrice(${idx})" id="pr${idx}" style="background:#0f1a3d;border:1px solid #24346a;border-radius:12px;padding:12px;cursor:pointer;position:relative">
+${pr.bonus?`<div style="position:absolute;top:-6px;right:8px;background:#ff3b3b;color:white;font-size:8px;font-weight:900;padding:2px 6px;border-radius:10px">${pr.bonus}</div>`:''}
+<div style="color:white;font-size:12px;font-weight:700">${pr.d}</div>
+<div style="color:#ffcd00;font-size:13px;font-weight:800;margin-top:4px">Rp ${pr.price.toLocaleString('id-ID')}</div>
+</div>`;
+});
+document.getElementById('totalPrice').innerText = 'Pilih diamond';
+document.getElementById('buyBtn').style.background='#ccc';
+document.getElementById('buyBtn').style.color='#666';
+selectedPrice=null;
+document.getElementById('topupModal').style.display='block';
+}
+
+function selectPrice(idx){
+selectedPrice = selectedGame.prices[idx];
+document.querySelectorAll('[id^="pr"]').forEach(el=>{el.style.borderColor='#24346a'; el.style.background='#0f1a3d'});
+document.getElementById('pr'+idx).style.borderColor='#ffcd00';
+document.getElementById('pr'+idx).style.background='#2a2400';
+document.getElementById('totalPrice').innerText = 'Rp ' + selectedPrice.price.toLocaleString('id-ID');
+let btn = document.getElementById('buyBtn');
+btn.style.background='#ffcd00';
+btn.style.color='black';
+}
+
+function closeTopup(){document.getElementById('topupModal').style.display='none'}
+
+function buyNow(){
+if(!selectedPrice) return alert('Pilih diamond dulu bang!');
+let uid = document.getElementById('userId').value;
+let zid = document.getElementById('zoneId').value;
+if(!uid) return alert('Isi User ID dulu!');
+let text = `Halo kak mau topup%0A%0AGame: ${selectedGame.n}%0AID: ${uid} (${zid})%0AItem: ${selectedPrice.d}%0AHarga: Rp ${selectedPrice.price.toLocaleString('id-ID')}`;
+window.open(`https://wa.me/6281234567890?text=${text}`,'_blank');
+}
 // SLIDER BANNER
 let cur = 0;
 const s = document.getElementById('slider');
