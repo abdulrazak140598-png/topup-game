@@ -150,9 +150,65 @@ setInterval(()=>{
 <div class="section-title"><b style="font-size:13px">POPULER 🔥</b><span style="font-size:11px;color:#ffcd00">Lihat Semua ›</span></div>
 <div id="pop" class="grid"></div>
 
-<div class="section-title"><b style="font-size:13px">NEW RELEASE ✨</b></div>
-<div id="new" class="grid" style="padding-bottom:90px"></div>
+<!-- NEW RELEASE - 8 GAME AWAL + TOMBOL SEMBUNYIKAN -->
+<div style="padding:16px">
+  <div style="display:flex;justify-content:space-between;align-items:center">
+    <div style="display:flex;align-items:center;gap:8px">
+      <div style="width:32px;height:32px;background:linear-gradient(135deg,#ffcd00,#ffb800);border-radius:8px;display:flex;align-items:center;justify-content:center">🔥</div>
+      <div style="color:white;font-weight:900;font-size:14px">NEW RELEASE</div>
+    </div>
+    <div id="countInfo" style="color:#7a8bc0;font-size:11px">8 dari 16 game</div>
+  </div>
+
+  <div id="newReleaseGrid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px">
+    <!-- 8 GAME YANG MUNCUL AWAL -->
+    <div class="game-item"><img src="./mlbb.png" style="width:100%;border-radius:12px;aspect-ratio:1;object-fit:cover;background:#18234f"><div style="color:white;font-size:10px;font-weight:700;text-align:center;margin-top:5px">MLBB</div></div>
+    <div class="game-item"><img src="./freefire.png" style="width:100%;border-radius:12px;aspect-ratio:1;object-fit:cover;background:#18234f"><div style="color:white;font-size:10px;font-weight:700;text-align:center;margin-top:5px">Free Fire</div></div>
+    <div class="game-item"><img src="./pubg.png" style="width:100%;border-radius:12px;aspect-ratio:1;object-fit:cover;background:#18234f"><div style="color:white;font-size:10px;font-weight:700;text-align:center;margin-top:5px">PUBG</div></div>
+    <div class="game-item"><img src="./valorant.png" style="width:100%;border-radius:12px;aspect-ratio:1;object-fit:cover;background:#18234f"><div style="color:white;font-size:10px;font-weight:700;text-align:center;margin-top:5px">Valorant</div></div>
+    <div class="game-item"><img src="./genshin.png" style="width:100%;border-radius:12px;aspect-ratio:1;object-fit:cover;background:#18234f"><div style="color:white;font-size:10px;font-weight:700;text-align:center;margin-top:5px">Genshin</div></div>
+    <div class="game-item"><img src="./roblox.png" style="width:100%;border-radius:12px;aspect-ratio:1;object-fit:cover;background:#18234f"><div style="color:white;font-size:10px;font-weight:700;text-align:center;margin-top:5px">Roblox</div></div>
+    <div class="game-item"><img src="./hok.png" style="width:100%;border-radius:12px;aspect-ratio:1;object-fit:cover;background:#18234f"><div style="color:white;font-size:10px;font-weight:700;text-align:center;margin-top:5px">HOK</div></div>
+    <div class="game-item"><img src="./codm.png" style="width:100%;border-radius:12px;aspect-ratio:1;object-fit:cover;background:#18234f"><div style="color:white;font-size:10px;font-weight:700;text-align:center;margin-top:5px">CODM</div></div>
+
+    <!-- SISANYA TERSEMBUNYI -->
+    <div class="game-item extra" style="display:none"><img src="./aov.png" style="width:100%;border-radius:12px;aspect-ratio:1;object-fit:cover;background:#18234f"><div style="color:white;font-size:10px;font-weight:700;text-align:center;margin-top:5px">AOV</div></div>
+    <div class="game-item extra" style="display:none"><img src="./pb.png" style="width:100%;border-radius:12px;aspect-ratio:1;object-fit:cover;background:#18234f"><div style="color:white;font-size:10px;font-weight:700;text-align:center;margin-top:5px">Point Blank</div></div>
+    <div class="game-item extra" style="display:none"><img src="./efootball.png" style="width:100%;border-radius:12px;aspect-ratio:1;object-fit:cover;background:#18234f"><div style="color:white;font-size:10px;font-weight:700;text-align:center;margin-top:5px">eFootball</div></div>
+    <div class="game-item extra" style="display:none"><img src="./lol.png" style="width:100%;border-radius:12px;aspect-ratio:1;object-fit:cover;background:#18234f"><div style="color:white;font-size:10px;font-weight:700;text-align:center;margin-top:5px">LOL</div></div>
+    <div class="game-item extra" style="display:none"><img src="./mc.png" style="width:100%;border-radius:12px;aspect-ratio:1;object-fit:cover;background:#18234f"><div style="color:white;font-size:10px;font-weight:700;text-align:center;margin-top:5px">Minecraft</div></div>
+    <div class="game-item extra" style="display:none"><img src="./stumble.png" style="width:100%;border-radius:12px;aspect-ratio:1;object-fit:cover;background:#18234f"><div style="color:white;font-size:10px;font-weight:700;text-align:center;margin-top:5px">Stumble</div></div>
+    <div class="game-item extra" style="display:none"><img src="./sausage.png" style="width:100%;border-radius:12px;aspect-ratio:1;object-fit:cover;background:#18234f"><div style="color:white;font-size:10px;font-weight:700;text-align:center;margin-top:5px">Sausage</div></div>
+    <div class="game-item extra" style="display:none"><img src="./speed.png" style="width:100%;border-radius:12px;aspect-ratio:1;object-fit:cover;background:#18234f"><div style="color:white;font-size:10px;font-weight:700;text-align:center;margin-top:5px">Speed</div></div>
+  </div>
+
+  <!-- TOMBOL -->
+  <button id="toggleGameBtn" style="width:100%;margin-top:14px;background:linear-gradient(135deg,#18234f,#1e2f6b);border:1px solid #24346a;color:white;padding:12px;border-radius:14px;font-weight:800;font-size:12px;cursor:pointer">
+    ▼ LIHAT SEMUA (16 GAME)
+  </button>
 </div>
+
+<script>
+(function(){
+  const btn = document.getElementById('toggleGameBtn');
+  const extras = document.querySelectorAll('.game-item.extra');
+  const info = document.getElementById('countInfo');
+  let isOpen = false;
+
+  btn.onclick = function(){
+    isOpen = !isOpen;
+    extras.forEach(el => el.style.display = isOpen ? 'block' : 'none');
+    if(isOpen){
+      btn.innerHTML = '▲ SEMBUNYIKAN';
+      info.innerHTML = '16 game tampil';
+    } else {
+      btn.innerHTML = '▼ LIHAT SEMUA (16 GAME)';
+      info.innerHTML = '8 dari 16 game';
+      document.getElementById('newReleaseGrid').scrollIntoView({behavior:'smooth', block:'start'});
+    }
+  }
+})();
+</script>
 
 <!-- TOP SPENDER - TARUH DI SINI, DI ATAS FOOTER -->
 <!-- ULASAN BINTANG 5 LIVE - TARUH DI BAWAH TOP SPENDER -->
