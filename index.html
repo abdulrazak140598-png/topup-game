@@ -159,6 +159,40 @@ body{background:#0b122e}
 </div>
 
 <!-- SELESAI BANNER -->
+<!-- PROMO 8 JAM - INDEX.HTML (gak reset pas refresh) -->
+<div style="margin:14px;background:linear-gradient(90deg,#ff1a1a,#ff8a00);border-radius:14px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;color:white;font-family:sans-serif;box-shadow:0 4px 15px rgba(255,50,50,.3)">
+  <div style="font-weight:800;font-size:14px;display:flex;align-items:center;gap:8px">
+    <span style="background:white;color:#ff1a1a;border-radius:6px;padding:2px 6px;font-size:11px">HOT</span>
+    PROMO BERAKHIR DALAM
+  </div>
+  <div id="promoTimer" style="background:rgba(0,0,0,.85);padding:6px 12px;border-radius:8px;font-weight:900;letter-spacing:1px;font-size:14px">08:00:00</div>
+</div>
+
+<script>
+// JANGAN RESET PAS REFRESH
+(function(){
+  const KEY = 'promo_index_end';
+  let end = localStorage.getItem(KEY);
+  if(!end || Date.now() > parseInt(end)){
+    end = Date.now() + 8*60*60*1000;
+    localStorage.setItem(KEY, end);
+  }
+  setInterval(()=>{
+    let sisa = parseInt(end) - Date.now();
+    if(sisa <= 0){
+      end = Date.now() + 8*60*60*1000;
+      localStorage.setItem(KEY, end);
+      sisa = 8*60*60*1000;
+    }
+    const j = String(Math.floor(sisa/3600000)).padStart(2,'0');
+    const m = String(Math.floor(sisa%3600000/60000)).padStart(2,'0');
+    const s = String(Math.floor(sisa%60000/1000)).padStart(2,'0');
+    const el = document.getElementById('promoTimer');
+    if(el) el.textContent = `${j}:${m}:${s}`;
+  },1000);
+})();
+</script>
+<!-- END PROMO -->
 <!-- ===== PENEMPATAN KODE 8 JAM MELAYANG - DI SINI BANG, DI BAWAH BANNER, DI ATAS SEARCH ===== -->
 <div class="promo-float" style="margin:12px 16px;background:linear-gradient(135deg,#ffcd00,#ffb800);border-radius:14px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;color:black;font-weight:900;">
   <div style="display:flex;align-items:center;gap:8px">
