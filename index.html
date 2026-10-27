@@ -169,12 +169,25 @@ body{background:#0b122e}
 </div>
 
 <script>
-let end = localStorage.getItem('promo_end') ? parseInt(localStorage.getItem('promo_end')) : Date.now() + 8*60*60*1000;
+<script>
+let end = localStorage.getItem('promo_end');
+if(!end){
+  end = Date.now() + 8*60*60*1000;
+  localStorage.setItem('promo_end', end); // INI YANG KURANG TADI
+} else {
+  end = parseInt(end);
+}
+
 setInterval(()=>{
   let sisa = end - Date.now();
-  if(sisa<=0){ end = Date.now() + 8*60*60*1000; localStorage.setItem('promo_end', end); sisa = 8*60*60*1000; }
+  if(sisa <= 0){
+    end = Date.now() + 8*60*60*1000;
+    localStorage.setItem('promo_end', end);
+    sisa = 8*60*60*1000;
+  }
   let h = Math.floor(sisa/3600000), m=Math.floor(sisa%3600000/60000), s=Math.floor(sisa%60000/1000);
-  document.getElementById('countdown8').innerText = (h<10?'0'+h:h)+':'+(m<10?'0'+m:m)+':'+(s<10?'0'+s:s);
+  let el = document.getElementById('countdown8');
+  if(el) el.innerText = (h<10?'0'+h:h)+':'+(m<10?'0'+m:m)+':'+(s<10?'0'+s:s);
 },1000);
 </script>
 <!-- ===== SELESAI KODE 8 JAM ===== -->
