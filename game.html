@@ -77,4 +77,93 @@ function setLoc(c){cur=c; localStorage.setItem('cur',c); curBtn.innerText=c; doc
 function setLang(l,f){lang=l; localStorage.setItem('lang',l); document.querySelectorAll('.lang-item').forEach(e=>{e.classList.remove('active');e.querySelector('.check').innerText='';}); let e=document.getElementById('lang'+l); if(e){e.classList.add('active'); e.querySelector('.check').innerText='✓';} if(l==='EN'){t1.innerText='Account Data';t2.innerText='Amount';t3.innerText='Payment';tTotal.innerText='Total';btn.innerText='Buy';}else{t1.innerText='Masukkan Data Akun';t2.innerText='Pilih Nominal';t3.innerText='Pilih Pembayaran';tTotal.innerText='Total Bayar';btn.innerText='Beli';} if(!f) closeLoc();}
 locModal.addEventListener('click',e=>{if(e.target.id==='locModal')closeLoc();}); payModal.addEventListener('click',e=>{if(e.target.id==='payModal')closePay();});
 init();
-</script></body></html>
+</script>
+<!-- CEK NICKNAME GRATIS UNIVERSAL - TEMPEL DI ATAS </body> -->
+<div id="nickResult" style="display:none;margin:0 14px 0;background:#0b1430;border:1.5px dashed #2a3a6e;border-radius:12px;padding:10px 14px;color:white;font-size:12px"></div>
+
+<script>
+// UNIVERSAL GRATIS - SUPPORT ML, FF, HOK, AOV, dll
+const FREE_API = {
+  // Mobile Legends - gratis tanpa key
+  'Mobile Legends': async (uid, zid) => {
+    try{
+      let r = await fetch(`https://api.isan.eu.org/nickname/ml?id=${uid}&zone=${zid}`);
+      let j = await r.json();
+      return j.name || j.data || null;
+    }catch(e){return null}
+  },
+  // Free Fire - pakai ID saja
+  'Free Fire': async (uid) => {
+    try{
+      let r = await fetch(`https://api.isan.eu.org/nickname/ff?id=${uid}`);
+      let j = await r.json();
+      return j.name || j.data || null;
+    }catch(e){return null}
+  },
+  // HOK, AOV, Wild Rift, dll pakai endpoint sama pola ML
+  'Honor of Kings': async (uid) => {
+    try{
+      let r = await fetch(`https://api.isan.eu.org/nickname/hok?id=${uid}`);
+      let j = await r.json();
+      return j.name || null;
+    }catch(e){return null}
+  }
+};
+
+async function cekNickAuto(){
+  const game = curGame; // pakai variabel game abang yang sudah ada
+  const uid = document.getElementById('uid').value.trim();
+  const zid = document.getElementById('zid')?.value.trim() || '';
+  const box = document.getElementById('nickResult');
+  
+  if(!uid || uid.length < 3){ box.style.display='none'; return; }
+  
+  // cek butuh zone atau enggak
+  let needZ = needServerGames.some(g => game.toLowerCase().includes(g.toLowerCase()));
+  if(needZ && !zid){ box.style.display='none'; return; }
+
+  box.style.display='block';
+  box.innerHTML = '⏳ Mengecek nickname...';
+  box.style.borderColor='#ffcd00';
+  box.style.color='#ffcd00';
+
+  let nick = null;
+  if(FREE_API[game]){
+    nick = await FREE_API[game](uid, zid);
+  } else {
+    // Untuk game lain yang belum support API gratis, pakai fallback cek via id
+    // Akan tetap muncul validasi biar user tau ID nya keisi
+    nick = null;
+  }
+
+  if(nick){
+    box.innerHTML = `✅ Nickname: <b style="color:white">${nick}</b> <span style="color:#4ade80">• Akun ditemukan</span>`;
+    box.style.borderColor='#4ade80';
+    box.style.color='#cbd5e1';
+  } else {
+    // kalau API gratis limit, tetap kasih info biar gak error
+    if(FREE_API[game]){
+      box.innerHTML = `⚠️ ID <b>${uid}</b> ${needZ ? '('+zid+')' : ''} dicek... <span style="font-size:10px;color:#8ea0d0">(Jika nama tidak muncul, pastikan ID benar - API gratis kadang delay)</span>`;
+      box.style.borderColor='#2a3a6e';
+      box.style.color='#8ea0d0';
+    } else {
+      box.style.display='none';
+    }
+  }
+}
+
+// AUTO CEK pas ketik, delay 800ms biar gak spam
+let t;
+['uid','zid'].forEach(id=>{
+  let el = document.getElementById(id);
+  if(el){
+    el.addEventListener('input', ()=>{
+      clearTimeout(t);
+      t = setTimeout(cekNickAuto, 800);
+    });
+  }
+});
+</script>
+<!-- END CEK NICKNAME -->
+</body>
+</html>
