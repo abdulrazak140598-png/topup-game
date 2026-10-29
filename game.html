@@ -64,24 +64,38 @@ if(needServer){document.getElementById('zidBox').style.display='block';document.
 render();}
 function render(){let g=gamesData[curGame]; let el=document.getElementById('list'); el.innerHTML=''; g.prices.forEach((it,i)=>{let pr=it.p*rates[cur].rate; let txt=cur==='IDR'?'Rp '+it.p.toLocaleString('id-ID'):rates[cur].sym+pr.toFixed(2); el.innerHTML+=`<div onclick="pilih(${i})" id="it${i}" class="item"><div class="d">${it.d}</div><div class="p">${txt}</div></div>`;});}
 function pilih(i){sel=gamesData[curGame].prices[i]; document.querySelectorAll('.item').forEach(e=>e.classList.remove('active')); document.getElementById('it'+i).classList.add('active'); let pr=sel.p*rates[cur].rate; total.innerText=cur==='IDR'?'Rp '+sel.p.toLocaleString('id-ID'):rates[cur].sym+pr.toFixed(2); btn.classList.add('on');}
-function beli(){
+async function beli(){
   if(!sel){alert('Pilih nominal dulu bang!');return;}
-  let uidEl=document.getElementById('uid') || document.querySelector('input[placeholder*="ID"]');
-  if(!uidEl || !uidEl.value){alert('Isi ID Game dulu!');return;}
-  let nominal = sel.p || sel.price || 400000;
-  let link = getKipayLink(nominal);
-  let orderId = 'ROAN-'+sel.d.replace(/\s+/g,'')+'-'+Date.now();
-  let finalLink = link + '&order_id=' + orderId + '&desc=' + encodeURIComponent(sel.d+'-'+uidEl.value);
-  localStorage.setItem('lastOrder', JSON.stringify({id:orderId, diamond:sel.d, amount:nominal, uid:uidEl.value}));
-  
+  let uidEl=document.getElementById('uid');
+  if(!uidEl.value){alert('Isi ID Game dulu!');return;}
+  let nominal = sel.p || 400000;
+
   let modal = document.getElementById('payModal');
   modal.style.display='flex';
-  let hargaText = nominal > 2000000 ? 'RM '+Math.ceil(nominal/3450) : 'Rp '+nominal.toLocaleString('id-ID');
-  // deteksi MYR
-  if(document.getElementById('IDR')?.innerText === 'MYR') hargaText = 'RM '+Math.ceil(nominal/3450);
-  
-  modal.innerHTML = '<div style="background:white;padding:20px;border-radius:12px;text-align:center;max-width:320px;margin:auto;margin-top:20vh"><h3>'+sel.d+'</h3><p>'+hargaText+'</p><a href="'+finalLink+'" target="_blank" style="display:block;background:#00c853;color:white;padding:15px;border-radius:8px;text-decoration:none;font-weight:bold">BAYAR - BUKA QRIS / DuitNow</a><br><button onclick="closePay()" style="padding:8px 20px">Tutup</button></div>';
-  window.open(finalLink, '_blank');
+  modal.innerHTML = `<div style="background:white;padding:20px;border-radius:12px;text-align:center;max-width:340px;margin:auto;margin-top:10vh">
+    <h3>${sel.d}</h3><p>Membuat QR Rp ${nominal.toLocaleString()}...</p></div>`;
+
+  let r = await fetch('/api/kipay-qr', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({amount: nominal, uid: uidEl.value, diamond: sel.d})
+  });
+  let data = await r.json();
+
+  modal.innerHTML = `
+  <div style="background:white;padding:18px;border-radius:16px;text-align:center;max-width:360px;margin:auto;margin-top:5vh;box-shadow:0 10px 30px rgba(0,0,0,.2)">
+    <div style="background:#fff3cd;color:#664d03;padding:6px 12px;border-radius:20px;font-size:12px;font-weight:bold;display:inline-block">MENUNGGU PEMBAYARAN</div>
+    <img src="${data.qr_image}" style="width:280px;height:280px;margin:12px auto;display:block"/>
+    <h2 style="margin:5px 0">Rp ${data.total_amount.toLocaleString('id-ID')}</h2>
+    <p style="font-size:12px;color:#666;margin:0">Bayar PERSIS nominal ini (termasuk kode unik di akhir)</p>
+    <div style="background:#f8f9fa;border-radius:10px;padding:10px;margin:12px 0;text-align:left;font-size:13px">
+      <div style="display:flex;justify-content:space-between"><span>Nominal diminta</span><span>Rp ${data.nominal_diminta.toLocaleString()}</span></div>
+      <div style="display:flex;justify-content:space-between"><span>Kode unik</span><span>+${data.unique_code}</span></div>
+      <div style="display:flex;justify-content:space-between;font-weight:bold;border-top:1px dashed #ddd;margin-top:6px;padding-top:6px"><span>Total dibayar</span><span>Rp ${data.total_amount.toLocaleString()}</span></div>
+    </div>
+    <p style="font-size:11px;color:#888">${data.qr_id}<br>Kedaluwarsa dalam 15:00</p>
+    <button onclick="closePay()" style="width:100%;padding:12px;background:#eee;border:none;border-radius:8px;margin-top:8px">Buat Transaksi Baru</button>
+  </div>`;
 }
 function closePay(){document.getElementById('payModal').style.display='none';}
 function sudahBayar(){let needServer = needServerGames.some(g => curGame.toLowerCase().includes(g.toLowerCase())); let idText = uid.value + (needServer && zid.value ? ` (${zid.value})` : ''); let pr=cur==='IDR'?'Rp '+sel.p.toLocaleString('id-ID'):rates[cur].sym+(sel.p*rates[cur].rate).toFixed(2); let kipLink = getKipayLink(sel.p); let txt=`Halo kak saya sudah bayar%0AGame: ${curGame}%0AID: ${idText}%0AItem: ${sel.d}%0AHarga: ${pr}%0ALink: ${kipLink}`; window.open(`https://wa.me/6282353459352?text=${txt}`,'_blank'); closePay();}
