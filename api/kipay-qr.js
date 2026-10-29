@@ -1,5 +1,3 @@
-import QRCode from 'qrcode';
-
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
@@ -8,14 +6,11 @@ export default async function handler(req, res) {
   
   try {
     let amount = 400000;
-    let product = 'Topup Game';
-    
     if (req.method === 'POST') {
       const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
       amount = body?.amount || amount;
-      product = body?.product || product;
-    } else {
-      amount = req.query?.amount || amount;
+    } else if (req.query?.amount) {
+      amount = req.query.amount;
     }
 
     const baseAmount = parseInt(amount);
@@ -24,19 +19,21 @@ export default async function handler(req, res) {
     const payId = `ROAN${Date.now().toString().slice(-8)}`;
     
     const payLink = `https://topup-game-roan.vercel.app/pay?id=${payId}&amount=${totalAmount}`;
-    const qrImage = await QRCode.toDataURL(payLink, { width: 400, margin: 2 });
+    
+    // QR pakai server eksternal, jadi gak butuh library qrcode lagi
+    const qrImage = `https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent(payLink)}&margin=10`;
 
     return res.status(200).json({
       success: true,
       total_amount: totalAmount,
       nominal_diminta: baseAmount,
       unique_code: uniqueCode,
-      product,
+      product: 'Topup Game',
       qr_image: qrImage,
-      qr_id: `QRIS-${payId}`
+      qr_id: `QRIS-${payId}`,
+      pay_link: payLink
     });
   } catch(e){
-    console.error(e);
-    return res.status(500).json({ success: false, error: e.message, stack: e.stack });
+    return res.status(500).json({ success: false, error: e.message });
   }
 }
