@@ -1,7 +1,6 @@
 // api/kipay-qr.js
-const STATIC_QRIS = "PASTE_QRIS_STATIS_ABANG_DISINI_YANG_MULAI_000201010211..."; // ambil di dashboard KiPay -> QRIS Statis
-const WHSEC = "whsec_6617a6f9d1c1bb1d27de00da6f6086a06771c5c37264b1f0"; // secret abang
-
+const WHSEC = process.env.KIPAY_WHSEC;
+const STATIC_QRIS = process.env.KIPAY_QRIS_STATIC;
 function toCRC16(str){
   let crc = 0xFFFF;
   for(let c of str){
