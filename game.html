@@ -64,8 +64,20 @@ if(needServer){document.getElementById('zidBox').style.display='block';document.
 render();}
 function render(){let g=gamesData[curGame]; let el=document.getElementById('list'); el.innerHTML=''; g.prices.forEach((it,i)=>{let pr=it.p*rates[cur].rate; let txt=cur==='IDR'?'Rp '+it.p.toLocaleString('id-ID'):rates[cur].sym+pr.toFixed(2); el.innerHTML+=`<div onclick="pilih(${i})" id="it${i}" class="item"><div class="d">${it.d}</div><div class="p">${txt}</div></div>`;});}
 function pilih(i){sel=gamesData[curGame].prices[i]; document.querySelectorAll('.item').forEach(e=>e.classList.remove('active')); document.getElementById('it'+i).classList.add('active'); let pr=sel.p*rates[cur].rate; total.innerText=cur==='IDR'?'Rp '+sel.p.toLocaleString('id-ID'):rates[cur].sym+pr.toFixed(2); btn.classList.add('on');}
-function beli(){if(!sel){alert('Pilih nominal'); return;} if(!uid.value){alert('Isi User ID'); return;} let needServer = needServerGames.some(g => curGame.toLowerCase().includes(g.toLowerCase())); let idText = uid.value + (needServer && zid.value ? ` (${zid.value})` : ''); let pr=cur==='IDR'?'Rp '+sel.p.toLocaleString('id-ID'):rates[cur].sym+(sel.p*rates[cur].rate).toFixed(2); let kipLink = getKipayLink(sel.p); payInfo.innerHTML=`Game: <b style="color:white">${curGame}</b> • ${sel.d}<br>ID: <b style="color:white">${idText}</b><br>Total: <b style="color:#ffcd00">${pr}</b><br><span style="font-size:10px;color:#8ea0d0">Support: DANA • TNG • GrabPay • DuitNow • Maybank • CIMB</span>`; document.getElementById('qrisDirectBtn').innerText = `BAYAR QRIS ${pr} - KLIK DISINI`; document.getElementById('qrisDirectBtn').onclick = ()=>{ window.open(kipLink, '_blank'); }; payModal.style.display='flex';}
-function closePay(){payModal.style.display='none'} 
+function beli(){
+  if(!sel){alert('Pilih nominal dulu bang!');return;}
+  let uidEl=document.getElementById('uid');
+  if(!uidEl || !uidEl.value){alert('Isi ID Game dulu!');return;}
+  let nominal = sel.p || sel.price || 400000;
+  let link = getKipayLink(nominal);
+  let orderId = 'ROAN-'+sel.d.replace(/\s+/g,'')+'-'+Date.now();
+  let finalLink = link + '&order_id=' + orderId + '&desc=' + encodeURIComponent(sel.d+'-'+uidEl.value);
+  localStorage.setItem('lastOrder', JSON.stringify({id:orderId, diamond:sel.d, amount:nominal, uid:uidEl.value}));
+  payModal.style.display='flex';
+  document.getElementById('payModal').innerHTML = '<div style="background:white;padding:20px;border-radius:12px;text-align:center;max-width:320px;margin:auto;margin-top:20vh"><h3>'+sel.d+'</h3><p>Rp '+nominal.toLocaleString()+'</p><a href="'+finalLink+'" target="_blank" style="display:block;background:#00c853;color:white;padding:15px;border-radius:8px;text-decoration:none;font-weight:bold">BAYAR - BUKA QRIS</a><br><button onclick="closePay()" style="padding:8px">Tutup</button></div>';
+  window.open(finalLink, '_blank');
+}
+function closePay(){document.getElementById('payModal').style.display='none';}
 function sudahBayar(){let needServer = needServerGames.some(g => curGame.toLowerCase().includes(g.toLowerCase())); let idText = uid.value + (needServer && zid.value ? ` (${zid.value})` : ''); let pr=cur==='IDR'?'Rp '+sel.p.toLocaleString('id-ID'):rates[cur].sym+(sel.p*rates[cur].rate).toFixed(2); let kipLink = getKipayLink(sel.p); let txt=`Halo kak saya sudah bayar%0AGame: ${curGame}%0AID: ${idText}%0AItem: ${sel.d}%0AHarga: ${pr}%0ALink: ${kipLink}`; window.open(`https://wa.me/6282353459352?text=${txt}`,'_blank'); closePay();}
 function openLoc(){locModal.style.display='flex'}function closeLoc(){locModal.style.display='none'}
 function setLoc(c){cur=c; localStorage.setItem('cur',c); curBtn.innerText=c; document.querySelectorAll('.loc-item').forEach(e=>{e.classList.remove('active');e.querySelector('.check').innerText='';}); let el=document.querySelector(`[data-cur="${c}"]`); if(el){el.classList.add('active'); el.querySelector('.check').innerText='✓';} render(); if(sel){let idx=gamesData[curGame].prices.indexOf(sel); if(idx>=0) pilih(idx);} closeLoc();}
