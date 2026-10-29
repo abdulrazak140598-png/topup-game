@@ -12,7 +12,7 @@ export default async function handler(req, res) {
 
     // Buat QR yang isinya link pembayaran + total unik
     // Nanti kalau abang kasih QRIS Statis 000201..., ganti link ini jadi QRIS dinamis beneran
-    const payLink = `https://topup-game-roan.vercel.app/pay?amount=${totalAmount}&id=ROAN${Date.now()}`;
+  const payLink = `https://topup-game-roan.vercel.app/pay?amount=${totalAmount}&id=ROAN${Date.now()}`;
     
     const qrImage = await QRCode.toDataURL(payLink, { width: 400, margin: 2 });
 
@@ -23,7 +23,7 @@ export default async function handler(req, res) {
       unique_code: uniqueCode,
       product: product || 'Topup Game',
       qr_image: qrImage,
-      qr_id: `QRIS-ROAN-${Date.now().toString().slice(-8)}`
+qr_id: `QRIS-ROAN-${Date.now().toString().slice(-8)}`
     });
   } catch(e){
     return res.status(500).json({error: e.message});
