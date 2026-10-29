@@ -66,15 +66,21 @@ function render(){let g=gamesData[curGame]; let el=document.getElementById('list
 function pilih(i){sel=gamesData[curGame].prices[i]; document.querySelectorAll('.item').forEach(e=>e.classList.remove('active')); document.getElementById('it'+i).classList.add('active'); let pr=sel.p*rates[cur].rate; total.innerText=cur==='IDR'?'Rp '+sel.p.toLocaleString('id-ID'):rates[cur].sym+pr.toFixed(2); btn.classList.add('on');}
 function beli(){
   if(!sel){alert('Pilih nominal dulu bang!');return;}
-  let uidEl=document.getElementById('uid');
+  let uidEl=document.getElementById('uid') || document.querySelector('input[placeholder*="ID"]');
   if(!uidEl || !uidEl.value){alert('Isi ID Game dulu!');return;}
   let nominal = sel.p || sel.price || 400000;
   let link = getKipayLink(nominal);
   let orderId = 'ROAN-'+sel.d.replace(/\s+/g,'')+'-'+Date.now();
   let finalLink = link + '&order_id=' + orderId + '&desc=' + encodeURIComponent(sel.d+'-'+uidEl.value);
   localStorage.setItem('lastOrder', JSON.stringify({id:orderId, diamond:sel.d, amount:nominal, uid:uidEl.value}));
-  payModal.style.display='flex';
-  document.getElementById('payModal').innerHTML = '<div style="background:white;padding:20px;border-radius:12px;text-align:center;max-width:320px;margin:auto;margin-top:20vh"><h3>'+sel.d+'</h3><p>Rp '+nominal.toLocaleString()+'</p><a href="'+finalLink+'" target="_blank" style="display:block;background:#00c853;color:white;padding:15px;border-radius:8px;text-decoration:none;font-weight:bold">BAYAR - BUKA QRIS</a><br><button onclick="closePay()" style="padding:8px">Tutup</button></div>';
+  
+  let modal = document.getElementById('payModal');
+  modal.style.display='flex';
+  let hargaText = nominal > 2000000 ? 'RM '+Math.ceil(nominal/3450) : 'Rp '+nominal.toLocaleString('id-ID');
+  // deteksi MYR
+  if(document.getElementById('IDR')?.innerText === 'MYR') hargaText = 'RM '+Math.ceil(nominal/3450);
+  
+  modal.innerHTML = '<div style="background:white;padding:20px;border-radius:12px;text-align:center;max-width:320px;margin:auto;margin-top:20vh"><h3>'+sel.d+'</h3><p>'+hargaText+'</p><a href="'+finalLink+'" target="_blank" style="display:block;background:#00c853;color:white;padding:15px;border-radius:8px;text-decoration:none;font-weight:bold">BAYAR - BUKA QRIS / DuitNow</a><br><button onclick="closePay()" style="padding:8px 20px">Tutup</button></div>';
   window.open(finalLink, '_blank');
 }
 function closePay(){document.getElementById('payModal').style.display='none';}
